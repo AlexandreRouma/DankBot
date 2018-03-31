@@ -283,3 +283,8 @@ module.exports.why = function (client, message, msg, args) {
     whyresponses = fs.readFileSync("resources/lists/why-responses.txt").toString().replace(/\r/g, "").split("\n");
     message.channel.send(`\`\`\`${whyresponses[Utils.getRandomInt(whyresponses.length - 1)]}\`\`\``);
 }
+
+module.exports.someone = function (client, message, msg, args) {
+    var members = message.guild.members.array();
+    message.channel.send("");
+}

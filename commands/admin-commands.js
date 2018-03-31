@@ -60,28 +60,29 @@ module.exports.userinfo = function (client, message, msg, args) {
         embed.setColor("BLUE");
         embed.setThumbnail(user.avatarURL);
         embed.setAuthor(`${user.username}#${user.discriminator}`, user.avatarURL, user.avatarURL);
-        embed.addField("Joined:", member.joinedAt.toGMTString());
-        embed.addField("Created:", user.createdAt.toGMTString());
+        embed.addField("ID", member.id);
+        embed.addField("Joined", member.joinedAt.toGMTString());
+        embed.addField("Created", user.createdAt.toGMTString());
         var nick = member.nickname;
         if (!nick) {
             nick = "__*none*__";
         }
-        embed.addField("Nickname:", nick)
+        embed.addField("Nickname", nick)
         var game = user.presence.game;
         if (!game) {
             game = "__*none*__";
         }
-        embed.addField("Playing:", game.name);;
+        embed.addField("Playing", game.name);;
         var roles = ""
         member.roles.array().forEach((e) => {
             roles += `\`${e.name}\`, `;
         });
         roles = roles.substring(0, roles.length - 2);
-        embed.addField("Roles:", roles);
+        embed.addField("Roles", roles);
         embed.setFooter(`Status: ${user.presence.status}`);
         message.channel.send(embed);
     }
     else {
-        message.channel.send(":no_entry: `Tell which user to get the avatar from...`");
+        message.channel.send(":no_entry: `No user mentioned...`");
     }
 }

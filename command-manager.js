@@ -121,7 +121,11 @@ module.exports.loadCommands = function () {
 
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);
-    registerCommand("HSGTF", undefined, "HSGTF [image]", "Make a 'Has science gone too far' meme", false, ImageCommands.hsgtf);
+    registerCommand("HSGTF", undefined, "hsgtf [image]", "Make a 'Has science gone too far' meme", false, ImageCommands.hsgtf);
+    registerCommand("WTH", undefined, "wth [image]", "Make a 'Worse than hitler' meme", false, ImageCommands.wth);
+    registerCommand("USOAB", undefined, "usoab [image]", "Make a 'Ugly son of a bitch' meme", false, ImageCommands.usoab);
+    registerCommand("SUICIDE", undefined, "suicide", "Send a picture of Noose Guy", false, ImageCommands.suicide);
+    registerCommand("WTF", undefined, "wtf", "Send a picture of Jacky Chan asking himself wtf just happend...", false, ImageCommands.wtf);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);

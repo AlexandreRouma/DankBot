@@ -134,14 +134,18 @@ function main() {
             if (command) {
                 if (CommandManager.getAdminOnly(args[0].toUpperCase())) {
                     if (PermUtils.isAdmin(message.member)) {
+                        message.channel.startTyping();
                         command(client, message, msg, args);
+                        message.channel.stopTyping();
                     }
                     else {
                         message.channel.send(":no_entry: `Sorry, but your KD is too low to issue this command`");
                     }
                 }
                 else {
+                    message.channel.startTyping();
                     command(client, message, msg, args);
+                    message.channel.stopTyping();
                 }
             }
             else {
