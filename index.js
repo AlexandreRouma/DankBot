@@ -111,7 +111,7 @@ function main() {
     Logger.log("Starting discord client...");
     client.login(ConfigUtils.getconfig().DiscordToken).catch(() => {
         Logger.failed();
-        Logger.panic("Could not start discord client !")
+        Logger.panic("Could not start discord client!")
     });
 
     client.on("ready", () => {
