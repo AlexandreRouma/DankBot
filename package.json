@@ -1,0 +1,37 @@
+{
+  "name": "dankbot",
+  "version": "2.0.0",
+  "description": "Customisable MLG Discord Bot",
+  "main": "index.js",
+  "dependencies": {
+    "aesthetics": "^2.1.0",
+    "discord.js": "^11.3.2",
+    "ffmpeg-binaries": "^3.2.2-3",
+    "google-images": "^2.1.0",
+    "google-search": "0.0.5",
+    "math-expression-evaluator": "^1.2.17",
+    "node-opus": "^0.2.7",
+    "ping": "^0.2.2",
+    "qr-image": "^3.2.0",
+    "youtube-api": "^2.0.9",
+    "youtube-search": "^1.1.0",
+    "ytdl-core": "^0.20.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexandreRouma/DankBot.git"
+  },
+  "keywords": [
+    "bot"
+  ],
+  "author": "xX_WhatsTheGeek_Xx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexandreRouma/DankBot/issues"
+  },
+  "homepage": "https://github.com/AlexandreRouma/DankBot#readme"
+}
