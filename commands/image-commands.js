@@ -81,6 +81,238 @@ module.exports.usoab = function (client, message, msg, args) {
     });
 }
 
+module.exports.sepia = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.sepia()
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.greyscale = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.greyscale()
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.invert = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.invert()
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.dither = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.dither565()
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.normalize = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.normalize()
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.blur = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.blur(5)
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.contrast = function (client, message, msg, args) {
+    if (args.length > 1) {
+        try {
+            var contrast = parseFloat(args[1], 10);
+            getLastImage(message, args, 6, (imglink) => {
+                if (imglink) {
+                    Jimp.read(imglink).then(function (image) {
+                        image.contrast(contrast)
+                            .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                                message.channel.send(new Discord.Attachment(buffer));
+                            });
+                    }).catch(function (err) {
+                        message.channel.send(":no_entry: `No valid image provided`");
+                    });
+                }
+                else {
+                    message.channel.send(":no_entry: `No image found`");
+                }
+            });
+        }
+        catch (err) {
+            message.channel.send(":no_entry: `Invalid contrast amount`" + err.message);
+        }
+    }
+    else {
+        message.channel.send(":no_entry: `Tell me what contrast you want`");
+    }
+}
+
+module.exports.brightness = function (client, message, msg, args) {
+    if (args.length > 1) {
+        try {
+            var brightness = parseFloat(args[1], 10);
+            getLastImage(message, args, 6, (imglink) => {
+                if (imglink) {
+                    Jimp.read(imglink).then(function (image) {
+                        image.brightness(brightness)
+                            .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                                message.channel.send(new Discord.Attachment(buffer));
+                            });
+                    }).catch(function (err) {
+                        message.channel.send(":no_entry: `No valid image provided`");
+                    });
+                }
+                else {
+                    message.channel.send(":no_entry: `No image found`");
+                }
+            });
+        }
+        catch (err) {
+            message.channel.send(":no_entry: `Invalid brightness amount`" + err.message);
+        }
+    }
+    else {
+        message.channel.send(":no_entry: `Tell me what brightness you want`");
+    }
+}
+
+module.exports.pixelate = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.pixelate(3)
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.deepfry = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.pixelate(1.5)
+                    .contrast(0.95)
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.posterize = function (client, message, msg, args) {
+    if (args.length > 1) {
+        try {
+            var levels = parseInt(args[1], 10);
+            getLastImage(message, args, 6, (imglink) => {
+                if (imglink) {
+                    Jimp.read(imglink).then(function (image) {
+                        image.posterize(levels)
+                            .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                                message.channel.send(new Discord.Attachment(buffer));
+                            });
+                    }).catch(function (err) {
+                        message.channel.send(":no_entry: `No valid image provided`");
+                    });
+                }
+                else {
+                    message.channel.send(":no_entry: `No image found`");
+                }
+            });
+        }
+        catch (err) {
+            message.channel.send(":no_entry: `Invalid posterization levels`" + err.message);
+        }
+    }
+    else {
+        message.channel.send(":no_entry: `Tell me what posterization levels you want`");
+    }
+}
+
 module.exports.suicide = function (client, message, msg, args) {
     message.channel.send(new Discord.Attachment("resources/images/nooseguy.png"));
 }
@@ -90,36 +322,31 @@ module.exports.wtf = function (client, message, msg, args) {
 }
 
 function getLastImage(message, args, substr, cb) {
-    if (args.length > 1) {
-        cb(msg.substring(substr));
-    }
-    else {
-        message.channel.fetchMessages({ limit: 50 })
-            .then((_messages) => {
-                var messages = _messages.array();
-                for (var i = 0; i < messages.length; i++) {
-                    if (messages[i].attachments) {
-                        if (messages[i].embeds) {
-                            for (var j = 0; j < messages[i].embeds.length; j++) {
-                                if (messages[i].embeds[j].url.indexOf('.png') !== -1 ||
-                                    messages[i].embeds[j].url.indexOf('.jpg') !== -1 ||
-                                    messages[i].embeds[j].url.indexOf('.bmp') !== -1) {
-                                    cb(messages[i].embeds[j].url);
-                                    return;
-                                }
-                            }
-                        }
-                        var attachments = messages[i].attachments.array();
-                        for (var j = 0; j < attachments.length; j++) {
-                            if (attachments[j].width) {
-                                cb(attachments[j].url);
+    message.channel.fetchMessages({ limit: 50 })
+        .then((_messages) => {
+            var messages = _messages.array();
+            for (var i = 0; i < messages.length; i++) {
+                if (messages[i].attachments) {
+                    if (messages[i].embeds) {
+                        for (var j = 0; j < messages[i].embeds.length; j++) {
+                            if (messages[i].embeds[j].url.indexOf('.png') !== -1 ||
+                                messages[i].embeds[j].url.indexOf('.jpg') !== -1 ||
+                                messages[i].embeds[j].url.indexOf('.bmp') !== -1) {
+                                cb(messages[i].embeds[j].url);
                                 return;
                             }
                         }
                     }
+                    var attachments = messages[i].attachments.array();
+                    for (var j = 0; j < attachments.length; j++) {
+                        if (attachments[j].width) {
+                            cb(attachments[j].url);
+                            return;
+                        }
+                    }
                 }
-                cb(undefined);
-            })
-            .catch(console.error);
-    }
+            }
+            cb(undefined);
+        })
+        .catch(console.error)
 }

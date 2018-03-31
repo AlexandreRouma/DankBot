@@ -126,6 +126,17 @@ module.exports.loadCommands = function () {
     registerCommand("USOAB", undefined, "usoab [image]", "Make a 'Ugly son of a bitch' meme", false, ImageCommands.usoab);
     registerCommand("SUICIDE", undefined, "suicide", "Send a picture of Noose Guy", false, ImageCommands.suicide);
     registerCommand("WTF", undefined, "wtf", "Send a picture of Jacky Chan asking himself wtf just happend...", false, ImageCommands.wtf);
+    registerCommand("SEPIA", undefined, "usoab [image]", "Make an image look sepia", false, ImageCommands.sepia);
+    registerCommand("GREYSCALE", "GS", "greyscale [image]", "Make an image greyscale", false, ImageCommands.greyscale);
+    registerCommand("INVERT", undefined, "invert [image]", "Invert the colors of an image", false, ImageCommands.invert);
+    registerCommand("DITHER", undefined, "dither [image]", "Dither the colors of an image", false, ImageCommands.dither);
+    registerCommand("NORMALIZE", "NMZ", "normalize [image]", "Dither the colors of an image", false, ImageCommands.normalize);
+    registerCommand("BLUR", undefined, "blur [image]", "Blur the image", false, ImageCommands.blur);
+    registerCommand("CONTRAST", "CTRST", "contrast [amount] [image]", "Change the image's contrast", false, ImageCommands.contrast);
+    registerCommand("BRIGHTNESS", "BRT", "brightness [amount] [image]", "Change the image's brightness", false, ImageCommands.brightness);
+    registerCommand("PIXELATE", "PXLT", "pixelate [image]", "Pixelate the image", false, ImageCommands.pixelate);
+    registerCommand("DEEPFRY", "DFRY", "deepfry [image]", "Apply deepfry effect to image", false, ImageCommands.deepfry);
+    registerCommand("POSTERIZE", "PSTRZ", "posterize [amount] [image]", "Posterize the image to a certain number of tones", false, ImageCommands.posterize);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);
