@@ -4,6 +4,7 @@ var Utils = require("../utils");
 var GoogleImages = require('google-images');
 var GoogleSearch = require('google-search');
 var ytsearch = require('youtube-search');
+var path = require('path');
 var opts;
 
 var gimages;

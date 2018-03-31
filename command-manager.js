@@ -121,6 +121,7 @@ module.exports.loadCommands = function () {
 
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);
+    registerCommand("HSGTF", undefined, "HSGTF [image]", "Make a 'Has science gone too far' meme", false, ImageCommands.hsgtf);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);

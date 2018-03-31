@@ -32,6 +32,7 @@
 |avatar       |-    |No            |avatar [user]         |Get the avatar from a user                                                      |
 |userinfo     |-    |No            |userinfo [user]       |Get info for a user                                                             |
 |qrcode       |qr   |No            |qr [text]             |Create a qr code that contains a certain text                                   |
+|hsgtf        |-    |No            |HSGTF [image]         |Make a 'Has science gone too far' meme                                          |
 |urban        |urb  |No            |urban [word]          |Search a word on urban dictionaries (use '-r-' for random word)                 |
 |image        |img  |No            |image [search]        |Search on Google Images                                                         |
 |google       |g    |No            |google [search]       |Search on Google                                                                |

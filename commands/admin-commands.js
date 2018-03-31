@@ -1,6 +1,7 @@
 var ConfigUtils = require("../config-utils");
 var PermUtils = require("../perm-utils");
 var Discord = require("discord.js");
+var Jimp = require("jimp");
 
 module.exports.dumproles = function (client, message, msg, args) {
     var str = "";

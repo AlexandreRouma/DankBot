@@ -240,13 +240,13 @@ module.exports.soundeffect = function (client, message, msg, args) {
             message.channel.send(":no_entry: `You tried xD` :ok_hand:");
             return;
         }
-        if (fs.existsSync(`resources/sounds/${args[1].toLowerCase()}.wav`)) {
+        if (fs.existsSync(`resources/sounds/se_${args[1].toLowerCase()}.wav`)) {
             channel = message.member.voiceChannel;
             message.member.voiceChannel.join()
                 .then(connection => {
                     conn = connection;
                     playingsoundeffect = true;
-                    dispatcher = conn.playFile(`resources/sounds/${args[1].toLowerCase()}.wav`);
+                    dispatcher = conn.playFile(`resources/sounds/se_${args[1].toLowerCase()}.wav`);
                     dispatcher.on("end", () => {
                         channel.leave();
                         channel = undefined;
@@ -254,6 +254,9 @@ module.exports.soundeffect = function (client, message, msg, args) {
                     });
                 })
                 .catch(console.log);
+        }
+        else {
+            message.channel.send(":no_entry: `Unknown sound effect`");
         }
     } else {
         message.channel.send(":no_entry: `Sorry, u aren't in a fucking audio channel m8`");
