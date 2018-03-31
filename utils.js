@@ -4,7 +4,7 @@ module.exports.getRandomInt = function (max) {
 
 module.exports.crop = function (str, length) {
     if (str.length > length) {
-        return str.substring(0, length) + "...";
+        return str.substring(0, length - 3) + "...";
     }
     else {
         return str;

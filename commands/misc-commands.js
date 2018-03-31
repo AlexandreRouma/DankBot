@@ -5,6 +5,7 @@ var Utils = require("../utils");
 var CommandManager = require('../command-manager');
 var aesthetics = require('aesthetics');
 var http = require('http');
+var Figlet = require("figlet")
 var Rextester = require("../rextester-helper");
 var fs = require("fs");
 
@@ -247,7 +248,7 @@ module; exports.run = function (client, message, msg, args) {
         }
     }
     else if (args.length > 1) {
-        if (args[1] == "list") {
+        if (args[1].toUpperCase() == "LIST") {
             var str = "";
             Object.keys(Rextester.getlanguages()).forEach((e) => {
                 str += e + "\n";
@@ -287,4 +288,40 @@ module.exports.why = function (client, message, msg, args) {
 module.exports.someone = function (client, message, msg, args) {
     var members = message.guild.members.array();
     message.channel.send("");
+}
+
+module.exports.ascii = function (client, message, msg, args) {
+    if (args.length > 2) {
+        var text = msg.substring(7 + args[1].length);
+        if (text.length < 20) {
+            Figlet.text(text, {
+                font: args[1].replace(/_/g, " "),
+                horizontalLayout: 'default',
+                verticalLayout: 'default'
+            }, function (err, data) {
+                if (err) {
+                    message.channel.send(":no_entry: `Invalid font`");
+                    return;
+                }
+                message.channel.send(`\`\`\`${data}\`\`\``);
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `A bit too long m8`");
+        }
+    }
+    else if (args.length > 1) {
+        if (args[1] == "list") {
+            var embed = new Discord.RichEmbed();
+            embed.setColor("BLUE");
+            embed.setTitle("Available Fonts");
+            embed.setDescription(Utils.crop(Figlet.fontsSync().toString().replace(/ /g, "_") , 1900) + "\n[Complete List](http://www.figlet.org/examples.html)");
+            message.channel.send(embed);
+            return;
+        }
+        message.channel.send(":no_entry: `Tell me what to say u idiot...`");
+    }
+    else {
+        message.channel.send(":no_entry: `Missing font name or text`");
+    }
 }

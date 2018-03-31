@@ -99,6 +99,7 @@ module.exports.loadCommands = function () {
     registerCommand("RUN", undefined, "run [lang] [code]", "Run some code and get the result (use list as language to get list of languages)", false, MiscCommands.run);
     registerCommand("SPECIALTHANKS", undefined, "specialthanks", "Decicated to everyone who contributed to the bot !", false, MiscCommands.specialthanks);
     registerCommand("WHY", undefined, "why", "Get the meaning of life!", false, MiscCommands.why);
+    registerCommand("ASCII", undefined, "ascii [font] [text]", "Turn text into ascii art", false, MiscCommands.ascii);
 
     // Audio Commands
     registerCommand("PLAY", undefined, "play [url/search]", "Play a youtube video in the vocal channel you're in", false, AudioCommands.play);
