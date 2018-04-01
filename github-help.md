@@ -1,7 +1,5 @@
 ## Command List
 
-`test`
-
 |Name          |Alias|Bot Admin Only|Usage                      |Description                                                                     |
 |--------------|-----|--------------|---------------------------|--------------------------------------------------------------------------------|
 |say           |-    |No            |say [text]                 |Say the entered text                                                            |
