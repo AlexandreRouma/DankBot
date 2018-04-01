@@ -196,7 +196,7 @@ module; exports.run = function (client, message, msg, args) {
                         var response = JSON.parse(chunk);
                         var embed = new Discord.RichEmbed();
                         embed.setColor("BLUE");
-                        embed.setAuthor(`${message.author.username}#${message.author.discriminator}'s Code Result`, message.author.avatarURL);
+                        embed.setAuthor(`${message.author.tag}'s Code Result`, message.author.avatarURL);
                         if (response.Stats.length > 0) {
                             embed.addField("Stats", response.Stats);
                         }

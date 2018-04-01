@@ -59,7 +59,7 @@ module.exports.userinfo = function (client, message, msg, args) {
         var embed = new Discord.RichEmbed();
         embed.setColor("BLUE");
         embed.setThumbnail(user.avatarURL);
-        embed.setAuthor(`${user.username}#${user.discriminator}`, user.avatarURL, user.avatarURL);
+        embed.setAuthor(`${user.tag}`, user.avatarURL, user.avatarURL);
         embed.addField("ID", member.id);
         embed.addField("Joined", member.joinedAt.toGMTString());
         embed.addField("Created", user.createdAt.toGMTString());
@@ -79,10 +79,30 @@ module.exports.userinfo = function (client, message, msg, args) {
         });
         roles = roles.substring(0, roles.length - 2);
         embed.addField("Roles", roles);
+        if (user.bot) {
+            embed.addField("Is a bot", "Yes");
+        }
+        else {
+            embed.addField("Is a bot", "No");
+        }
         embed.setFooter(`Status: ${user.presence.status}`);
         message.channel.send(embed);
     }
     else {
         message.channel.send(":no_entry: `No user mentioned...`");
     }
+}
+
+module.exports.undo = function (client, message, msg, args) {
+    message.channel.fetchMessages({ limit: 50 })
+        .then((_messages) => {
+            var messages = _messages.array();
+            for (var i = 0; i < messages.length; i++) {
+                if (messages[i].author.id == client.user.id) {
+                    messages[i].delete();
+                    return;
+                }
+            }
+        })
+        .catch(console.error)
 }

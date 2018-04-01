@@ -119,6 +119,7 @@ module.exports.loadCommands = function () {
     registerCommand("RELOAD", undefined, "reload", "reload the config file", true, AdminCommands.reload);
     registerCommand("AVATAR", undefined, "avatar [user]", "Get the avatar from a user", false, AdminCommands.avatar);
     registerCommand("USERINFO", undefined, "userinfo [user]", "Get info for a user", false, AdminCommands.userinfo);
+    registerCommand("UNDO", undefined, "undo", "Remove the last message from the bot", false, AdminCommands.undo);
 
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);
@@ -132,12 +133,13 @@ module.exports.loadCommands = function () {
     registerCommand("INVERT", undefined, "invert [image]", "Invert the colors of an image", false, ImageCommands.invert);
     registerCommand("DITHER", undefined, "dither [image]", "Dither the colors of an image", false, ImageCommands.dither);
     registerCommand("NORMALIZE", "NMZ", "normalize [image]", "Dither the colors of an image", false, ImageCommands.normalize);
-    registerCommand("BLUR", undefined, "blur [image]", "Blur the image", false, ImageCommands.blur);
+    registerCommand("BLUR", undefined, "blur [amount] [image]", "Blur the image", false, ImageCommands.blur);
     registerCommand("CONTRAST", "CTRST", "contrast [amount] [image]", "Change the image's contrast", false, ImageCommands.contrast);
     registerCommand("BRIGHTNESS", "BRT", "brightness [amount] [image]", "Change the image's brightness", false, ImageCommands.brightness);
-    registerCommand("PIXELATE", "PXLT", "pixelate [image]", "Pixelate the image", false, ImageCommands.pixelate);
+    registerCommand("PIXELATE", "PXLT", "pixelate [amount] [image]", "Pixelate the image", false, ImageCommands.pixelate);
     registerCommand("DEEPFRY", "DFRY", "deepfry [image]", "Apply deepfry effect to image", false, ImageCommands.deepfry);
     registerCommand("POSTERIZE", "PSTRZ", "posterize [amount] [image]", "Posterize the image to a certain number of tones", false, ImageCommands.posterize);
+    registerCommand("HUE", undefined, "hue [degrees] [image]", "Change the hue of an image", false, ImageCommands.hue);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);

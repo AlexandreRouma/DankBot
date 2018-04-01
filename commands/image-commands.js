@@ -172,21 +172,32 @@ module.exports.normalize = function (client, message, msg, args) {
 }
 
 module.exports.blur = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
-        if (imglink) {
-            Jimp.read(imglink).then(function (image) {
-                image.blur(5)
-                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
-                        message.channel.send(new Discord.Attachment(buffer));
+    if (args.length > 1) {
+        try {
+            var amount = parseInt(args[1], 10);
+            getLastImage(message, args, 6, (imglink) => {
+                if (imglink) {
+                    Jimp.read(imglink).then(function (image) {
+                        image.blur(amount)
+                            .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                                message.channel.send(new Discord.Attachment(buffer));
+                            });
+                    }).catch(function (err) {
+                        message.channel.send(":no_entry: `No valid image provided`");
                     });
-            }).catch(function (err) {
-                message.channel.send(":no_entry: `No valid image provided`");
+                }
+                else {
+                    message.channel.send(":no_entry: `No image found`");
+                }
             });
         }
-        else {
-            message.channel.send(":no_entry: `No image found`");
+        catch (err) {
+            message.channel.send(":no_entry: `Invalid blue amount`" + err.message);
         }
-    });
+    }
+    else {
+        message.channel.send(":no_entry: `Tell me what blur amount you want`");
+    }
 }
 
 module.exports.contrast = function (client, message, msg, args) {
@@ -248,21 +259,32 @@ module.exports.brightness = function (client, message, msg, args) {
 }
 
 module.exports.pixelate = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
-        if (imglink) {
-            Jimp.read(imglink).then(function (image) {
-                image.pixelate(3)
-                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
-                        message.channel.send(new Discord.Attachment(buffer));
+    if (args.length > 1) {
+        try {
+            var levels = parseFloat(args[1], 10);
+            getLastImage(message, args, 6, (imglink) => {
+                if (imglink) {
+                    Jimp.read(imglink).then(function (image) {
+                        image.pixelate(levels)
+                            .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                                message.channel.send(new Discord.Attachment(buffer));
+                            });
+                    }).catch(function (err) {
+                        message.channel.send(":no_entry: `No valid image provided`");
                     });
-            }).catch(function (err) {
-                message.channel.send(":no_entry: `No valid image provided`");
+                }
+                else {
+                    message.channel.send(":no_entry: `No image found`");
+                }
             });
         }
-        else {
-            message.channel.send(":no_entry: `No image found`");
+        catch (err) {
+            message.channel.send(":no_entry: `Invalid pixel amount`" + err.message);
         }
-    });
+    }
+    else {
+        message.channel.send(":no_entry: `Tell by how many pixels to pixelate the image`");
+    }
 }
 
 module.exports.deepfry = function (client, message, msg, args) {
@@ -310,6 +332,37 @@ module.exports.posterize = function (client, message, msg, args) {
     }
     else {
         message.channel.send(":no_entry: `Tell me what posterization levels you want`");
+    }
+}
+
+module.exports.hue = function (client, message, msg, args) {
+    if (args.length > 1) {
+        try {
+            var degrees = parseFloat(args[1], 10);
+            getLastImage(message, args, 6, (imglink) => {
+                if (imglink) {
+                    Jimp.read(imglink).then(function (image) {
+                        image.color([
+                            { apply: 'hue', params: [degrees] }
+                        ])
+                            .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                                message.channel.send(new Discord.Attachment(buffer));
+                            });
+                    }).catch(function (err) {
+                        message.channel.send(":no_entry: `No valid image provided`");
+                    });
+                }
+                else {
+                    message.channel.send(":no_entry: `No image found`");
+                }
+            });
+        }
+        catch (err) {
+            message.channel.send(":no_entry: `Invalid hue degrees`" + err.message);
+        }
+    }
+    else {
+        message.channel.send(":no_entry: `Tell me how many degrees to spin the hue`");
     }
 }
 

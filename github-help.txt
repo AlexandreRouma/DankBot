@@ -32,6 +32,7 @@
 |reload       |-    |Yes           |reload                     |reload the config file                                                          |
 |avatar       |-    |No            |avatar [user]              |Get the avatar from a user                                                      |
 |userinfo     |-    |No            |userinfo [user]            |Get info for a user                                                             |
+|undo         |-    |No            |undo                       |Remove the last message from the bot                                            |
 |qrcode       |qr   |No            |qr [text]                  |Create a qr code that contains a certain text                                   |
 |hsgtf        |-    |No            |hsgtf [image]              |Make a 'Has science gone too far' meme                                          |
 |wth          |-    |No            |wth [image]                |Make a 'Worse than hitler' meme                                                 |
@@ -43,12 +44,13 @@
 |invert       |-    |No            |invert [image]             |Invert the colors of an image                                                   |
 |dither       |-    |No            |dither [image]             |Dither the colors of an image                                                   |
 |normalize    |nmz  |No            |normalize [image]          |Dither the colors of an image                                                   |
-|blur         |-    |No            |blur [image]               |Blur the image                                                                  |
+|blur         |-    |No            |blur [amount] [image]      |Blur the image                                                                  |
 |contrast     |ctrst|No            |contrast [amount] [image]  |Change the image's contrast                                                     |
 |brightness   |brt  |No            |brightness [amount] [image]|Change the image's brightness                                                   |
-|pixelate     |pxlt |No            |pixelate [image]           |Pixelate the image                                                              |
+|pixelate     |pxlt |No            |pixelate [amount] [image]  |Pixelate the image                                                              |
 |deepfry      |dfry |No            |deepfry [image]            |Apply deepfry effect to image                                                   |
 |posterize    |pstrz|No            |posterize [amount] [image] |Posterize the image to a certain number of tones                                |
+|hue          |-    |No            |hue [degrees] [image]      |Change the hue of an image                                                      |
 |urban        |urb  |No            |urban [word]               |Search a word on urban dictionaries (use '-r-' for random word)                 |
 |image        |img  |No            |image [search]             |Search on Google Images                                                         |
 |google       |g    |No            |google [search]            |Search on Google                                                                |

@@ -20,6 +20,7 @@ var skipvotes = new Array();
 
 module.exports.initYoutubeAPIKey = function (key) {
     opts = {
+        type: "video",
         maxResults: 10,
         key: key
     };
@@ -42,33 +43,38 @@ module.exports.play = function (client, message, msg, args) {
             }
         }
         channel = message.member.voiceChannel;
-        message.member.voiceChannel.join()
-            .then(connection => {
-                conn = connection;
-                ytsearch(msg.substring(5), opts, function (yterr, results) {
-                    if (yterr) {
-                        message.channel.send(":no_entry: `That video doesn't exist nigga`:joy:" + yterr.message)
-                        return;
-                    }
-                    var result = results[0];
-                    results.every(function (element, i) {
-                        if (element.title.length > 1) {
-                            result = element;
-                            return false;
-                        }
-                    });
-                    var exists = false;
-                    playlist.every(function (element, i) {
-                        if (result.link == element.url) {
-                            exists = true;
-                            return false;
-                        }
-                    });
-                    if (!exists) {
-                        playlist.push({
-                            url: result.link,
-                            title: result.title
-                        })
+
+
+
+
+
+        ytsearch(msg.substring(5), opts, function (yterr, results) {
+            if (yterr) {
+                message.channel.send(":no_entry: `That video doesn't exist nigga`:joy:" + yterr.message)
+                return;
+            }
+            var result = results[0];
+            results.every(function (element, i) {
+                if (element.kind == "") {
+                    result = element;
+                    return false;
+                }
+            });
+            var exists = false;
+            playlist.every(function (element, i) {
+                if (result.link == element.url) {
+                    exists = true;
+                    return false;
+                }
+            });
+            if (!exists) {
+                playlist.push({
+                    url: result.link,
+                    title: result.title
+                })
+                message.member.voiceChannel.join()
+                    .then(connection => {
+                        conn = connection;
                         message.channel.send(`:white_check_mark: \`'${result.title}' has been added to the playlist !\``);
                         if (playlist.length == 1) {
                             dispatcher = conn.playStream(ytdl(playlist[0].url, { quality: "highestaudio" }));
@@ -84,14 +90,12 @@ module.exports.play = function (client, message, msg, args) {
                                 next();
                             })
                         }
-                    }
-                    else {
-                        message.channel.send(":no_entry: `Sorry, this video is already in the playlist !`");
-                    }
-                });
-
-            })
-            .catch(console.log);
+                    });
+            }
+            else {
+                message.channel.send(":no_entry: `Sorry, this video is already in the playlist !`");
+            }
+        });
     } else {
         message.channel.send(":no_entry: `Sorry, u aren't in a fucking audio channel m8`");
     }
