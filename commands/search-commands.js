@@ -4,7 +4,7 @@ var Utils = require("../utils");
 var GoogleImages = require('google-images');
 var GoogleSearch = require('google-search');
 var ytsearch = require('youtube-search');
-var Giphy = require( 'giphy' )
+var Giphy = require('giphy')
 var path = require('path');
 var opts;
 
@@ -155,7 +155,7 @@ module.exports.youtube = function (client, message, msg, args) {
 module.exports.giphy = function (client, message, msg, args) {
     if (args.length > 1) {
         if (args[1].toUpperCase() == "-T-") {
-            giphy.trending(( err, trending, res ) => {
+            giphy.trending((err, trending, res) => {
                 if (err) {
                     message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
                     return;
@@ -170,7 +170,7 @@ module.exports.giphy = function (client, message, msg, args) {
             });
         }
         else if (args[1].toUpperCase() == "-R-") {
-            giphy.random(( err, trending, res ) => {
+            giphy.random((err, trending, res) => {
                 if (err) {
                     message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
                     return;
@@ -189,18 +189,23 @@ module.exports.giphy = function (client, message, msg, args) {
             });
         }
         else {
-            giphy.search({q: msg.substring(6)}, ( err, trending, res ) => {
+            giphy.search({ q: msg.substring(6) }, (err, trending, res) => {
                 if (err) {
                     message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
                     return;
                 }
-                var embed = new Discord.RichEmbed();
-                embed.setColor("BLUE");
-                embed.setTitle(trending.data[0].title);
-                embed.setURL(trending.data[0].bitly_url);
-                embed.setImage(trending.data[0].images.original.url);
-                embed.setFooter(`By ${trending.data[0].username}, source: ${trending.data[0].source}`);
-                message.channel.send(embed);
+                if (trending.data[0]) {
+                    var embed = new Discord.RichEmbed();
+                    embed.setColor("BLUE");
+                    embed.setTitle(trending.data[0].title);
+                    embed.setURL(trending.data[0].bitly_url);
+                    embed.setImage(trending.data[0].images.original.url);
+                    embed.setFooter(`By ${trending.data[0].username}, source: ${trending.data[0].source}`);
+                    message.channel.send(embed);
+                }
+                else {
+                    message.channel.send(":no_entry: `No result :/`");
+                }
             });
         }
     }

@@ -35,6 +35,7 @@
 |avatar        |-    |No            |avatar [user]              |Get the avatar from a user                                                        |
 |userinfo      |-    |No            |userinfo [user]            |Get info for a user                                                               |
 |undo          |-    |No            |undo                       |Remove the last message from the bot                                              |
+|resetnicknames|-    |Yes           |resetnicknames             |Reset everyone's nickname on the server                                           |
 |qrcode        |qr   |No            |qr [text]                  |Create a qr code that contains a certain text                                     |
 |hsgtf         |-    |No            |hsgtf [image]              |Make a 'Has science gone too far' meme                                            |
 |wth           |-    |No            |wth [image]                |Make a 'Worse than hitler' meme                                                   |

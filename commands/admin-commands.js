@@ -106,3 +106,13 @@ module.exports.undo = function (client, message, msg, args) {
         })
         .catch(console.error)
 }
+
+module.exports.resetnicknames = function (client, message, msg, args) {
+    var members = message.guild.members.array();
+    var i = 0;
+    members.forEach((e) => {
+        e.setNickname("", "cleanup");
+        i++;
+    });
+    message.channel.send(`:white_check_mark: \`Changed back ${i} nicknames\``);
+}

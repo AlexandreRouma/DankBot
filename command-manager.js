@@ -120,6 +120,7 @@ module.exports.loadCommands = function () {
     registerCommand("AVATAR", undefined, "avatar [user]", "Get the avatar from a user", false, AdminCommands.avatar);
     registerCommand("USERINFO", undefined, "userinfo [user]", "Get info for a user", false, AdminCommands.userinfo);
     registerCommand("UNDO", undefined, "undo", "Remove the last message from the bot", false, AdminCommands.undo);
+    registerCommand("RESETNICKNAMES", undefined, "resetnicknames", "Reset everyone's nickname on the server", true, AdminCommands.resetnicknames);
 
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);
