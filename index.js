@@ -16,6 +16,7 @@ var MiscCommands = require("./commands/misc-commands");
 var AudioCommands = require("./commands/audio-commands");
 var SocialCommands = require("./commands/social-commands");
 var PluginManager = require("./plugin-manager");
+var SelfTest = require("./self-test");
 var path = require("path");
 var Twitter = require('twitter');
 
@@ -46,12 +47,13 @@ function main() {
         Logger.panic("Could not load the configuration file");
     }
 
-    if (process.argv[2] == "--test") {
+    if (process.argv[2] == "--test") { // Engage test mode
         var config = ConfigUtils.getconfig();
         config.GoogleAPIEnabled = false;
         config.TwitterAPIEnabled = false;
         config.GiphyAPIEnabled = false;
         ConfigUtils.setconfig(config);
+        client = SelfTest.FakeDiscordClient;
         Logger.log("TEST MODE ENABLED !\n");
     }
 
@@ -155,12 +157,6 @@ function main() {
         Logger.panic("Could initialize Google Images API!");
     }
 
-    Logger.log("Starting discord client...");
-    client.login(ConfigUtils.getconfig().DiscordToken).catch(() => {
-        Logger.failed();
-        Logger.panic("Could not start discord client!")
-    });
-
     client.on("ready", () => {
         client.user.setPresence("online");
         client.user.setActivity(ConfigUtils.getconfig().Playing);
@@ -199,6 +195,12 @@ function main() {
                 message.channel.send(`:no_entry: \`The command '${args[0]}' is as legit as an OpticGaming player on this server :(\``);
             }
         }
+    });
+
+    Logger.log("Starting discord client...");
+    client.login(ConfigUtils.getconfig().DiscordToken).catch((err) => {
+        Logger.failed();
+        Logger.panic("Could not start discord client!" + err);
     });
 }
 
