@@ -15,7 +15,7 @@ module.exports._plugin_info = { // All of these need to be present, but doesn't 
 
 module.exports._load = function (_client) {
     client = _client;
-    CommandManager.registerCommand("HELLOWORLD", "HW", "helloworld", "Say 'Hello World' !", false, helloworld);
+    CommandManager.registerCommand("HELLOWORLD", "HW", "helloworld", "Say 'Hellow World' !", false, helloworld);
 }
 
 function helloworld(client, message, msg, args) {
