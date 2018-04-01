@@ -159,31 +159,31 @@ function main() {
         Logger.log(`Ready, logged in as '${client.user.tag}'!\n`);
     });
 
-    client.on('message', async message => {
+    client.on('message', message => {
         if (message.content.startsWith(ConfigUtils.getconfig().Prefix) && message.author.id != client.user.id) {
             var msg = message.content.substring(ConfigUtils.getconfig().Prefix.length);
             var args = msg.split(" ");
-            var alias = CommandManager.getAliases()[args[0].toUpperCase()];
-            if (alias) {
-                msg = alias + msg.substring(args[0].length);
-                args[0] = alias;
+            if (CommandManager.getAliases()[args[0].toUpperCase()]) {
+                var replacement = CommandManager.getAliases()[args[0].toUpperCase()];
+                msg = CommandManager.getAliases()[args[0].toUpperCase()] + msg.substring(args[0].length);
+                args[0] = replacement;
             }
             var command = CommandManager.getCommands()[args[0].toUpperCase()];
             if (command) {
                 if (CommandManager.getAdminOnly(args[0].toUpperCase())) {
                     if (PermUtils.isAdmin(message.member)) {
-                        await message.channel.startTyping();
+                        message.channel.startTyping();
                         command(client, message, msg, args);
-                        await message.channel.stopTyping();
+                        message.channel.stopTyping();
                     }
                     else {
                         message.channel.send(":no_entry: `Sorry, but your KD is too low to issue this command`");
                     }
                 }
                 else {
-                    await message.channel.startTyping();
+                    message.channel.startTyping();
                     command(client, message, msg, args);
-                    await message.channel.stopTyping();
+                    message.channel.stopTyping();
                 }
             }
             else {
