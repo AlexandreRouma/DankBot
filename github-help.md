@@ -66,4 +66,4 @@
 |comment       |cmt  |No            |comment [video/search]     |Get a random comment from a youtube video                                         |
 |lasttweet     |ltwt |No            |lasttweet [user]           |Get last tweet from user's timeline                                               |
 |randomtweet   |rtwt |No            |randomtweet [user]         |Get a random tweet from user's timeline                                           |
-|helloworld    |hw   |No            |helloworld                 |Say 'Hellow World' !                                                              |
+|helloworld    |hw   |No            |helloworld                 |Say 'Hello World' !                                                               |
