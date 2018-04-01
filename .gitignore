@@ -50,4 +50,4 @@ Temporary Items
 resources/config/config.json
 
 # NodeJS Modules
-node_modules
+/node_modules/
