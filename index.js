@@ -181,9 +181,9 @@ function main() {
                     }
                 }
                 else {
-                    message.channel.startTyping();
+                    await message.channel.startTyping();
                     command(client, message, msg, args);
-                    message.channel.stopTyping();
+                    await message.channel.stopTyping();
                 }
             }
             else {
