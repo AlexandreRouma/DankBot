@@ -1,4 +1,5 @@
 ##Command List
+
 |Name          |Alias|Bot Admin Only|Usage                      |Description                                                                     |
 |--------------|-----|--------------|---------------------------|--------------------------------------------------------------------------------|
 |say           |-    |No            |say [text]                 |Say the entered text                                                            |
