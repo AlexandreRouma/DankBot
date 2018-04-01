@@ -148,6 +148,7 @@ module.exports.plugininfo = function (client, message, msg, args) {
         Object.keys(PluginManager.getPlugins()).forEach((e) => {
             str += e + "\n";
         })
+        embed.setFooter(`Plugin count: ${Object.keys(PluginManager.getPlugins()).length}`);
         embed.setDescription(str);
         message.channel.send(embed);
     }

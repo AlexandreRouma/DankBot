@@ -325,3 +325,7 @@ module.exports.ascii = function (client, message, msg, args) {
         message.channel.send(":no_entry: `Missing font name or text`");
     }
 }
+
+module.exports.version = function (client, message, msg, args) {
+    message.channel.send(`\`\`\`DankBot v2.0-beta\`\`\``);
+}
