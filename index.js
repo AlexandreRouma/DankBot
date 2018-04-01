@@ -20,6 +20,8 @@ main();
 function main() {
   Art.displaySplash();
 
+
+
   if (!fs.existsSync('resources/config/config.json')) {
     Logger.log('Creating configuration file...');
     try {
@@ -33,21 +35,23 @@ function main() {
     }
   }
 
-  Logger.log('Loading configuration...');
-  try {
-    ConfigUtils.loadconfig();
-    Logger.ok();
+  let config;
+  if (process.argv[2] === '--test') {
+    config = ConfigUtils.getconfig();
+    config.GoogleAPIEnabled = false;
+    config.TwitterAPIEnabled = false;
+    config.GiphyAPIEnabled = false;
+    ConfigUtils.setconfig(config);
+    Logger.log('TEST MODE ENABLED !\n');
   }
-  catch (err) {
-    Logger.failed();
-    Logger.panic('Could not load the configuration file');
-  }
+
+  ConfigUtils.loadconfig();
 
   if (ConfigUtils.getconfig().TwitterAPIEnabled) {
     Logger.log('Initializing Google Images API...');
     try {
-      SearchCommands.initGoogleImages(new GoogleImages(ConfigUtils
-        .getconfig().GoogleSearchEngineID, ConfigUtils.getconfig().GoogleAPIKey));
+      SearchCommands.initGoogleImages(new GoogleImages(ConfigUtils.getconfig()
+        .GoogleSearchEngineID, ConfigUtils.getconfig().GoogleAPIKey));
       Logger.ok();
     }
     catch (err) {
@@ -82,116 +86,142 @@ function main() {
       Logger.panic('Could initialize YouTube API!');
     }
   }
-  else {
-    Logger.log('Google API disabled, won\'t load.\n');
-  }
 
-  if (ConfigUtils.getconfig().TwitterAPIEnabled) {
-    Logger.log('Initializing Twitter API...');
-    try {
-      SocialCommands.initTwitterAPI(new Twitter({
-        consumer_key: ConfigUtils.getconfig().TwitterClientKey,
-        consumer_secret: ConfigUtils.getconfig().TwitterClientSecret,
-        access_token_key: ConfigUtils.getconfig().TwitterAccessTokenKey,
-        access_token_secret: ConfigUtils.getconfig().TwitterAccessTokenSecret,
-      }));
-      Logger.ok();
-    }
-    catch (err) {
-      Logger.failed();
-      Logger.panic('Could initialize YouTube API!');
-    }
-  }
-  else {
-    Logger.log('Twitter API disabled, won\'t load.\n');
-  }
-
-  if (ConfigUtils.getconfig().GiphyAPIEnabled) {
-    Logger.log('Initializing Giphy API...');
-    try {
-      SearchCommands.initGiphy(new Giphy(ConfigUtils.getconfig().GiphyAPIKey));
-      Logger.ok();
-    }
-    catch (err) {
-      Logger.failed();
-      Logger.panic('Could initialize YouTube API!');
-    }
-  }
-  else {
-    Logger.log('Giphy  API disabled, won\'t load.\n');
-  }
-
-  Logger.log('Loading commands...');
-  CommandManager.loadCommands();
-  Logger.ok();
-
-  Logger.log('Loading plugins:\n');
-  PluginManager.loadPlugins();
-  Logger.log(`Loaded ${Object.keys(PluginManager.getPlugins()).length} plugin`);
-  if (Object.keys(PluginManager.getPlugins()).length > 1 || Object.keys(PluginManager.getPlugins()).length === 0) {
-    console.log('s');
-  }
-  else {
-    console.log('');
-  }
-
-  Logger.log('Generating GitHub help file...');
+  Logger.log('Initializing Google Search API...');
   try {
-    CommandManager.genHelpTable();
+    SearchCommands.initGoogleSearch(new GoogleSearch({
+      key: ConfigUtils.getconfig().GoogleAPIKey,
+      cx: ConfigUtils.getconfig().GoogleSearchEngineID,
+    }));
     Logger.ok();
   }
   catch (err) {
     Logger.failed();
-    Logger.panic('Could initialize Google Images API!');
+    Logger.panic('Could initialize Google Search API!');
   }
 
-  Logger.log('Starting discord client...');
-  client.login(ConfigUtils.getconfig().DiscordToken).catch(() => {
-    Logger.failed();
-    Logger.panic('Could not start discord client!');
-  });
-
-  client.on('ready', () => {
-    client.user.setPresence('online');
-    client.user.setActivity(ConfigUtils.getconfig().Playing);
+  Logger.log('Initializing YouTube API...');
+  try {
+    Youtube.authenticate({
+      type: 'key',
+      key: ConfigUtils.getconfig().GoogleAPIKey,
+    });
+    AudioCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
+    SearchCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
+    SocialCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
     Logger.ok();
-    Logger.log(`Ready, logged in as '${client.user.tag}'!\n`);
-  });
+  }
+  catch (err) {
+    Logger.failed();
+    Logger.panic('Could initialize YouTube API!');
+  }
+}
 
-  client.on('message', async message => {
-    if (message.content.startsWith(ConfigUtils.getconfig().Prefix) && message.author.id !== client.user.id) {
-      let msg = message.content.substring(ConfigUtils.getconfig().Prefix.length);
-      let args = msg.split(' ');
-      let alias = CommandManager.getAliases()[args[0].toUpperCase()];
-      if (alias) {
-        msg = alias + msg.substring(args[0].length);
-        args[0] = alias;
-      }
-      let command = CommandManager.getCommands()[args[0].toUpperCase()];
-      if (command) {
-        if (CommandManager.getAdminOnly(args[0].toUpperCase())) {
-          if (PermUtils.isAdmin(message.member)) {
-            await message.channel.startTyping();
-            command(client, message, msg, args);
-            await message.channel.stopTyping();
-          }
-          else {
-            message.channel.send(':no_entry: `Sorry, but your KD is too low to issue this command`');
-          }
-        }
-        else {
+if (ConfigUtils.getconfig().TwitterAPIEnabled) {
+  Logger.log('Initializing Twitter API...');
+  try {
+    SocialCommands.initTwitterAPI(new Twitter({
+      consumer_key: ConfigUtils.getconfig().TwitterClientKey,
+      consumer_secret: ConfigUtils.getconfig().TwitterClientSecret,
+      access_token_key: ConfigUtils.getconfig().TwitterAccessTokenKey,
+      access_token_secret: ConfigUtils.getconfig().TwitterAccessTokenSecret,
+    }));
+    Logger.ok();
+  }
+  catch (err) {
+    Logger.failed();
+    Logger.panic('Could initialize YouTube API!');
+  }
+}
+else {
+  Logger.log('Twitter API disabled, won\'t load.\n');
+}
+
+if (ConfigUtils.getconfig().GiphyAPIEnabled) {
+  Logger.log('Initializing Giphy API...');
+  try {
+    SearchCommands.initGiphy(new Giphy(ConfigUtils.getconfig().GiphyAPIKey));
+    Logger.ok();
+  }
+  catch (err) {
+    Logger.failed();
+    Logger.panic('Could initialize YouTube API!');
+  }
+}
+else {
+  Logger.log('Giphy  API disabled, won\'t load.\n');
+}
+
+Logger.log('Loading commands...');
+CommandManager.loadCommands();
+Logger.ok();
+
+Logger.log('Loading plugins:\n');
+PluginManager.loadPlugins();
+Logger.log(`Loaded ${Object.keys(PluginManager.getPlugins()).length} plugin`);
+if (Object.keys(PluginManager.getPlugins()).length > 1 || Object.keys(PluginManager.getPlugins()).length === 0) {
+  console.log('s');
+}
+else {
+  console.log('');
+}
+
+Logger.log('Generating GitHub help file...');
+try {
+  CommandManager.genHelpTable();
+  Logger.ok();
+}
+catch (err) {
+  Logger.failed();
+  Logger.panic('Could initialize Google Images API!');
+}
+
+Logger.log('Starting discord client...');
+client.login(ConfigUtils.getconfig().DiscordToken).catch(() => {
+  Logger.failed();
+  Logger.panic('Could not start discord client!');
+});
+
+client.on('ready', () => {
+  client.user.setPresence('online');
+  client.user.setActivity(ConfigUtils.getconfig().Playing);
+  Logger.ok();
+  Logger.log(`Ready, logged in as '${client.user.tag}'!\n`);
+});
+
+client.on('message', async message => {
+  if (message.content.startsWith(ConfigUtils.getconfig().Prefix) && message.author.id !== client.user.id) {
+    let msg = message.content.substring(ConfigUtils.getconfig().Prefix.length);
+    let args = msg.split(' ');
+    let alias = CommandManager.getAliases()[args[0].toUpperCase()];
+    if (alias) {
+      msg = alias + msg.substring(args[0].length);
+      args[0] = alias;
+    }
+    let command = CommandManager.getCommands()[args[0].toUpperCase()];
+    if (command) {
+      if (CommandManager.getAdminOnly(args[0].toUpperCase())) {
+        if (PermUtils.isAdmin(message.member)) {
           await message.channel.startTyping();
           command(client, message, msg, args);
           await message.channel.stopTyping();
         }
+        else {
+          message.channel.send(':no_entry: `Sorry, but your KD is too low to issue this command`');
+        }
       }
       else {
-        message.channel.send(`:no_entry: \`The command '${args[0]}' is as legit` +
-          ` as an OpticGaming player on this server :(\``);
+        await message.channel.startTyping();
+        command(client, message, msg, args);
+        await message.channel.stopTyping();
       }
     }
-  });
-}
+    else {
+      message.channel.send(`:no_entry: \`The command '${args[0]}' is as legit` +
+        ` as an OpticGaming player on this server :(\``);
+    }
+  }
+});
 
 // <================ EXPERIMENTAL AREA ================>
 
