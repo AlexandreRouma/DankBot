@@ -163,10 +163,10 @@ function main() {
         if (message.content.startsWith(ConfigUtils.getconfig().Prefix) && message.author.id != client.user.id) {
             var msg = message.content.substring(ConfigUtils.getconfig().Prefix.length);
             var args = msg.split(" ");
-            if (CommandManager.getAliases()[args[0].toUpperCase()]) {
-                var replacement = CommandManager.getAliases()[args[0].toUpperCase()];
-                msg = CommandManager.getAliases()[args[0].toUpperCase()] + msg.substring(args[0].length);
-                args[0] = replacement;
+            var alias = CommandManager.getAliases()[args[0].toUpperCase()]
+            if (alias) {
+                msg = alias + msg.substring(args[0].length);
+                args[0] = alias;
             }
             var command = CommandManager.getCommands()[args[0].toUpperCase()];
             if (command) {
