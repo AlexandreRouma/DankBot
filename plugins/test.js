@@ -4,7 +4,7 @@ var client;
 
 module.exports._load = function (_client) {
     client = _client;
-    CommandManager.registerCommand("HELLOWORLD", "HW", "helloworld", "Say 'Hellow World' !", false, helloworld);
+    CommandManager.registerCommand("HELLOWORLD", "HW", "helloworld", "Say 'Hello World' !", false, helloworld);
 }
 
 function helloworld(client, message, msg, args) {
