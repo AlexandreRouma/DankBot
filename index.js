@@ -52,6 +52,7 @@ function main() {
         config.GoogleAPIEnabled = false;
         config.TwitterAPIEnabled = false;
         config.GiphyAPIEnabled = false;
+        config.BotAdminRoles[0] = "2222222222222222222";
         ConfigUtils.setconfig(config);
         client = SelfTest.FakeDiscordClient;
         Logger.log("TEST MODE ENABLED !\n");

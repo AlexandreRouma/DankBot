@@ -45,6 +45,66 @@ var tests = [
             Logger.failed();
             Logger.panic("Self test failed!");
         }
+        Logger.log("Testing 'ping'...");
+        sendFakeMessage(";ping");
+    },
+
+    (lastAnwser) => {
+        if (lastAnwser.startsWith(":white_check_mark:")) Logger.ok();
+        else {
+            Logger.failed();
+            Logger.panic("Self test failed!");
+        }
+        Logger.log("Testing 'lonely'...");
+        sendFakeMessage(";lonely");
+    },
+
+    (lastAnwser) => {
+        if (lastAnwser == "@everyone") Logger.ok();
+        else {
+            Logger.failed();
+            Logger.panic("Self test failed!");
+        }
+        Logger.log("Testing 'base64encode'...");
+        sendFakeMessage(";base64encode success");
+    },
+
+    (lastAnwser) => {
+        if (lastAnwser == "```c3VjY2Vzcw==```") Logger.ok();
+        else {
+            Logger.failed();
+            Logger.panic("Self test failed!" + lastAnwser);
+        }
+        Logger.log("Testing 'b64e'...");
+        sendFakeMessage(";b64e success");
+    },
+
+    (lastAnwser) => {
+        if (lastAnwser == "```c3VjY2Vzcw==```") Logger.ok();
+        else {
+            Logger.failed();
+            Logger.panic("Self test failed!" + lastAnwser);
+        }
+        Logger.log("Testing 'base64decode'...");
+        sendFakeMessage(";base64decode c3VjY2Vzcw==");
+    },
+
+    (lastAnwser) => {
+        if (lastAnwser == "```success```") Logger.ok();
+        else {
+            Logger.failed();
+            Logger.panic("Self test failed!" + lastAnwser);
+        }
+        Logger.log("Testing 'b64d'...");
+        sendFakeMessage(";b64d c3VjY2Vzcw==");
+    },
+
+    (lastAnwser) => {
+        if (lastAnwser == "```success```") Logger.ok();
+        else {
+            Logger.failed();
+            Logger.panic("Self test failed!" + lastAnwser);
+        }
         Logger.log("Done.\n");
     },
 ];
@@ -73,7 +133,22 @@ var fakeDiscordUser = {
     tag: "fake-user#1234",
     username: "fake-user",
     discriminator: "1234",
-    id: "000000000000000000"
+    id: "000000000000000000",
+    roles: []
+}
+
+var fakeGuildMember = {
+    setPresence: () => { },
+    setActivity: () => { },
+    tag: "fake-user#1234",
+    username: "fake-user",
+    discriminator: "1234",
+    id: "000000000000000000",
+    roles: {
+        array: () => {
+            return [{id: "2222222222222222222"}]
+        }
+    }
 }
 
 var fakeDiscordChannel = {
@@ -101,5 +176,6 @@ function sendFakeMessage(msg) {
     message.author = fakeDiscordUser;
     message.content = msg;
     message.channel = fakeDiscordChannel;
+    message.member = fakeGuildMember;
     actions["message"](message);
 }
