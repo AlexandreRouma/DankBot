@@ -70,6 +70,8 @@ module.exports.genHelpTable = function (name) {
     fs.writeFileSync("github-help.md", table);
 }
 
+module.exports.registerCommand = registerCommand;
+
 function registerCommand(name, alias, usage, description, adminonly, command) {
     commands[name] = command;
     aliases[alias] = name;

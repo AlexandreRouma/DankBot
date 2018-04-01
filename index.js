@@ -15,6 +15,7 @@ var SearchCommands = require("./commands/search-commands");
 var MiscCommands = require("./commands/misc-commands");
 var AudioCommands = require("./commands/audio-commands");
 var SocialCommands = require("./commands/social-commands");
+var path = require("path");
 var Twitter = require('twitter');
 
 main();
@@ -123,6 +124,21 @@ function main() {
     Logger.log("Loading commands...");
     CommandManager.loadCommands();
     Logger.ok();
+
+    Logger.log("Loading plugins:\n");
+    fs.readdirSync("plugins/").forEach(file => {
+        var name = path.basename(file);
+        Logger.log(`Loading ${name}...`);
+        try {
+            var plugin = require("./plugins/" + file);
+            plugin._load();
+            Logger.ok();
+        }
+        catch (err) {
+            Logger.failed();
+            Logger.panic(`Couldn't load ${name}` + err);
+        }
+    })
 
     Logger.log("Generating GitHub help file...");
     try {
