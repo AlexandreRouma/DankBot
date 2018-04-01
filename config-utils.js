@@ -26,6 +26,7 @@ module.exports.loadconfig = function () {
 }
 
 module.exports.saveconfig = function () {
+    if (!fs.existsSync("resources/config")) fs.mkdirSync("resources/config");
     fs.writeFileSync("resources/config/config.json", JSON.stringify(config, null, 4));
 }
 

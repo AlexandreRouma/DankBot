@@ -46,6 +46,15 @@ function main() {
         Logger.panic("Could not load the configuration file");
     }
 
+    if (process.argv[2] == "--test") {
+        var config = ConfigUtils.getconfig();
+        config.GoogleAPIEnabled = false;
+        config.TwitterAPIEnabled = false;
+        config.GiphyAPIEnabled = false;
+        ConfigUtils.setconfig(config);
+        Logger.log("TEST MODE ENABLED !\n");
+    }
+
     if (ConfigUtils.getconfig().TwitterAPIEnabled) {
         Logger.log("Initializing Google Images API...");
         try {
