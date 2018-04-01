@@ -36,7 +36,7 @@ module.exports.hsgtf = function (client, message, msg, args) {
 }
 
 module.exports.wth = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 4, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then(function (image) {
                 Jimp.read("resources/images/wth.png", function (err, background) {
@@ -81,6 +81,32 @@ module.exports.usoab = function (client, message, msg, args) {
     });
 }
 
+module.exports.kek = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                Jimp.read("resources/images/kek.png", function (err, background) {
+                    if (err) throw err;
+                    var base = new Jimp(background.bitmap.width, background.bitmap.height, function (err, base) {
+                        image.contain(604, 303, Jimp.RESIZE_BICUBIC, function (err, src) {
+                            base.composite(src, 0, 88)
+                                .composite(background, 0, 0)
+                                .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                                    message.channel.send(new Discord.Attachment(buffer));
+                                });
+                        });
+                    });
+                });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
 module.exports.sepia = function (client, message, msg, args) {
     getLastImage(message, args, 6, (imglink) => {
         if (imglink) {
@@ -100,7 +126,7 @@ module.exports.sepia = function (client, message, msg, args) {
 }
 
 module.exports.greyscale = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 10, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then(function (image) {
                 image.greyscale()
@@ -118,7 +144,7 @@ module.exports.greyscale = function (client, message, msg, args) {
 }
 
 module.exports.invert = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 7, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then(function (image) {
                 image.invert()
@@ -136,7 +162,7 @@ module.exports.invert = function (client, message, msg, args) {
 }
 
 module.exports.dither = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 7, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then(function (image) {
                 image.dither565()
@@ -154,7 +180,7 @@ module.exports.dither = function (client, message, msg, args) {
 }
 
 module.exports.normalize = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 10, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then(function (image) {
                 image.normalize()
@@ -175,7 +201,7 @@ module.exports.blur = function (client, message, msg, args) {
     if (args.length > 1) {
         try {
             var amount = parseInt(args[1], 10);
-            getLastImage(message, args, 6, (imglink) => {
+            getLastImage(message, args, 5, (imglink) => {
                 if (imglink) {
                     Jimp.read(imglink).then(function (image) {
                         image.blur(amount)
@@ -204,7 +230,7 @@ module.exports.contrast = function (client, message, msg, args) {
     if (args.length > 1) {
         try {
             var contrast = parseFloat(args[1], 10);
-            getLastImage(message, args, 6, (imglink) => {
+            getLastImage(message, args, 9, (imglink) => {
                 if (imglink) {
                     Jimp.read(imglink).then(function (image) {
                         image.contrast(contrast)
@@ -233,7 +259,7 @@ module.exports.brightness = function (client, message, msg, args) {
     if (args.length > 1) {
         try {
             var brightness = parseFloat(args[1], 10);
-            getLastImage(message, args, 6, (imglink) => {
+            getLastImage(message, args, 10, (imglink) => {
                 if (imglink) {
                     Jimp.read(imglink).then(function (image) {
                         image.brightness(brightness)
@@ -262,7 +288,7 @@ module.exports.pixelate = function (client, message, msg, args) {
     if (args.length > 1) {
         try {
             var levels = parseFloat(args[1], 10);
-            getLastImage(message, args, 6, (imglink) => {
+            getLastImage(message, args, 9, (imglink) => {
                 if (imglink) {
                     Jimp.read(imglink).then(function (image) {
                         image.pixelate(levels)
@@ -287,8 +313,37 @@ module.exports.pixelate = function (client, message, msg, args) {
     }
 }
 
+module.exports.jpeg = function (client, message, msg, args) {
+    if (args.length > 1) {
+        try {
+            var quality = parseFloat(args[1], 10);
+            getLastImage(message, args, 9, (imglink) => {
+                if (imglink) {
+                    Jimp.read(imglink).then(function (image) {
+                        image.quality(quality)
+                            .getBuffer(Jimp.MIME_JPEG, (err, buffer) => {
+                                message.channel.send(new Discord.Attachment(buffer));
+                            });
+                    }).catch(function (err) {
+                        message.channel.send(":no_entry: `No valid image provided`");
+                    });
+                }
+                else {
+                    message.channel.send(":no_entry: `No image found`");
+                }
+            });
+        }
+        catch (err) {
+            message.channel.send(":no_entry: `Invalid pixel amount`" + err.message);
+        }
+    }
+    else {
+        message.channel.send(":no_entry: `Tell by how many pixels to pixelate the image`");
+    }
+}
+
 module.exports.deepfry = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 7, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then(function (image) {
                 image.pixelate(1.5)
@@ -307,7 +362,7 @@ module.exports.deepfry = function (client, message, msg, args) {
 }
 
 module.exports.horizontalflip = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 15, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then(function (image) {
                 image.mirror(true, false)
@@ -325,7 +380,7 @@ module.exports.horizontalflip = function (client, message, msg, args) {
 }
 
 module.exports.verticalflip = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 13, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then(function (image) {
                 image.mirror(false, true)

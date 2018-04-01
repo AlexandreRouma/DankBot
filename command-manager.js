@@ -96,7 +96,7 @@ module.exports.loadCommands = function () {
     registerCommand("MOCK", undefined, "mock [text]", "Change random letters to uppercase", false, MiscCommands.mock);
     registerCommand("LEET", undefined, "leet [text]", "Translate text to 1337 5p34k", false, MiscCommands.leet);
     registerCommand("COMMANDSTATS", "CST", "commandstats", "Give stats about the bot's commands", false, MiscCommands.commandstats);
-    registerCommand("RUN", undefined, "run [lang] [code]", "Run some code and get the result (use list as language to get list of languages)", false, MiscCommands.run);
+    registerCommand("RUN", undefined, "run [lang] [code]", "Run some code and get the result (use `list` as language to get list of languages)", false, MiscCommands.run);
     registerCommand("SPECIALTHANKS", undefined, "specialthanks", "Decicated to everyone who contributed to the bot !", false, MiscCommands.specialthanks);
     registerCommand("WHY", undefined, "why", "Get the meaning of life!", false, MiscCommands.why);
     registerCommand("ASCII", undefined, "ascii [font] [text]", "Turn text into ascii art", false, MiscCommands.ascii);
@@ -142,6 +142,8 @@ module.exports.loadCommands = function () {
     registerCommand("HUE", undefined, "hue [degrees] [image]", "Change the hue of an image", false, ImageCommands.hue);
     registerCommand("HORIZONTALFLIP", "HFLIP", "horizontalflip [image]", "Flip the image horizontaly", false, ImageCommands.horizontalflip);
     registerCommand("HORIZONTALFLIP", "VFLIP", "verticalflip [image]", "Flip the image verticaly", false, ImageCommands.verticalflip);
+    registerCommand("KEK", undefined, "kek [image]", "Make a 'Kekistant' meme", false, ImageCommands.kek);
+    registerCommand("JPEG", "JPG", "jpeg [quality] [image]", "Change the image's quality and add jpeg effect", false, ImageCommands.jpeg);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);
