@@ -140,6 +140,8 @@ module.exports.loadCommands = function () {
     registerCommand("DEEPFRY", "DFRY", "deepfry [image]", "Apply deepfry effect to image", false, ImageCommands.deepfry);
     registerCommand("POSTERIZE", "PSTRZ", "posterize [amount] [image]", "Posterize the image to a certain number of tones", false, ImageCommands.posterize);
     registerCommand("HUE", undefined, "hue [degrees] [image]", "Change the hue of an image", false, ImageCommands.hue);
+    registerCommand("HORIZONTALFLIP", "HFLIP", "horizontalflip [image]", "Flip the image horizontaly", false, ImageCommands.horizontalflip);
+    registerCommand("HORIZONTALFLIP", "VFLIP", "verticalflip [image]", "Flip the image verticaly", false, ImageCommands.verticalflip);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);

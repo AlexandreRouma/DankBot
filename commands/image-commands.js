@@ -306,6 +306,42 @@ module.exports.deepfry = function (client, message, msg, args) {
     });
 }
 
+module.exports.horizontalflip = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.mirror(true, false)
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.verticalflip = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                image.mirror(false, true)
+                    .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
 module.exports.posterize = function (client, message, msg, args) {
     if (args.length > 1) {
         try {
@@ -384,6 +420,7 @@ function getLastImage(message, args, substr, cb) {
                         for (var j = 0; j < messages[i].embeds.length; j++) {
                             if (messages[i].embeds[j].url.indexOf('.png') !== -1 ||
                                 messages[i].embeds[j].url.indexOf('.jpg') !== -1 ||
+                                messages[i].embeds[j].url.indexOf('.gif') !== -1 ||
                                 messages[i].embeds[j].url.indexOf('.bmp') !== -1) {
                                 cb(messages[i].embeds[j].url);
                                 return;
