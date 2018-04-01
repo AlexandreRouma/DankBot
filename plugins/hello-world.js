@@ -15,7 +15,7 @@ module.exports._plugin_info = { // All of these need to be present, but doesn't 
 
 module.exports._load = function (_client) {
     client = _client;
-    //                                 Name     Alias     Usage          Description
+    //                                 Name     Alias     Usage          Description     AdminOnly  Function
     CommandManager.registerCommand("HELLOWORLD", "HW", "helloworld", "Say 'Hello World' !", false, helloworld);
 }
 
