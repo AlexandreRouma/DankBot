@@ -84,117 +84,98 @@ module.exports.urban = function (client, message, msg, args) {
 }
 
 module.exports.image = function (client, message, msg, args) {
-    if (args.length > 1) {
-        try {
-            gimages.search(msg.substring(6))
-                .then(images => {
-                    var image = images[0];
-                    if (image) {
-                        message.channel.send(new Discord.Attachment(image.url));
-                    }
-                    else {
-                        message.channel.send(":no_entry: `No result :/`");
-                    }
-                });
+    try {
+        if (args.length > 1) {
+            try {
+                gimages.search(msg.substring(6))
+                    .then(images => {
+                        var image = images[0];
+                        if (image) {
+                            message.channel.send(new Discord.Attachment(image.url));
+                        }
+                        else {
+                            message.channel.send(":no_entry: `No result :/`");
+                        }
+                    });
+            }
+            catch (err) {
+                message.channel.send(":no_entry: `Google service not available :/`");
+            }
         }
-        catch (err) {
-            message.channel.send(":no_entry: `Google Images service not available :/`");
+        else {
+            message.channel.send(":no_entry: `Tell me what to search on Google Images...`");
         }
     }
-    else {
-        message.channel.send(":no_entry: `Tell me what to search on Google Images...`");
+    catch (err) {
+        message.channel.send(":no_entry: `Google service not available :/`");
     }
 }
 
 module.exports.google = function (client, message, msg, args) {
-    if (args.length > 1) {
-        gsearch.build({
-            q: msg.substring(7),
-            gl: "us",
-            num: 1
-        }, function (error, response) {
-            if (error) {
-                message.channel.send(":no_entry: `Google Search service not available :/`");
-            }
-            else {
-                if (response.items) {
-                    var embed = new Discord.RichEmbed();
-                    embed.setColor("BLUE");
-                    embed.setTitle(response.items[0].title);
-                    embed.setURL(response.items[0].link);
-                    embed.setDescription(response.items[0].snippet);
-                    embed.setFooter(`Took ${response.searchInformation.searchTime}s to find ${response.searchInformation.formattedTotalResults} results.`);
-                    message.channel.send(embed);
+    try {
+        if (args.length > 1) {
+            gsearch.build({
+                q: msg.substring(7),
+                gl: "us",
+                num: 1
+            }, function (error, response) {
+                if (error) {
+                    message.channel.send(":no_entry: `Google Search service not available :/`");
                 }
                 else {
-                    message.channel.send(":no_entry: `No result :/`");
+                    if (response.items) {
+                        var embed = new Discord.RichEmbed();
+                        embed.setColor("BLUE");
+                        embed.setTitle(response.items[0].title);
+                        embed.setURL(response.items[0].link);
+                        embed.setDescription(response.items[0].snippet);
+                        embed.setFooter(`Took ${response.searchInformation.searchTime}s to find ${response.searchInformation.formattedTotalResults} results.`);
+                        message.channel.send(embed);
+                    }
+                    else {
+                        message.channel.send(":no_entry: `No result :/`");
+                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `Tell me what to search on Google...`");
+        }
     }
-    else {
-        message.channel.send(":no_entry: `Tell me what to search on Google...`");
+    catch (err) {
+        message.channel.send(":no_entry: `Google service not available :/`");
     }
 }
 
 module.exports.youtube = function (client, message, msg, args) {
-    if (args.length > 1) {
-        ytsearch(msg.substring(5), opts, function (yterr, results) {
-            if (yterr) {
-                message.channel.send(":no_entry: `That video doesn't exist nigga`:joy:" + yterr.message)
-                return;
-            }
-            message.channel.send(results[0].link);
-        });
+    try {
+        if (args.length > 1) {
+            ytsearch(msg.substring(5), opts, function (yterr, results) {
+                if (yterr) {
+                    message.channel.send(":no_entry: `That video doesn't exist nigga`:joy:" + yterr.message)
+                    return;
+                }
+                message.channel.send(results[0].link);
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `Tell me what to search on Youtube...`");
+        }
     }
-    else {
-        message.channel.send(":no_entry: `Tell me what to search on Youtube...`");
+    catch (err) {
+        message.channel.send(":no_entry: `Google service not available :/`");
     }
 }
 
 module.exports.giphy = function (client, message, msg, args) {
-    if (args.length > 1) {
-        if (args[1].toUpperCase() == "-T-") {
-            giphy.trending((err, trending, res) => {
-                if (err) {
-                    message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
-                    return;
-                }
-                var embed = new Discord.RichEmbed();
-                embed.setColor("BLUE");
-                embed.setTitle(trending.data[0].title);
-                embed.setURL(trending.data[0].bitly_url);
-                embed.setImage(trending.data[0].images.original.url);
-                embed.setFooter(`By ${trending.data[0].username}, source: ${trending.data[0].source}`);
-                message.channel.send(embed);
-            });
-        }
-        else if (args[1].toUpperCase() == "-R-") {
-            giphy.random((err, trending, res) => {
-                if (err) {
-                    message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
-                    return;
-                }
-                var embed = new Discord.RichEmbed();
-                embed.setColor("BLUE");
-                embed.setTitle(trending.data.title);
-                embed.setURL(trending.data.bitly_url);
-                embed.setImage(trending.data.images.original.url);
-                var user = trending.data.username;
-                if (!user) {
-                    user = "Anonymous";
-                }
-                embed.setFooter(`By ${user}, source: ${trending.data.source}`);
-                message.channel.send(embed);
-            });
-        }
-        else {
-            giphy.search({ q: msg.substring(6) }, (err, trending, res) => {
-                if (err) {
-                    message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
-                    return;
-                }
-                if (trending.data[0]) {
+    try {
+        if (args.length > 1) {
+            if (args[1].toUpperCase() == "-T-") {
+                giphy.trending((err, trending, res) => {
+                    if (err) {
+                        message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
+                        return;
+                    }
                     var embed = new Discord.RichEmbed();
                     embed.setColor("BLUE");
                     embed.setTitle(trending.data[0].title);
@@ -202,14 +183,53 @@ module.exports.giphy = function (client, message, msg, args) {
                     embed.setImage(trending.data[0].images.original.url);
                     embed.setFooter(`By ${trending.data[0].username}, source: ${trending.data[0].source}`);
                     message.channel.send(embed);
-                }
-                else {
-                    message.channel.send(":no_entry: `No result :/`");
-                }
-            });
+                });
+            }
+            else if (args[1].toUpperCase() == "-R-") {
+                giphy.random((err, trending, res) => {
+                    if (err) {
+                        message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
+                        return;
+                    }
+                    var embed = new Discord.RichEmbed();
+                    embed.setColor("BLUE");
+                    embed.setTitle(trending.data.title);
+                    embed.setURL(trending.data.bitly_url);
+                    embed.setImage(trending.data.images.original.url);
+                    var user = trending.data.username;
+                    if (!user) {
+                        user = "Anonymous";
+                    }
+                    embed.setFooter(`By ${user}, source: ${trending.data.source}`);
+                    message.channel.send(embed);
+                });
+            }
+            else {
+                giphy.search({ q: msg.substring(6) }, (err, trending, res) => {
+                    if (err) {
+                        message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
+                        return;
+                    }
+                    if (trending.data[0]) {
+                        var embed = new Discord.RichEmbed();
+                        embed.setColor("BLUE");
+                        embed.setTitle(trending.data[0].title);
+                        embed.setURL(trending.data[0].bitly_url);
+                        embed.setImage(trending.data[0].images.original.url);
+                        embed.setFooter(`By ${trending.data[0].username}, source: ${trending.data[0].source}`);
+                        message.channel.send(embed);
+                    }
+                    else {
+                        message.channel.send(":no_entry: `No result :/`");
+                    }
+                });
+            }
+        }
+        else {
+            message.channel.send(":no_entry: `Tell me what to search on Giphy...`");
         }
     }
-    else {
-        message.channel.send(":no_entry: `Tell me what to search on Giphy...`");
+    catch (err) {
+        message.channel.send(":no_entry: `Giphy service not available :/`");
     }
 }

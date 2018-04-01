@@ -10,7 +10,7 @@ var ytsearch = require('youtube-search');
 var GoogleImages = require('google-images');
 var GoogleSearch = require('google-search');
 var Youtube = require("youtube-api");
-var Giphy = require( 'giphy' )
+var Giphy = require('giphy')
 var SearchCommands = require("./commands/search-commands");
 var MiscCommands = require("./commands/misc-commands");
 var AudioCommands = require("./commands/audio-commands");
@@ -44,65 +44,80 @@ function main() {
         Logger.panic("Could not load the configuration file");
     }
 
-    Logger.log("Initializing Google Images API...");
-    try {
-        SearchCommands.initGoogleImages(new GoogleImages(ConfigUtils.getconfig().GoogleSearchEngineID, ConfigUtils.getconfig().GoogleAPIKey));
-        Logger.ok();
+    if (ConfigUtils.getconfig().TwitterAPIEnabled) {
+        Logger.log("Initializing Google Images API...");
+        try {
+            SearchCommands.initGoogleImages(new GoogleImages(ConfigUtils.getconfig().GoogleSearchEngineID, ConfigUtils.getconfig().GoogleAPIKey));
+            Logger.ok();
+        }
+        catch (err) {
+            Logger.failed();
+            Logger.panic("Could initialize Google Images API!");
+        }
+
+        Logger.log("Initializing Google Search API...");
+        try {
+            SearchCommands.initGoogleSearch(new GoogleSearch({ key: ConfigUtils.getconfig().GoogleAPIKey, cx: ConfigUtils.getconfig().GoogleSearchEngineID }));
+            Logger.ok();
+        }
+        catch (err) {
+            Logger.failed();
+            Logger.panic("Could initialize Google Search API!");
+        }
+
+        Logger.log("Initializing YouTube API...");
+        try {
+            Youtube.authenticate({
+                type: "key"
+                , key: ConfigUtils.getconfig().GoogleAPIKey
+            });
+            AudioCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
+            SearchCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
+            SocialCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
+            Logger.ok();
+        }
+        catch (err) {
+            Logger.failed();
+            Logger.panic("Could initialize YouTube API!");
+        }
     }
-    catch (err) {
-        Logger.failed();
-        Logger.panic("Could initialize Google Images API!");
+    else {
+        Logger.log("Google API disabled, won't load.\n");
     }
 
-    Logger.log("Initializing Google Search API...");
-    try {
-        SearchCommands.initGoogleSearch(new GoogleSearch({key: ConfigUtils.getconfig().GoogleAPIKey, cx: ConfigUtils.getconfig().GoogleSearchEngineID}));
-        Logger.ok();
+    if (ConfigUtils.getconfig().TwitterAPIEnabled) {
+        Logger.log("Initializing Twitter API...");
+        try {
+            SocialCommands.initTwitterAPI(new Twitter({
+                consumer_key: ConfigUtils.getconfig().TwitterClientKey,
+                consumer_secret: ConfigUtils.getconfig().TwitterClientSecret,
+                access_token_key: ConfigUtils.getconfig().TwitterAccessTokenKey,
+                access_token_secret: ConfigUtils.getconfig().TwitterAccessTokenSecret
+            }));
+            Logger.ok();
+        }
+        catch (err) {
+            Logger.failed();
+            Logger.panic("Could initialize YouTube API!");
+        }
     }
-    catch (err) {
-        Logger.failed();
-        Logger.panic("Could initialize Google Search API!");
-    }
-
-    Logger.log("Initializing YouTube API...");
-    try {
-        Youtube.authenticate({
-            type: "key"
-          , key: ConfigUtils.getconfig().GoogleAPIKey
-        });
-        AudioCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
-        SearchCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
-        SocialCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
-        Logger.ok();
-    }
-    catch (err) {
-        Logger.failed();
-        Logger.panic("Could initialize YouTube API!");
+    else {
+        Logger.log("Twitter API disabled, won't load.\n");
     }
 
-    Logger.log("Initializing Twitter API...");
-    try {
-        SocialCommands.initTwitterAPI(new Twitter({
-            consumer_key: ConfigUtils.getconfig().TwitterClientKey,
-            consumer_secret: ConfigUtils.getconfig().TwitterClientSecret,
-            access_token_key: ConfigUtils.getconfig().TwitterAccessTokenKey,
-            access_token_secret: ConfigUtils.getconfig().TwitterAccessTokenSecret
-          }));
-        Logger.ok();
+    if (ConfigUtils.getconfig().GiphyAPIEnabled) {
+        Logger.log("Initializing Giphy API...");
+        try {
+            SearchCommands.initGiphy(new Giphy(ConfigUtils.getconfig().GiphyAPIKey));
+            Logger.ok();
+        }
+        catch (err) {
+            Logger.failed();
+            Logger.panic("Could initialize YouTube API!");
+        }
     }
-    catch (err) {
-        Logger.failed();
-        Logger.panic("Could initialize YouTube API!");
-    }
-
-    Logger.log("Initializing Giphy API...");
-    try {
-        SearchCommands.initGiphy(new Giphy(ConfigUtils.getconfig().GiphyAPIKey));
-        Logger.ok();
-    }
-    catch (err) {
-        Logger.failed();
-        Logger.panic("Could initialize YouTube API!");
+    else {
+        Logger.log("Giphy  API disabled, won't load.\n");
     }
 
     Logger.log("Loading commands...");
