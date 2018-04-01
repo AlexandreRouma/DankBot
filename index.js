@@ -10,6 +10,7 @@ var ytsearch = require('youtube-search');
 var GoogleImages = require('google-images');
 var GoogleSearch = require('google-search');
 var Youtube = require("youtube-api");
+var Giphy = require( 'giphy' )
 var SearchCommands = require("./commands/search-commands");
 var MiscCommands = require("./commands/misc-commands");
 var AudioCommands = require("./commands/audio-commands");
@@ -87,6 +88,16 @@ function main() {
             access_token_key: ConfigUtils.getconfig().TwitterAccessTokenKey,
             access_token_secret: ConfigUtils.getconfig().TwitterAccessTokenSecret
           }));
+        Logger.ok();
+    }
+    catch (err) {
+        Logger.failed();
+        Logger.panic("Could initialize YouTube API!");
+    }
+
+    Logger.log("Initializing Giphy API...");
+    try {
+        SearchCommands.initGiphy(new Giphy(ConfigUtils.getconfig().GiphyAPIKey));
         Logger.ok();
     }
     catch (err) {

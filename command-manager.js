@@ -150,6 +150,7 @@ module.exports.loadCommands = function () {
     registerCommand("IMAGE", "IMG", "image [search]", "Search on Google Images", false, SearchCommands.image);
     registerCommand("GOOGLE", "G", "google [search]", "Search on Google", false, SearchCommands.google);
     registerCommand("YOUTUBE", "YT", "youtube [search]", "Search on YouTube", false, SearchCommands.youtube);
+    registerCommand("GIPHY", "GIF", "giphy [search]", "Search on Giphy", false, SearchCommands.giphy);
 
     // Social Commands
     registerCommand("COMMENT", "CMT", "comment [video/search]", "Get a random comment from a youtube video", false, SocialCommands.comment);

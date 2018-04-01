@@ -4,11 +4,13 @@ var Utils = require("../utils");
 var GoogleImages = require('google-images');
 var GoogleSearch = require('google-search');
 var ytsearch = require('youtube-search');
+var Giphy = require( 'giphy' )
 var path = require('path');
 var opts;
 
 var gimages;
 var gsearch;
+var giphy
 
 module.exports.initGoogleImages = function (gi) {
     gimages = gi;
@@ -23,6 +25,10 @@ module.exports.initYoutubeAPIKey = function (key) {
         maxResults: 10,
         key: key
     };
+}
+
+module.exports.initGiphy = function (gfy) {
+    giphy = gfy;
 }
 
 module.exports.urban = function (client, message, msg, args) {
@@ -142,6 +148,63 @@ module.exports.youtube = function (client, message, msg, args) {
         });
     }
     else {
-        message.channel.send(":no_entry: `Tell me what to search on Google...`");
+        message.channel.send(":no_entry: `Tell me what to search on Youtube...`");
+    }
+}
+
+module.exports.giphy = function (client, message, msg, args) {
+    if (args.length > 1) {
+        if (args[1].toUpperCase() == "-T-") {
+            giphy.trending(( err, trending, res ) => {
+                if (err) {
+                    message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
+                    return;
+                }
+                var embed = new Discord.RichEmbed();
+                embed.setColor("BLUE");
+                embed.setTitle(trending.data[0].title);
+                embed.setURL(trending.data[0].bitly_url);
+                embed.setImage(trending.data[0].images.original.url);
+                embed.setFooter(`By ${trending.data[0].username}, source: ${trending.data[0].source}`);
+                message.channel.send(embed);
+            });
+        }
+        else if (args[1].toUpperCase() == "-R-") {
+            giphy.random(( err, trending, res ) => {
+                if (err) {
+                    message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
+                    return;
+                }
+                var embed = new Discord.RichEmbed();
+                embed.setColor("BLUE");
+                embed.setTitle(trending.data.title);
+                embed.setURL(trending.data.bitly_url);
+                embed.setImage(trending.data.images.original.url);
+                var user = trending.data.username;
+                if (!user) {
+                    user = "Anonymous";
+                }
+                embed.setFooter(`By ${user}, source: ${trending.data.source}`);
+                message.channel.send(embed);
+            });
+        }
+        else {
+            giphy.search({q: msg.substring(6)}, ( err, trending, res ) => {
+                if (err) {
+                    message.channel.send(":no_entry: `Somthing went wrong with the API :/`" + yterr.message)
+                    return;
+                }
+                var embed = new Discord.RichEmbed();
+                embed.setColor("BLUE");
+                embed.setTitle(trending.data[0].title);
+                embed.setURL(trending.data[0].bitly_url);
+                embed.setImage(trending.data[0].images.original.url);
+                embed.setFooter(`By ${trending.data[0].username}, source: ${trending.data[0].source}`);
+                message.channel.send(embed);
+            });
+        }
+    }
+    else {
+        message.channel.send(":no_entry: `Tell me what to search on Giphy...`");
     }
 }

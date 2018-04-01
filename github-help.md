@@ -60,6 +60,7 @@
 |image         |img  |No            |image [search]             |Search on Google Images                                                           |
 |google        |g    |No            |google [search]            |Search on Google                                                                  |
 |youtube       |yt   |No            |youtube [search]           |Search on YouTube                                                                 |
+|giphy         |gif  |No            |giphy [search]             |Search on Giphy                                                                   |
 |comment       |cmt  |No            |comment [video/search]     |Get a random comment from a youtube video                                         |
 |lasttweet     |ltwt |No            |lasttweet [user]           |Get last tweet from user's timeline                                               |
 |randomtweet   |rtwt |No            |randomtweet [user]         |Get a random tweet from user's timeline                                           |

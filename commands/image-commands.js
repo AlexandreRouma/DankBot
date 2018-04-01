@@ -480,6 +480,10 @@ function getLastImage(message, args, substr, cb) {
                                 cb(messages[i].embeds[j].url);
                                 return;
                             }
+                            if (messages[i].embeds[j].image) {
+                                cb(messages[i].embeds[j].image.url);
+                                return;
+                            }
                         }
                     }
                     var attachments = messages[i].attachments.array();

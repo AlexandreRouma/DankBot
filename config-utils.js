@@ -13,7 +13,8 @@ module.exports.loaddefault = function () {
         TwitterClientKey: "INSERT_HERE",
         TwitterClientSecret: "INSERT_HERE",
         TwitterAccessTokenKey: "INSERT_HERE",
-        TwitterAccessTokenSecret: "INSERT_HERE"
+        TwitterAccessTokenSecret: "INSERT_HERE",
+        GiphyAPIKey: "INSERT_HERE"
     }
 }
 
