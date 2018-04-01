@@ -123,6 +123,7 @@ module.exports.loadCommands = function () {
     registerCommand("USERINFO", undefined, "userinfo [user]", "Get info for a user", false, AdminCommands.userinfo);
     registerCommand("UNDO", undefined, "undo", "Remove the last message from the bot", false, AdminCommands.undo);
     registerCommand("RESETNICKNAMES", undefined, "resetnicknames", "Reset everyone's nickname on the server", true, AdminCommands.resetnicknames);
+    registerCommand("PLUGININFO", "PII", "plugininfo [plugin_name]", "Get info about a plugin (if no name supplied, lists all plugins)", false, AdminCommands.plugininfo);
 
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);

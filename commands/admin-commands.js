@@ -2,6 +2,7 @@ var ConfigUtils = require("../config-utils");
 var PermUtils = require("../perm-utils");
 var Discord = require("discord.js");
 var Jimp = require("jimp");
+var PluginManager = require("../plugin-manager");
 
 module.exports.dumproles = function (client, message, msg, args) {
     var str = "";
@@ -115,4 +116,39 @@ module.exports.resetnicknames = function (client, message, msg, args) {
         i++;
     });
     message.channel.send(`:white_check_mark: \`Changed back ${i} nicknames\``);
+}
+
+module.exports.plugininfo = function (client, message, msg, args) {
+    if (args.length > 1) {
+        var plugin_name = args[1].toLowerCase();
+        if (PluginManager.getPlugins()[plugin_name]) {
+            var plugin = PluginManager.getPlugins()[plugin_name];
+            var embed = new Discord.RichEmbed();
+            embed.setColor("BLUE");
+            embed.setTitle(plugin._plugin_info.name);
+            embed.setURL(plugin._plugin_info.url);
+            embed.addField("Author", plugin._plugin_info.author);
+            embed.addField("Version", plugin._plugin_info.version);
+            embed.addField("Description", plugin._plugin_info.description);
+            Object.keys(plugin._plugin_info.additional_info).forEach((e) => {
+                embed.addField(e, plugin._plugin_info.additional_info[e]);
+            })
+            message.channel.send(embed);
+        }
+        else {
+            message.channel.send(":no_entry: `Unknown plugin!`")
+        }
+    }
+    else {
+        var embed = new Discord.RichEmbed();
+        embed.setColor("BLUE");
+        embed.setTitle("Plugin List");
+        embed.setURL("https://github.com/AlexandreRouma/DankBot/wiki/Plugin-How-To");
+        var str = "";
+        Object.keys(PluginManager.getPlugins()).forEach((e) => {
+            str += e + "\n";
+        })
+        embed.setDescription(str);
+        message.channel.send(embed);
+    }
 }

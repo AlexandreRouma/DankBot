@@ -128,7 +128,13 @@ function main() {
 
     Logger.log("Loading plugins:\n");
     PluginManager.loadPlugins();
-    Logger.log(`Loaded ${Object.keys(PluginManager.getPlugins()).length}\n`);
+    Logger.log(`Loaded ${Object.keys(PluginManager.getPlugins()).length} plugin`);
+    if (Object.keys(PluginManager.getPlugins()).length > 1 || Object.keys(PluginManager.getPlugins()).length == 0) {
+        console.log("s");
+    }
+    else {
+        console.log("");
+    }
 
     Logger.log("Generating GitHub help file...");
     try {

@@ -15,7 +15,7 @@ module.exports.loadPlugins = function () {
                 if (plugin_info.name) {
                     if (/^[a-z0-9_-]+$/g.test(plugin_info.name)) {
                         plugin._load();
-                        plugins[plugin_info.name];
+                        plugins[plugin_info.name] = plugin;
                         Logger.ok();
                     }
                     else {
