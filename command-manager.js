@@ -67,7 +67,7 @@ module.exports.genHelpTable = function (name) {
             table += `|${Utils.pad(e.toLowerCase(), " ", maxnamewidth)}|${Utils.pad("-", " ", maxaliaswidth)}|${Utils.pad(botadminonly, " ", 14)}|${Utils.pad(helps[e].usage, " ", maxusagewidth)}|${Utils.pad(helps[e].description, " ", maxdescriptionwidth)}|\n`;
         }
     });
-    fs.writeFileSync("github-help.txt", table);
+    fs.writeFileSync("github-help.md", table);
 }
 
 function registerCommand(name, alias, usage, description, adminonly, command) {
