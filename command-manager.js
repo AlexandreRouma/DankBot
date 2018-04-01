@@ -49,7 +49,7 @@ module.exports.genHelpTable = function (name) {
             maxdescriptionwidth = helps[e].description.length;
         }
     });
-    var table = `|${Utils.pad("Name", " ", maxnamewidth)}|${Utils.pad("Alias", " ", maxaliaswidth)}|${Utils.pad("Bot Admin Only", " ", 14)}|${Utils.pad("Usage", " ", maxusagewidth)}|${Utils.pad("Description", " ", maxdescriptionwidth)}|\n` +
+    var table = `##Command List\n|${Utils.pad("Name", " ", maxnamewidth)}|${Utils.pad("Alias", " ", maxaliaswidth)}|${Utils.pad("Bot Admin Only", " ", 14)}|${Utils.pad("Usage", " ", maxusagewidth)}|${Utils.pad("Description", " ", maxdescriptionwidth)}|\n` +
         `|${Utils.pad("", "-", maxnamewidth)}|${Utils.pad("", "-", maxaliaswidth)}|${Utils.pad("", "-", 14)}|${Utils.pad("", "-", maxusagewidth)}|${Utils.pad("", "-", maxdescriptionwidth)}|\n`;
     
     Object.keys(commands).forEach((e) => {
