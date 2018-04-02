@@ -38,6 +38,7 @@
 |undo          |-    |No            |undo                       |Remove the last message from the bot                                              |
 |resetnicknames|-    |Yes           |resetnicknames             |Reset everyone's nickname on the server                                           |
 |plugininfo    |pii  |No            |plugininfo [plugin_name]   |Get info about a plugin (if no name supplied, lists all plugins)                  |
+|kick          |-    |Yes           |kick [user]                |Kick a user                                                                       |
 |qrcode        |qr   |No            |qr [text]                  |Create a qr code that contains a certain text                                     |
 |hsgtf         |-    |No            |hsgtf [image]              |Make a 'Has science gone too far' meme                                            |
 |wth           |-    |No            |wth [image]                |Make a 'Worse than hitler' meme                                                   |
