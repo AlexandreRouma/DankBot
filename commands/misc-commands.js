@@ -35,18 +35,21 @@ module.exports.help = function (client, message, msg, args) {
             cmd = CommandManager.getAliases()[cmd];
         }
         if (CommandManager.getCommands()[cmd]) {
-            var help = CommandManager.getHelp(cmd);
+            var command = CommandManager.getCommands()[cmd];
             var embed = new Discord.RichEmbed();
             embed.setColor("BLUE");
             embed.setTitle(cmd.toLowerCase());
             embed.setURL("https://github.com/AlexandreRouma/DankBot/wiki/Command-List");
-            embed.addField("Usage:", `\`${help.usage}\``);
-            embed.addField("Description:", help.description);
-            if (CommandManager.getAdminOnly(cmd)) {
-                embed.addField("BotAdmin only:", "Yes");
+            embed.addField("Usage", `\`${command.usage}\``);
+            embed.addField("Description", command.description);
+            if (command.adminonly) {
+                embed.addField("BotAdmin only", "Yes");
             }
             else {
-                embed.addField("BotAdmin only:", "No");
+                embed.addField("BotAdmin only", "No");
+            }
+            if (command.plugin) {
+                embed.addField("From plugin", command.plugin.name);
             }
             message.channel.send(embed);
         }
@@ -272,10 +275,11 @@ module; exports.specialthanks = function (client, message, msg, args) {
     var embed = new Discord.RichEmbed();
     embed.setColor("BLUE");
     embed.setTitle("Special Thanks");
-    embed.setDescription("This bot wouldn't have been possible without these awsome people !\n" +
+    embed.setDescription("This bot wouldn't have been possible without these awsome people !\n" + // 𝒙𝑿_𝑾𝒉𝒂𝒕𝒔𝑻𝒉𝒆𝑮𝒆𝒆𝒌_𝑿𝒙
+        "● [AhoZiorce](https://github.com/ahoZiorce)\n" +
         "● [Dewyer](https://github.com/Dewyer)\n" +
         "● [Hollexian](https://github.com/Hollexian)\n" +
-        "● MyhticalWolf");
+        "● [MyhticalWolf](https://twitter.com/12Texlar12)");
     embed.setURL("https://github.com/AlexandreRouma/DankBot");
     message.channel.send(embed);
 }
@@ -315,7 +319,7 @@ module.exports.ascii = function (client, message, msg, args) {
             var embed = new Discord.RichEmbed();
             embed.setColor("BLUE");
             embed.setTitle("Available Fonts");
-            embed.setDescription(Utils.crop(Figlet.fontsSync().toString().replace(/ /g, "_") , 1900) + "\n[Complete List](http://www.figlet.org/examples.html)");
+            embed.setDescription(Utils.crop(Figlet.fontsSync().toString().replace(/ /g, "_"), 1900) + "\n[Complete List](http://www.figlet.org/examples.html)");
             message.channel.send(embed);
             return;
         }

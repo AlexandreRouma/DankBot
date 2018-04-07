@@ -107,6 +107,52 @@ module.exports.kek = function (client, message, msg, args) {
     });
 }
 
+module.exports.ibyg = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                Jimp.read("resources/images/ibyg.png", function (err, background) {
+                    if (err) throw err;
+                    image.contain(514, 451, Jimp.RESIZE_BICUBIC, function (err, src) {
+                        background.composite(src, 62, 41)
+                            .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                                message.channel.send(new Discord.Attachment(buffer));
+                            });
+                    });
+                });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
+module.exports.gay = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then(function (image) {
+                Jimp.read("resources/images/gay.png", function (err, overlay) {
+                    if (err) throw err;
+                    overlay.resize(image.bitmap.width, image.bitmap.height, Jimp.RESIZE_BICUBIC, function (err, src) {
+                        image.composite(overlay.opacity(0.5), 0, 0)
+                            .getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+                                message.channel.send(new Discord.Attachment(buffer));
+                            });
+                    });
+                });
+            }).catch(function (err) {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+}
+
 module.exports.sepia = function (client, message, msg, args) {
     getLastImage(message, args, 6, (imglink) => {
         if (imglink) {

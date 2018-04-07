@@ -139,7 +139,7 @@ function main() {
     Logger.ok();
 
     Logger.log("Loading plugins:\n");
-    PluginManager.loadPlugins();
+    PluginManager.loadPlugins(client);
     Logger.log(`Loaded ${Object.keys(PluginManager.getPlugins()).length} plugin`);
     if (Object.keys(PluginManager.getPlugins()).length > 1 || Object.keys(PluginManager.getPlugins()).length == 0) {
         console.log("s");
@@ -179,7 +179,7 @@ function main() {
                 if (CommandManager.getAdminOnly(args[0].toUpperCase())) {
                     if (PermUtils.isAdmin(message.member)) {
                         await message.channel.startTyping();
-                        command(client, message, msg, args);
+                        command.handler(client, message, msg, args);
                         await message.channel.stopTyping();
                     }
                     else {
@@ -188,7 +188,7 @@ function main() {
                 }
                 else {
                     await message.channel.startTyping();
-                    command(client, message, msg, args);
+                    command.handler(client, message, msg, args);
                     await message.channel.stopTyping();
                 }
             }

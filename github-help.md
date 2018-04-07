@@ -6,7 +6,7 @@
 |calculate     |calc |No            |calculate [exp]            |Evaluate a math expression                                                        |
 |help          |-    |No            |help [command]             |Get help for of command. If now command enter, gives the github wiki link.        |
 |ping          |-    |No            |ping                       |Get the bot ping                                                                  |
-|lonely        |-    |Yes           |lonely                     |Say @everyone                                                                     |
+|lonely        |-    |No            |lonely                     |Say @everyone                                                                     |
 |dispensed     |-    |No            |dispensed                  |Change @TheDispenser's nickname to a random german insult                         |
 |base64encode  |b64e |No            |base64encode [text]        |Encode text to base64                                                             |
 |base64decode  |b64d |No            |base64decode [text]        |Decode base64 back to text                                                        |
@@ -30,15 +30,15 @@
 |soundeffect   |se   |No            |soundeffect [name]         |Play a sound effect in the vocal channel you're in                                |
 |remove        |rm   |No            |loop                       |Remove a song from the playlist                                                   |
 |dumproles     |-    |No            |dumproles                  |Dump all roles on the server                                                      |
-|setprefix     |-    |Yes           |setprefix [prefix]         |Set the bot prefix                                                                |
-|setgame       |-    |Yes           |setgame [game]             |Set the 'playing' text                                                            |
-|reload        |-    |Yes           |reload                     |reload the config file                                                            |
+|setprefix     |-    |No            |setprefix [prefix]         |Set the bot prefix                                                                |
+|setgame       |-    |No            |setgame [game]             |Set the 'playing' text                                                            |
+|reload        |-    |No            |reload                     |reload the config file                                                            |
 |avatar        |-    |No            |avatar [user]              |Get the avatar from a user                                                        |
 |userinfo      |-    |No            |userinfo [user]            |Get info for a user                                                               |
 |undo          |-    |No            |undo                       |Remove the last message from the bot                                              |
-|resetnicknames|-    |Yes           |resetnicknames             |Reset everyone's nickname on the server                                           |
+|resetnicknames|-    |No            |resetnicknames             |Reset everyone's nickname on the server                                           |
 |plugininfo    |pii  |No            |plugininfo [plugin_name]   |Get info about a plugin (if no name supplied, lists all plugins)                  |
-|kick          |-    |Yes           |kick [user]                |Kick a user                                                                       |
+|kick          |-    |No            |kick [user]                |Kick a user                                                                       |
 |qrcode        |qr   |No            |qr [text]                  |Create a qr code that contains a certain text                                     |
 |hsgtf         |-    |No            |hsgtf [image]              |Make a 'Has science gone too far' meme                                            |
 |wth           |-    |No            |wth [image]                |Make a 'Worse than hitler' meme                                                   |
@@ -60,6 +60,8 @@
 |horizontalflip|vflip|No            |verticalflip [image]       |Flip the image verticaly                                                          |
 |kek           |-    |No            |kek [image]                |Make a 'Kekistant' meme                                                           |
 |jpeg          |jpg  |No            |jpeg [quality] [image]     |Change the image's quality and add jpeg effect                                    |
+|ibyg          |-    |No            |ibyg [image]               |Make a 'Welcome to the iternet, I'll be your guide meme                           |
+|gay           |-    |No            |gay [image]                |Overlay the gay flag on top of an image                                           |
 |urban         |urb  |No            |urban [word]               |Search a word on urban dictionaries (use '-r-' for random word)                   |
 |image         |img  |No            |image [search]             |Search on Google Images                                                           |
 |google        |g    |No            |google [search]            |Search on Google                                                                  |

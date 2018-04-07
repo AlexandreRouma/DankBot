@@ -9,8 +9,6 @@ var SocialCommands = require("./commands/social-commands");
 var commands = {};
 var aliases = {};
 var anti_aliases = {};
-var helps = {};
-var perms = {};
 
 module.exports.getCommands = function () {
     return commands;
@@ -25,7 +23,7 @@ module.exports.getHelp = function (name) {
 }
 
 module.exports.getAdminOnly = function (name) {
-    return perms[name];
+    return commands[name].perms;
 }
 
 module.exports.genHelpTable = function (name) {
@@ -42,11 +40,11 @@ module.exports.genHelpTable = function (name) {
                 maxaliaswidth = anti_aliases[e].length;
             }
         }
-        if (helps[e].usage.length > maxusagewidth) {
-            maxusagewidth = helps[e].usage.length;
+        if (commands[e].usage.length > maxusagewidth) {
+            maxusagewidth = commands[e].usage.length;
         }
-        if (helps[e].description.length > maxdescriptionwidth) {
-            maxdescriptionwidth = helps[e].description.length;
+        if (commands[e].description.length > maxdescriptionwidth) {
+            maxdescriptionwidth = commands[e].description.length;
         }
     });
     var table = `##Command List\n\n|${Utils.pad("Name", " ", maxnamewidth)}|${Utils.pad("Alias", " ", maxaliaswidth)}|${Utils.pad("Bot Admin Only", " ", 14)}|${Utils.pad("Usage", " ", maxusagewidth)}|${Utils.pad("Description", " ", maxdescriptionwidth)}|\n` +
@@ -54,17 +52,17 @@ module.exports.genHelpTable = function (name) {
     
     Object.keys(commands).forEach((e) => {
         var botadminonly = "";
-        if (perms[e]) {
+        if (commands[e].perms) {
             botadminonly = "Yes";
         }
         else {
             botadminonly = "No";
         }
         if (anti_aliases[e]) {
-            table += `|${Utils.pad(e.toLowerCase(), " ", maxnamewidth)}|${Utils.pad(anti_aliases[e].toLowerCase(), " ", maxaliaswidth)}|${Utils.pad(botadminonly, " ", 14)}|${Utils.pad(helps[e].usage, " ", maxusagewidth)}|${Utils.pad(helps[e].description, " ", maxdescriptionwidth)}|\n`;
+            table += `|${Utils.pad(e.toLowerCase(), " ", maxnamewidth)}|${Utils.pad(anti_aliases[e].toLowerCase(), " ", maxaliaswidth)}|${Utils.pad(botadminonly, " ", 14)}|${Utils.pad(commands[e].usage, " ", maxusagewidth)}|${Utils.pad(commands[e].description, " ", maxdescriptionwidth)}|\n`;
         }
         else {
-            table += `|${Utils.pad(e.toLowerCase(), " ", maxnamewidth)}|${Utils.pad("-", " ", maxaliaswidth)}|${Utils.pad(botadminonly, " ", 14)}|${Utils.pad(helps[e].usage, " ", maxusagewidth)}|${Utils.pad(helps[e].description, " ", maxdescriptionwidth)}|\n`;
+            table += `|${Utils.pad(e.toLowerCase(), " ", maxnamewidth)}|${Utils.pad("-", " ", maxaliaswidth)}|${Utils.pad(botadminonly, " ", 14)}|${Utils.pad(commands[e].usage, " ", maxusagewidth)}|${Utils.pad(commands[e].description, " ", maxdescriptionwidth)}|\n`;
         }
     });
     fs.writeFileSync("github-help.md", table);
@@ -72,15 +70,18 @@ module.exports.genHelpTable = function (name) {
 
 module.exports.registerCommand = registerCommand;
 
-function registerCommand(name, alias, usage, description, adminonly, command) {
-    commands[name] = command;
+function registerCommand(name, alias, usage, description, adminonly, handler, plugin = undefined) {
+    commands[name] = {
+        name: name,
+        alias: alias,
+        usage: usage,
+        description: description,
+        adminonly: adminonly,
+        handler: handler,
+        plugin: plugin
+    };
     aliases[alias] = name;
     anti_aliases[name] = alias;
-    helps[name] = {
-        usage: usage,
-        description: description
-    };
-    perms[name] = adminonly;
 }
 
 module.exports.loadCommands = function () {
@@ -150,6 +151,8 @@ module.exports.loadCommands = function () {
     registerCommand("HORIZONTALFLIP", "VFLIP", "verticalflip [image]", "Flip the image verticaly", false, ImageCommands.verticalflip);
     registerCommand("KEK", undefined, "kek [image]", "Make a 'Kekistant' meme", false, ImageCommands.kek);
     registerCommand("JPEG", "JPG", "jpeg [quality] [image]", "Change the image's quality and add jpeg effect", false, ImageCommands.jpeg);
+    registerCommand("IBYG", undefined, "ibyg [image]", "Make a 'Welcome to the iternet, I'll be your guide meme", false, ImageCommands.ibyg);
+    registerCommand("GAY", undefined, "gay [image]", "Overlay the gay flag on top of an image", false, ImageCommands.gay);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);

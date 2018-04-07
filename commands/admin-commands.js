@@ -125,14 +125,21 @@ module.exports.plugininfo = function (client, message, msg, args) {
             var plugin = PluginManager.getPlugins()[plugin_name];
             var embed = new Discord.RichEmbed();
             embed.setColor("BLUE");
-            embed.setTitle(plugin._plugin_info.name);
-            embed.setURL(plugin._plugin_info.url);
-            embed.addField("Author", plugin._plugin_info.author);
-            embed.addField("Version", plugin._plugin_info.version);
-            embed.addField("Description", plugin._plugin_info.description);
-            Object.keys(plugin._plugin_info.additional_info).forEach((e) => {
-                embed.addField(e, plugin._plugin_info.additional_info[e]);
+            embed.setTitle(plugin.name);
+            embed.setURL(plugin.url);
+            embed.addField("Author", plugin.author);
+            embed.addField("Version", plugin.version);
+            embed.addField("Description", plugin.description);
+            Object.keys(plugin.additional_info).forEach((e) => {
+                embed.addField(e, plugin.additional_info[e]);
             })
+            var str = "";
+            Object.keys(plugin.commands).forEach((e) => {
+                str += `${plugin.commands[e].name}\n`;
+            })
+            if (str != "") {
+                embed.addField("Commands", str.toLowerCase());
+            }
             message.channel.send(embed);
         }
         else {
