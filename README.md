@@ -1,6 +1,5 @@
 # DankBot
 ![build_status](https://travis-ci.org/AlexandreRouma/DankBot.svg?branch=master)
-![build_status](https://i.imgur.com/lQAHad1.png)
 
 OpenSource NodeJS customisable discord bot
 
