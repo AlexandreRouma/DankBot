@@ -17,7 +17,7 @@ module.exports._plugin_info = _plugin_info;
 
 module.exports._load = function (_client) {
     client = _client;
-    //                                 Name     Alias     Usage          Description     AdminOnly  Function
+    //                                 Name     Alias     Usage          Description     AdminOnly  Function  Plugin Info
     PluginManager.registerCommand("HELLOWORLD", "HW", "helloworld", "Say 'Hello World' !", false, helloworld, _plugin_info);
 }
 
