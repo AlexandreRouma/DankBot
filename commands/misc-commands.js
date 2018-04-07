@@ -331,5 +331,5 @@ module.exports.ascii = function (client, message, msg, args) {
 }
 
 module.exports.version = function (client, message, msg, args) {
-    message.channel.send(`\`\`\`DankBot v2.0-beta\`\`\``);
+    message.channel.send(`\`\`\`DankBot v2.1\`\`\``);
 }
