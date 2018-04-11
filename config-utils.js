@@ -19,7 +19,7 @@ module.exports.loaddefault = function () {
         GoogleAPIEnabled: true,
         TwitterAPIEnabled: true,
         GiphyAPIEnabed: true,
-        MutedId: "INSERT_HERE"
+        MuteRole: "INSERT_HERE"
     };
 };
 

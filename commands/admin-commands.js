@@ -212,7 +212,7 @@ module.exports.ban = async function (client, message, msg, args) {
 };
 
 module.exports.uptime = function (client, message, msg, args) {
-     message.channel.send(`:white_check_mark: \`${client.uptime / 1000}s\``);
+    message.channel.send(`:white_check_mark: \`${client.uptime / 1000}s\``);
 };
 
 module.exports.mute = async function (client, message, msg, args) {
@@ -220,30 +220,35 @@ module.exports.mute = async function (client, message, msg, args) {
         var config = ConfigUtils.getconfig();
         var member = message.mentions.members.first();
         var role;
-        if (config.MutedRole === "INSERT_HERE") {
+        if (config.MuteRole === "INSERT_HERE") {
             var newRole = await message.guild.createRole({
-                name: "DBMuted",
+                name: "DankBot_Muted",
             });
-            config.MutedRole = newRole.id;
+            config.MuteRole = newRole.id;
             ConfigUtils.saveconfig();
             role = newRole;
         }
         else {
-            role = config.MutedRole;
+            role = config.MuteRole;
         }
         try {
             await member.addRole(role);
             var channels = message.guild.channels.filterArray((c) => c.type === "text");
-            channels.forEach((c) => {
-                c.overWritePermissions(role, {
-                    "SEND_MESSAGES": false,
-                    "ADD_REACTIONS": false
+            try {
+                channels.forEach((c) => {
+                    c.overWritePermissions(role, {
+                        "SEND_MESSAGES": false,
+                        "ADD_REACTIONS": false
+                    });
                 });
-            });
-            message.channel.send(":white_check_mark:`Muted that member !`");
+            }
+            catch (err) {
+                console.error(err);
+            }
+            message.channel.send(`:white_check_mark: \`Muted ${member.user.tag}\``);
         }
         catch (err) {
-            message.channel.send("`I cannot add role m8...`");
+            message.channel.send(":no_entry: `I can't add the muted role m8`");
         }
     }
     else {

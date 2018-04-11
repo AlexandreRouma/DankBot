@@ -354,7 +354,7 @@ module.exports.randomcolor = function (client, message, msg, args) {
     message.channel.send(embed);
 };
 
-module.exports.serverinfo = async function (client, message, msg, args) {
+module.exports.serverinfo = function (client, message, msg, args) {
     var embed = new Discord.RichEmbed();
     embed.setColor("BLUE");
     embed.setAuthor(message.guild.name, message.guild.iconURL);
