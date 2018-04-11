@@ -23,7 +23,6 @@ var Twitter = require("twitter");
 main();
 function main() {
     Art.displaySplash();
-
     if (!fs.existsSync("resources/config/config.json")) {
         Logger.log("Creating configuration file...");
         try {

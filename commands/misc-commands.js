@@ -353,3 +353,10 @@ module.exports.randomcolor = function (client, message, msg, args) {
     embed.addField("Hue", `L: ${hue.luminance}, S:${hue.saturation}, ${hue.hue}`);
     message.channel.send(embed);
 };
+
+module.exports.serverinfo = function (client, message, msg, args) {
+    var embed = new Discord.RichEmbed();
+    embed.setColor("BLUE");
+    embed.setTitle(message.guild.name);
+    message.channel.send(embed);
+};
