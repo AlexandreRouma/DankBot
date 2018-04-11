@@ -108,27 +108,6 @@ module.exports.undo = function (client, message, msg, args) {
         .catch(console.error);
 };
 
-module.exports.softban = async function (client, message, msg, args) {
-    if (!message.mentions.members) {
-        message.channel.send("Please mention someone !");
-        return;
-    }
-    var member = message.mentions.members.first();
-    try {
-        await member.ban("SOFT BAN, YOU WILL BE ABLE TO JOIN IMMEDIATELY, PLEASE RESPECT US OTHERWISE YOU WILL BE LIFETIME BANNED !!!");
-        try {
-            await message.guild.unban(member);
-            message.channel.send("This member has been successfully softbanned !");
-        }
-        catch (e) {
-            message.channel.send("Oops, I'm not able to unban him, sorry. You will have to do it yourself m8...");
-        }
-    }
-    catch (e) {
-        message.channel.send("I can't ban this person !");
-    }
-};
-
 module.exports.resetnicknames = function (client, message, msg, args) {
     var members = message.guild.members.array();
     var i = 0;
@@ -183,7 +162,7 @@ module.exports.plugininfo = function (client, message, msg, args) {
 };
 
 module.exports.kick = function (client, message, msg, args) {
-    if (message.mentions.users.array().length > 0) {
+    if (message.mentions.members.array().length > 0) {
         var member = message.mentions.members.first();
         try {
             member.kick();
@@ -191,6 +170,44 @@ module.exports.kick = function (client, message, msg, args) {
         }
         catch (err) {
             message.channel.send(`:no_entry: \`Sorry, couldn't kick ${member.user.tag}\``);
+        }
+    }
+    else {
+        message.channel.send(":no_entry: `No user mentioned...`");
+    }
+};
+
+module.exports.softban = async function (client, message, msg, args) {
+    if (message.mentions.members.array().length > 0) {
+        var member = message.mentions.members.first();
+        try {
+            await member.ban("Boi, u have been softbanned, this means you can immidiatly rejoin, but your messages have been deleted !");
+            try {
+                await message.guild.unban(member);
+                message.channel.send(`:white_check_mark: \`Softbanned ${member.user.tag}\``);
+            }
+            catch (err) {
+                message.channel.send(`:no_entry: \`Sorry, couldn't softban ${member.user.tag}\``);
+            }
+        }
+        catch (e) {
+            message.channel.send(`:no_entry: \`Sorry, couldn't softban ${member.user.tag}\``);
+        }
+    }
+    else {
+        message.channel.send(":no_entry: `No user mentioned...`");
+    }
+};
+
+module.exports.ban = async function (client, message, msg, args) {
+    if (message.mentions.members.array().length > 0) {
+        var member = message.mentions.members.first();
+        try {
+            await member.ban("Boi, u have been banned !!!");
+            message.channel.send(`:white_check_mark: \`Banned ${member.user.tag}\``);
+        }
+        catch (e) {
+            message.channel.send(`:no_entry: \`Sorry, couldn't ban ${member.user.tag}\``);
         }
     }
     else {

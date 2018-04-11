@@ -98,8 +98,9 @@ module.exports.loadCommands = function () {
     registerCommand("SPECIALTHANKS", undefined, "specialthanks", "Decicated to everyone who contributed to the bot !", false, MiscCommands.specialthanks);
     registerCommand("WHY", undefined, "why", "Get the meaning of life!", false, MiscCommands.why);
     registerCommand("ASCII", undefined, "ascii [font] [text]", "Turn text into ascii art", false, MiscCommands.ascii);
-    registerCommand("VERSION", undefined, "version]", "Get bot version", false, MiscCommands.version);
-    registerCommand("RANDOMCOLOR", "RNDC", "version]", "Generate a random color", false, MiscCommands.randomcolor);
+    registerCommand("VERSION", undefined, "version", "Get bot version", false, MiscCommands.version);
+    registerCommand("RANDOMCOLOR", "RNDC", "randomcolor", "Generate a random color", false, MiscCommands.randomcolor);
+    registerCommand("SERVERINFO", "SINFO", "serverinfo", "get info about the server", false, MiscCommands.randomcolor);
 
     // Audio Commands
     registerCommand("PLAY", undefined, "play [url/search]", "Play a youtube video in the vocal channel you're in", false, AudioCommands.play);
@@ -124,6 +125,7 @@ module.exports.loadCommands = function () {
     registerCommand("PLUGININFO", "PII", "plugininfo [plugin_name]", "Get info about a plugin (if no name supplied, lists all plugins)", false, AdminCommands.plugininfo);
     registerCommand("KICK", undefined, "kick [user]", "Kick a user", true, AdminCommands.kick);
     registerCommand("SOFTBAN", "SBAN", "softban [user]", "Softban a user", true, AdminCommands.softban);
+    registerCommand("BAN", undefined, "ban [user]", "Ban a user", true, AdminCommands.ban);
 
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);

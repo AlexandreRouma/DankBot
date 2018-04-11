@@ -40,6 +40,8 @@
 |resetnicknames|-    |No            |resetnicknames             |Reset everyone's nickname on the server                                           |
 |plugininfo    |pii  |No            |plugininfo [plugin_name]   |Get info about a plugin (if no name supplied, lists all plugins)                  |
 |kick          |-    |No            |kick [user]                |Kick a user                                                                       |
+|softban       |sban |No            |softban [user]             |Softban a user                                                                    |
+|ban           |-    |No            |ban [user]                 |Ban a user                                                                        |
 |qrcode        |qr   |No            |qr [text]                  |Create a qr code that contains a certain text                                     |
 |hsgtf         |-    |No            |hsgtf [image]              |Make a 'Has science gone too far' meme                                            |
 |wth           |-    |No            |wth [image]                |Make a 'Worse than hitler' meme                                                   |

@@ -358,5 +358,7 @@ module.exports.serverinfo = function (client, message, msg, args) {
     var embed = new Discord.RichEmbed();
     embed.setColor("BLUE");
     embed.setTitle(message.guild.name);
+    embed.setAuthor(message.guild.name, message.guild.iconURL);
+    embed.setThumbnail(message.guild.iconURL);
     message.channel.send(embed);
 };
