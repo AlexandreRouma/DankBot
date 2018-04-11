@@ -18,7 +18,8 @@ module.exports.loaddefault = function () {
         GiphyAPIKey: "INSERT_HERE",
         GoogleAPIEnabled: true,
         TwitterAPIEnabled: true,
-        GiphyAPIEnabed: true
+        GiphyAPIEnabed: true,
+        MutedId: "INSERT_HERE"
     };
 };
 

@@ -127,6 +127,7 @@ module.exports.loadCommands = function () {
     registerCommand("SOFTBAN", "SBAN", "softban [user]", "Softban a user", true, AdminCommands.softban);
     registerCommand("BAN", undefined, "ban [user]", "Ban a user", true, AdminCommands.ban);
     registerCommand("UPTIME", undefined, "uptime", "Give the uptime of the bot", false, AdminCommands.uptime);
+    registerCommand("MUTE", undefined, "mute [user]", "Mute a member", true, AdminCommands.mute);
 
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);
