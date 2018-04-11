@@ -1,16 +1,16 @@
-var Discord = require('discord.js');
-var Art = require('./art');
-var Logger = require('./logger');
+var Discord = require("discord.js");
+var Art = require("./art");
+var Logger = require("./logger");
 var ConfigUtils = require("./config-utils");
-var PermUtils = require("./perm-utils")
-var CommandManager = require('./command-manager');
+var PermUtils = require("./perm-utils");
+var CommandManager = require("./command-manager");
 var fs = require("fs");
 var client = new Discord.Client();
-var ytsearch = require('youtube-search');
-var GoogleImages = require('google-images');
-var GoogleSearch = require('google-search');
+var ytsearch = require("youtube-search");
+var GoogleImages = require("google-images");
+var GoogleSearch = require("google-search");
 var Youtube = require("youtube-api");
-var Giphy = require('giphy')
+var Giphy = require("giphy");
 var SearchCommands = require("./commands/search-commands");
 var MiscCommands = require("./commands/misc-commands");
 var AudioCommands = require("./commands/audio-commands");
@@ -18,7 +18,7 @@ var SocialCommands = require("./commands/social-commands");
 var PluginManager = require("./plugin-manager");
 var SelfTest = require("./self-test");
 var path = require("path");
-var Twitter = require('twitter');
+var Twitter = require("twitter");
 
 main();
 function main() {
@@ -33,7 +33,7 @@ function main() {
         }
         catch (err) {
             Logger.failed();
-            Logger.panic("Could not create the configuration file: " + err.message);
+            Logger.panic(`Could not create the configuration file: ${err.message}`);
         }
     }
 
@@ -47,7 +47,7 @@ function main() {
         Logger.panic("Could not load the configuration file");
     }
 
-    if (process.argv[2] == "--test") { // Engage test mode
+    if (process.argv[2] === "--test") { // Engage test mode
         var config = ConfigUtils.getconfig();
         config.GoogleAPIEnabled = false;
         config.TwitterAPIEnabled = false;
@@ -82,8 +82,8 @@ function main() {
         Logger.log("Initializing YouTube API...");
         try {
             Youtube.authenticate({
-                type: "key"
-                , key: ConfigUtils.getconfig().GoogleAPIKey
+                type: "key",
+                key: ConfigUtils.getconfig().GoogleAPIKey
             });
             AudioCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
             SearchCommands.initYoutubeAPIKey(ConfigUtils.getconfig().GoogleAPIKey);
@@ -141,7 +141,7 @@ function main() {
     Logger.log("Loading plugins:\n");
     PluginManager.loadPlugins(client);
     Logger.log(`Loaded ${Object.keys(PluginManager.getPlugins()).length} plugin`);
-    if (Object.keys(PluginManager.getPlugins()).length > 1 || Object.keys(PluginManager.getPlugins()).length == 0) {
+    if (Object.keys(PluginManager.getPlugins()).length > 1 || Object.keys(PluginManager.getPlugins()).length === 0) {
         console.log("s");
     }
     else {
@@ -165,8 +165,8 @@ function main() {
         Logger.log(`Ready, logged in as '${client.user.tag}'!\n`);
     });
 
-    client.on('message', async message => {
-        if (message.content.startsWith(ConfigUtils.getconfig().Prefix) && message.author.id != client.user.id) {
+    client.on("message", async (message) => {
+        if (message.content.startsWith(ConfigUtils.getconfig().Prefix) && message.author.id !== client.user.id) {
             var msg = message.content.substring(ConfigUtils.getconfig().Prefix.length);
             var args = msg.split(" ");
             var alias = CommandManager.getAliases()[args[0].toUpperCase()];
@@ -201,13 +201,13 @@ function main() {
     Logger.log("Starting discord client...");
     client.login(ConfigUtils.getconfig().DiscordToken).catch((err) => {
         Logger.failed();
-        Logger.panic("Could not start discord client!" + err);
+        Logger.panic(`Could not start discord client!\n${err}`);
     });
 }
 
 // <================ EXPERIMENTAL AREA ================>
 
-function debug(client, message, msg, args) {
+function debug(dclient, message, msg, args) {
     if (PermUtils.isAdmin(message.member)) {
         message.channel.send(":white_check_mark:");
     }

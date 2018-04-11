@@ -10,7 +10,7 @@ module.exports.dumproles = function (client, message, msg, args) {
         str += `${e.id} - ${e.name}\n`;
     });
     message.channel.send(`\`\`\`${str}\`\`\``);
-}
+};
 
 module.exports.setgame = function (client, message, msg, args) {
     if (args.length > 1) {
@@ -24,7 +24,7 @@ module.exports.setgame = function (client, message, msg, args) {
     else {
         message.channel.send(":no_entry: `Tell me the game I have to play...`");
     }
-}
+};
 
 module.exports.setprefix = function (client, message, msg, args) {
     if (args.length > 1) {
@@ -37,12 +37,12 @@ module.exports.setprefix = function (client, message, msg, args) {
     else {
         message.channel.send(":no_entry: `Tell me the prefix dumbass...`");
     }
-}
+};
 
 module.exports.reload = function (client, message, msg, args) {
     ConfigUtils.loadconfig();
     message.channel.send(`:white_check_mark: \`Reloaded the configuration file.\``);
-}
+};
 
 module.exports.avatar = function (client, message, msg, args) {
     if (message.mentions.users.array().length > 0) {
@@ -51,7 +51,7 @@ module.exports.avatar = function (client, message, msg, args) {
     else {
         message.channel.send(":no_entry: `Tell which user to get the avatar from...`");
     }
-}
+};
 
 module.exports.userinfo = function (client, message, msg, args) {
     if (message.mentions.users.array().length > 0) {
@@ -68,13 +68,13 @@ module.exports.userinfo = function (client, message, msg, args) {
         if (!nick) {
             nick = "__*none*__";
         }
-        embed.addField("Nickname", nick)
+        embed.addField("Nickname", nick);
         var game = user.presence.game;
         if (!game) {
             game = "__*none*__";
         }
-        embed.addField("Playing", game.name);;
-        var roles = ""
+        embed.addField("Playing", game.name);
+        var roles = "";
         member.roles.array().forEach((e) => {
             roles += `\`${e.name}\`, `;
         });
@@ -92,21 +92,21 @@ module.exports.userinfo = function (client, message, msg, args) {
     else {
         message.channel.send(":no_entry: `No user mentioned...`");
     }
-}
+};
 
 module.exports.undo = function (client, message, msg, args) {
     message.channel.fetchMessages({ limit: 50 })
         .then((_messages) => {
             var messages = _messages.array();
             for (var i = 0; i < messages.length; i++) {
-                if (messages[i].author.id == client.user.id) {
+                if (messages[i].author.id === client.user.id) {
                     messages[i].delete();
                     return;
                 }
             }
         })
-        .catch(console.error)
-}
+        .catch(console.error);
+};
 
 module.exports.resetnicknames = function (client, message, msg, args) {
     var members = message.guild.members.array();
@@ -116,7 +116,7 @@ module.exports.resetnicknames = function (client, message, msg, args) {
         i++;
     });
     message.channel.send(`:white_check_mark: \`Changed back ${i} nicknames\``);
-}
+};
 
 module.exports.plugininfo = function (client, message, msg, args) {
     if (args.length > 1) {
@@ -132,18 +132,18 @@ module.exports.plugininfo = function (client, message, msg, args) {
             embed.addField("Description", plugin.description);
             Object.keys(plugin.additional_info).forEach((e) => {
                 embed.addField(e, plugin.additional_info[e]);
-            })
+            });
             var str = "";
             Object.keys(plugin.commands).forEach((e) => {
                 str += `${plugin.commands[e].name}\n`;
-            })
-            if (str != "") {
+            });
+            if (str !== "") {
                 embed.addField("Commands", str.toLowerCase());
             }
             message.channel.send(embed);
         }
         else {
-            message.channel.send(":no_entry: `Unknown plugin!`")
+            message.channel.send(":no_entry: `Unknown plugin!`");
         }
     }
     else {
@@ -153,13 +153,13 @@ module.exports.plugininfo = function (client, message, msg, args) {
         embed.setURL("https://github.com/AlexandreRouma/DankBot/wiki/Plugin-How-To");
         var str = "";
         Object.keys(PluginManager.getPlugins()).forEach((e) => {
-            str += e + "\n";
-        })
+            str += `${e}\n`;
+        });
         embed.setFooter(`Plugin count: ${Object.keys(PluginManager.getPlugins()).length}`);
         embed.setDescription(str);
         message.channel.send(embed);
     }
-}
+};
 
 module.exports.kick = function (client, message, msg, args) {
     if (message.mentions.users.array().length > 0) {
@@ -175,4 +175,4 @@ module.exports.kick = function (client, message, msg, args) {
     else {
         message.channel.send(":no_entry: `No user mentioned...`");
     }
-}
+};

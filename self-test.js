@@ -10,7 +10,7 @@ var tests = [
     },
 
     (lastAnwser) => {
-        if (lastAnwser == "```success```") Logger.ok();
+        if (lastAnwser === "```success```") Logger.ok();
         else {
             Logger.failed();
             Logger.panic("Self test failed!" + lastAnwser);
@@ -20,7 +20,7 @@ var tests = [
     },
 
     (lastAnwser) => {
-        if (lastAnwser == "```1 + 1 = 2```") Logger.ok();
+        if (lastAnwser === "```1 + 1 = 2```") Logger.ok();
         else {
             Logger.failed();
             Logger.panic("Self test failed!");
@@ -30,7 +30,7 @@ var tests = [
     },
 
     (lastAnwser) => {
-        if (lastAnwser == "```1 + 1 = 2```") Logger.ok();
+        if (lastAnwser === "```1 + 1 = 2```") Logger.ok();
         else {
             Logger.failed();
             Logger.panic("Self test failed!");
@@ -40,7 +40,7 @@ var tests = [
     },
 
     (lastAnwser) => {
-        if (lastAnwser == "https://github.com/AlexandreRouma/DankBot/wiki/Command-List") Logger.ok();
+        if (lastAnwser === "https://github.com/AlexandreRouma/DankBot/wiki/Command-List") Logger.ok();
         else {
             Logger.failed();
             Logger.panic("Self test failed!");
@@ -50,7 +50,9 @@ var tests = [
     },
 
     (lastAnwser) => {
-        if (lastAnwser.startsWith(":white_check_mark:")) Logger.ok();
+        if (lastAnwser.startsWith(":white_check_mark:")) {
+            Logger.ok()
+        }
         else {
             Logger.failed();
             Logger.panic("Self test failed!");
@@ -60,7 +62,7 @@ var tests = [
     },
 
     (lastAnwser) => {
-        if (lastAnwser == "@everyone") Logger.ok();
+        if (lastAnwser === "@everyone") Logger.ok();
         else {
             Logger.failed();
             Logger.panic("Self test failed!");
@@ -70,7 +72,7 @@ var tests = [
     },
 
     (lastAnwser) => {
-        if (lastAnwser == "```c3VjY2Vzcw==```") Logger.ok();
+        if (lastAnwser === "```c3VjY2Vzcw==```") Logger.ok();
         else {
             Logger.failed();
             Logger.panic("Self test failed!" + lastAnwser);

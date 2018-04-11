@@ -20,6 +20,7 @@
 |why           |-    |No            |why                        |Get the meaning of life!                                                          |
 |ascii         |-    |No            |ascii [font] [text]        |Turn text into ascii art                                                          |
 |version       |-    |No            |version]                   |Get bot version                                                                   |
+|randomcolor   |rndc |No            |version]                   |Generate a random color                                                           |
 |play          |-    |No            |play [url/search]          |Play a youtube video in the vocal channel you're in                               |
 |pause         |-    |No            |pause                      |Pause the currently playing song                                                  |
 |resume        |-    |No            |resume                     |Resume the currently playing song                                                 |

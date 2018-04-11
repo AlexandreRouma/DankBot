@@ -1,0 +1,8 @@
+{
+    "version": "DankBot 2.2-beta",
+    "changelog": [
+        "+ New commands",
+        "+ Linting",
+        "+ Bugfix"
+    ]
+}

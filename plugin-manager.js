@@ -2,15 +2,15 @@ var fs = require("fs");
 var path = require("path");
 var Logger = require("./logger");
 var CommandManager = require("./command-manager");
-var plugins = {}
+var plugins = {};
 
 module.exports.loadPlugins = function (client) {
-    fs.readdirSync("plugins/").forEach(file => {
+    fs.readdirSync("plugins/").forEach((file) => {
         var name = path.basename(file);
         if (name.endsWith(".js")) {
             Logger.log(`Loading ${name}...`);
             try {
-                var plugin = require("./plugins/" + file);
+                var plugin = require(`./plugins/${file}`);
                 var plugin_info = plugin._plugin_info;
                 if (plugin_info) {
                     if (plugin_info.name) {
@@ -39,12 +39,12 @@ module.exports.loadPlugins = function (client) {
                 Logger.panic(`Couldn't load ${name}\n${err}`);
             }
         }
-    })
-}
+    });
+};
 
 module.exports.getPlugins = function () {
     return plugins;
-}
+};
 
 module.exports.registerCommand = function (name, alias, usage, description, adminonly, handler, plugin) {
     if (!plugins[plugin.name].commands) plugins[plugin.name].commands = {};
@@ -58,4 +58,4 @@ module.exports.registerCommand = function (name, alias, usage, description, admi
         plugin: plugin
     };
     CommandManager.registerCommand(name, alias, usage, description, adminonly, handler, plugin);
-}
+};

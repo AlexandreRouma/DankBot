@@ -8,6 +8,7 @@ var http = require('http');
 var Figlet = require("figlet")
 var Rextester = require("../rextester-helper");
 var fs = require("fs");
+var ConfigUtils = require("../config-utils");
 
 module.exports.say = function (client, message, msg, args) {
     if (args.length > 1) {
@@ -319,7 +320,7 @@ module.exports.ascii = function (client, message, msg, args) {
             var embed = new Discord.RichEmbed();
             embed.setColor("BLUE");
             embed.setTitle("Available Fonts");
-            embed.setDescription(Utils.crop(Figlet.fontsSync().toString().replace(/ /g, "_"), 1900) + "\n[Complete List](http://www.figlet.org/examples.html)");
+            embed.setDescription(Utils.crop(Figlet.fontsSync().toString().replace(/ /g, "_"), 1800) + "\n[Complete List](https://github.com/AlexandreRouma/DankBot/wiki/Other-Lists#figlet-font-list)");
             message.channel.send(embed);
             return;
         }
@@ -331,5 +332,23 @@ module.exports.ascii = function (client, message, msg, args) {
 }
 
 module.exports.version = function (client, message, msg, args) {
-    message.channel.send(`\`\`\`DankBot v2.1\`\`\``);
-}
+    var embed = new Discord.RichEmbed();
+    embed.setColor("BLUE");
+    embed.setTitle("DankBot Version Info");
+    embed.addField("Version", ConfigUtils.getversion().version);
+    embed.addField("Changelog", `\`\`\`${ConfigUtils.getversion().changelog.toString().replace(/,/g, "\n")}\`\`\``);
+    message.channel.send(embed);
+};
+
+module.exports.randomcolor = function (client, message, msg, args) {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    var hue = Utils.getHue(r, g, b);
+    var embed = new Discord.RichEmbed();
+    embed.setColor([r,g,b]);
+    embed.addField("Hex", `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`);
+    embed.addField("RGB", `${r}, ${g}, ${b}`);
+    embed.addField("Hue", `L: ${hue.luminance}, S:${hue.saturation}, ${hue.hue}`);
+    message.channel.send(embed);
+};

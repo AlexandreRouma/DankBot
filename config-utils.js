@@ -1,11 +1,12 @@
 var fs = require("fs");
 
-var config = undefined;
+var config = null;
+var version = null;
 
 module.exports.loaddefault = function () {
     config = {
         DiscordToken: "INSERT_HERE",
-        BotAdminRoles: ["role1","role2"],
+        BotAdminRoles: ["role1", "role2"],
         Playing: "DankBot",
         Prefix: ";",
         GoogleSearchEngineID: "INSERT_HERE",
@@ -18,22 +19,27 @@ module.exports.loaddefault = function () {
         GoogleAPIEnabled: true,
         TwitterAPIEnabled: true,
         GiphyAPIEnabed: true
-    }
-}
+    };
+};
 
 module.exports.loadconfig = function () {
     config = JSON.parse(fs.readFileSync("resources/config/config.json"));
-}
+    version = JSON.parse(fs.readFileSync("version.json"));
+};
 
 module.exports.saveconfig = function () {
     if (!fs.existsSync("resources/config")) fs.mkdirSync("resources/config");
     fs.writeFileSync("resources/config/config.json", JSON.stringify(config, null, 4));
-}
+};
 
 module.exports.getconfig = function () {
     return config;
-}
+};
 
 module.exports.setconfig = function (conf) {
     config = conf;
-}
+};
+
+module.exports.getversion = function () {
+    return version;
+};

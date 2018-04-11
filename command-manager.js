@@ -1,8 +1,8 @@
 var Utils = require("./utils");
 var fs = require("fs");
-var MiscCommands = require('./commands/misc-commands');
-var AudioCommands = require('./commands/audio-commands');
-var AdminCommands = require('./commands/admin-commands');
+var MiscCommands = require("./commands/misc-commands");
+var AudioCommands = require("./commands/audio-commands");
+var AdminCommands = require("./commands/admin-commands");
 var ImageCommands = require("./commands/image-commands");
 var SearchCommands = require("./commands/search-commands");
 var SocialCommands = require("./commands/social-commands");
@@ -12,21 +12,17 @@ var anti_aliases = {};
 
 module.exports.getCommands = function () {
     return commands;
-}
+};
 
 module.exports.getAliases = function () {
     return aliases;
-}
-
-module.exports.getHelp = function (name) {
-    return helps[name];
-}
+};
 
 module.exports.getAdminOnly = function (name) {
     return commands[name].perms;
-}
+};
 
-module.exports.genHelpTable = function (name) {
+module.exports.genHelpTable = function () {
     var maxnamewidth = 4;
     var maxaliaswidth = 5;
     var maxusagewidth = 5;
@@ -49,7 +45,6 @@ module.exports.genHelpTable = function (name) {
     });
     var table = `##Command List\n\n|${Utils.pad("Name", " ", maxnamewidth)}|${Utils.pad("Alias", " ", maxaliaswidth)}|${Utils.pad("Bot Admin Only", " ", 14)}|${Utils.pad("Usage", " ", maxusagewidth)}|${Utils.pad("Description", " ", maxdescriptionwidth)}|\n` +
         `|${Utils.pad("", "-", maxnamewidth)}|${Utils.pad("", "-", maxaliaswidth)}|${Utils.pad("", "-", 14)}|${Utils.pad("", "-", maxusagewidth)}|${Utils.pad("", "-", maxdescriptionwidth)}|\n`;
-    
     Object.keys(commands).forEach((e) => {
         var botadminonly = "";
         if (commands[e].perms) {
@@ -66,7 +61,7 @@ module.exports.genHelpTable = function (name) {
         }
     });
     fs.writeFileSync("github-help.md", table);
-}
+};
 
 module.exports.registerCommand = registerCommand;
 
@@ -104,6 +99,7 @@ module.exports.loadCommands = function () {
     registerCommand("WHY", undefined, "why", "Get the meaning of life!", false, MiscCommands.why);
     registerCommand("ASCII", undefined, "ascii [font] [text]", "Turn text into ascii art", false, MiscCommands.ascii);
     registerCommand("VERSION", undefined, "version]", "Get bot version", false, MiscCommands.version);
+    registerCommand("RANDOMCOLOR", "RNDC", "version]", "Generate a random color", false, MiscCommands.randomcolor);
 
     // Audio Commands
     registerCommand("PLAY", undefined, "play [url/search]", "Play a youtube video in the vocal channel you're in", false, AudioCommands.play);
@@ -165,4 +161,4 @@ module.exports.loadCommands = function () {
     registerCommand("COMMENT", "CMT", "comment [video/search]", "Get a random comment from a youtube video", false, SocialCommands.comment);
     registerCommand("LASTTWEET", "LTWT", "lasttweet [user]", "Get last tweet from user's timeline", false, SocialCommands.lasttweet);
     registerCommand("RANDOMTWEET", "RTWT", "randomtweet [user]", "Get a random tweet from user's timeline", false, SocialCommands.randomtweet);
-}
+};

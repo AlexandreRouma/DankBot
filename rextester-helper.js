@@ -1,4 +1,4 @@
-var querystring = require('querystring');
+var querystring = require("querystring");
 
 var languages = {
     "ada": "39",
@@ -46,7 +46,7 @@ var languages = {
     "swift": "37",
     "tcl": "32",
     "visualbasic": "2"
-}
+};
 
 var compilerargs = {
     "7": "-Wall -std=c++14 -O2 -o a.out source_file.cpp",
@@ -59,11 +59,11 @@ var compilerargs = {
     "20": "-o a.out source_file.go",
     "11": "-o a.out source_file.hs",
     "10": "-MMD -MP -DGNUSTEP -DGNUSTEP_BASE_LIBRARY=1 -DGNU_GUI_LIBRARY=1 -DGNU_RUNTIME=1 -DGNUSTEP_BASE_LIBRARY=1 -fno-strict-aliasing -fexceptions -fobjc-exceptions -D_NATIVE_OBJC_EXCEPTIONS -pthread -fPIC -Wall -DGSWARN -DGSDIAGNOSE -Wno-import -g -O2 -fgnu-runtime -fconstant-string-class=NSConstantString -I. -I /usr/include/GNUstep -I/usr/include/GNUstep -o a.out source_file.m -lobjc -lgnustep-base"
-}
+};
 
 module.exports.getlanguages = function () {
     return languages;
-}
+};
 
 module.exports.runcode = function (language, code) {
     var langid = languages[language];
@@ -76,20 +76,19 @@ module.exports.runcode = function (language, code) {
     });
 
     var post_options = {
-        host: 'rextester.com',
-        port: '80',
-        path: '/rundotnet/api',
-        method: 'POST',
+        host: "rextester.com",
+        port: "80",
+        path: "/rundotnet/api",
+        method: "POST",
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(post_data)
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Length": Buffer.byteLength(post_data)
         }
     };
 
     var r = {
         data: post_data,
         options: post_options
-    }
-
+    };
     return r;
-}
+};
