@@ -6,7 +6,7 @@ var ConfigUtils = require("../config-utils");
 var opts;
 var fs = require("fs");
 
-var playlist = {};
+var playlist = [];
 var dispatcher;
 var channel = null;
 var conn;
@@ -15,8 +15,8 @@ var stopped = false;
 var paused = false;
 var playingsoundeffect = false;
 
-var stopvotes = {};
-var skipvotes = {};
+var stopvotes = [];
+var skipvotes = [];
 
 module.exports.initYoutubeAPIKey = function (key) {
     opts = {
@@ -36,7 +36,7 @@ module.exports.play = function (client, message, msg, args) {
         return;
     }
     if (message.member.voiceChannel) {
-        if (channel !== undefined) {
+        if (channel !== null) {
             if (channel.name !== message.member.voiceChannel.name) {
                 message.channel.send(":no_entry: `Sorry, you are't in the same audio channel as the bot !`");
                 return;
@@ -136,16 +136,16 @@ module.exports.stop = function (client, message, msg, args) {
                 return;
             }
             if (PermUtils.isAdmin(message.member)) {
-                playlist = {};
+                playlist = [];
                 dispatcher.end();
                 return;
             }
-            if (!stopvotes.contains(message.author.id.toString()) && stopvotes.length < Math.round(channel.members.array().length / 2) - stopvotes.length) {
+            if (!stopvotes.includes(message.author.id.toString()) && stopvotes.length < Math.round(channel.members.array().length / 2) - stopvotes.length) {
                 stopvotes.push(message.author.id.toString());
                 message.channel.send(`:white_check_mark: \`${Math.round(channel.members.array().length / 2) - stopvotes.length} more votes needed.\``);
             }
-            else if (!stopvotes.contains(message.author.id.toString())) { // || PermUtils.isAdmin(message.author)
-                playlist = {};
+            else if (!stopvotes.includes(message.author.id.toString())) { // || PermUtils.isAdmin(message.author)
+                playlist = [];
                 dispatcher.end();
             }
             else {
@@ -172,11 +172,11 @@ module.exports.skip = function (client, message, msg, args) {
                 dispatcher.end();
                 return;
             }
-            if (!skipvotes.contains(message.author.id.toString()) && skipvotes.length < Math.round(channel.members.array().length / 2) - skipvotes.length) {
+            if (!skipvotes.includes(message.author.id.toString()) && skipvotes.length < Math.round(channel.members.array().length / 2) - skipvotes.length) {
                 skipvotes.push(message.author.id.toString());
                 message.channel.send(`:white_check_mark: \`${Math.round(channel.members.array().length / 2) - skipvotes.length} more votes needed.\``);
             }
-            else if (!skipvotes.contains(message.author.id.toString())) { // || PermUtils.isAdmin(message.author)
+            else if (!skipvotes.includes(message.author.id.toString())) { // || PermUtils.isAdmin(message.author)
                 dispatcher.end();
             }
             else {
@@ -232,7 +232,7 @@ module.exports.soundeffect = function (client, message, msg, args) {
         return;
     }
     if (message.member.voiceChannel) {
-        if (channel !== undefined) {
+        if (channel !== null) {
             message.channel.send(":no_entry: `Sorry, I'm already playing music...` :musical_note:");
             return;
         }
@@ -249,7 +249,7 @@ module.exports.soundeffect = function (client, message, msg, args) {
                     dispatcher = conn.playFile(`resources/sounds/se_${args[1].toLowerCase()}.wav`);
                     dispatcher.on("end", () => {
                         channel.leave();
-                        channel = undefined;
+                        channel = null;
                         playingsoundeffect = false;
                     });
                 })
@@ -290,8 +290,8 @@ module.exports.remove = function (client, message, msg, args) {
 };
 
 function next() {
-    stopvotes = {};
-    skipvotes = {};
+    stopvotes = [];
+    skipvotes = [];
     if (playlist.length > 0) {
         if (playlist[0].url) {
             dispatcher = conn.playStream(ytdl(playlist[0].url, { quality: "highestaudio" }));
@@ -313,17 +313,13 @@ function next() {
         dispatcher = conn.playFile(`resources/sounds/playlist_done.wav`);
         dispatcher.on("end", () => {
             channel.leave();
-            channel = undefined;
+            channel = null;
             playingsoundeffect = false;
         });
     }
     else {
         channel.leave();
-        channel = undefined;
+        channel = null;
         stopped = false;
     }
 }
-
-Array.prototype.contains = function (element) {
-    return this.indexOf(element) > -1;
-};

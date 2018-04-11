@@ -1,3 +1,4 @@
+/* eslint-disable */
 var Discord = require("discord.js");
 var Logger = require("./logger");
 
@@ -181,3 +182,4 @@ function sendFakeMessage(msg) {
     message.member = fakeGuildMember;
     actions["message"](message);
 }
+/* eslint-enable */
