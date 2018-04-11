@@ -100,7 +100,7 @@ module.exports.loadCommands = function () {
     registerCommand("ASCII", undefined, "ascii [font] [text]", "Turn text into ascii art", false, MiscCommands.ascii);
     registerCommand("VERSION", undefined, "version", "Get bot version", false, MiscCommands.version);
     registerCommand("RANDOMCOLOR", "RNDC", "randomcolor", "Generate a random color", false, MiscCommands.randomcolor);
-    registerCommand("SERVERINFO", "SINFO", "serverinfo", "get info about the server", false, MiscCommands.randomcolor);
+    registerCommand("SERVERINFO", "SINFO", "serverinfo", "get info about the server", false, MiscCommands.serverinfo);
 
     // Audio Commands
     registerCommand("PLAY", undefined, "play [url/search]", "Play a youtube video in the vocal channel you're in", false, AudioCommands.play);

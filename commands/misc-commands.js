@@ -354,11 +354,14 @@ module.exports.randomcolor = function (client, message, msg, args) {
     message.channel.send(embed);
 };
 
-module.exports.serverinfo = function (client, message, msg, args) {
+module.exports.serverinfo = async function (client, message, msg, args) {
     var embed = new Discord.RichEmbed();
     embed.setColor("BLUE");
-    embed.setTitle(message.guild.name);
     embed.setAuthor(message.guild.name, message.guild.iconURL);
     embed.setThumbnail(message.guild.iconURL);
+    embed.addField("Owner", message.guild.owner.tag);
+    embed.addField("ID", message.guild.id);
+    embed.addField("Online members", message.guild.members.array().length);
+    embed.addField("Total members", (await message.guild.fetchMembers()).members.array().length);
     message.channel.send(embed);
 };
