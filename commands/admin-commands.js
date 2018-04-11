@@ -108,6 +108,27 @@ module.exports.undo = function (client, message, msg, args) {
         .catch(console.error);
 };
 
+module.exports.softban = async function (client, message, msg, args) {
+    if (!message.mentions.members) {
+        message.channel.send("Please mention someone !");
+        return;
+    }
+    var member = message.mentions.members.first();
+    try {
+        await member.ban("SOFT BAN, YOU WILL BE ABLE TO JOIN IMMEDIATELY, PLEASE RESPECT US OTHERWISE YOU WILL BE LIFETIME BANNED !!!");
+        try {
+            await message.guild.unban(member);
+            message.channel.send("This member has been successfully softbanned !");
+        }
+        catch (e) {
+            message.channel.send("Oops, I'm not able to unban him, sorry. You will have to do it yourself m8...");
+        }
+    }
+    catch (e) {
+        message.channel.send("I can't ban this person !");
+    }
+};
+
 module.exports.resetnicknames = function (client, message, msg, args) {
     var members = message.guild.members.array();
     var i = 0;

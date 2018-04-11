@@ -123,6 +123,7 @@ module.exports.loadCommands = function () {
     registerCommand("RESETNICKNAMES", undefined, "resetnicknames", "Reset everyone's nickname on the server", true, AdminCommands.resetnicknames);
     registerCommand("PLUGININFO", "PII", "plugininfo [plugin_name]", "Get info about a plugin (if no name supplied, lists all plugins)", false, AdminCommands.plugininfo);
     registerCommand("KICK", undefined, "kick [user]", "Kick a user", true, AdminCommands.kick);
+    registerCommand("SOFTBAN", "SBAN", "softban [user]", "Softban a user", true, AdminCommands.softban);
 
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);
