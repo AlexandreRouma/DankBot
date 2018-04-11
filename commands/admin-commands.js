@@ -218,3 +218,39 @@ module.exports.ban = async function (client, message, msg, args) {
 module.exports.uptime = function (client, message, msg, args) {
     message.channel.send(client.uptime).catch();
 };
+
+module.exports.mute = async function (client, message, msg, args) {
+    if (message.mentions.members) {
+        var config = ConfigUtils.getconfig();
+        var member = message.mentions.members.first();
+        var role;
+        if (config.MutedRole === "INSERT_HERE") {
+            var newRole = await message.guild.createRole({
+                name: "DBMuted",
+            });
+            config.MutedRole = newRole.id;
+            ConfigUtils.saveconfig();
+            role = newRole;
+        }
+        else {
+            role = config.MutedRole;
+        }
+        try {
+            await member.addRole(role);
+            var channels = message.guild.channels.filterArray((c) => c.type === "text");
+            channels.forEach((c) => {
+                c.overWritePermissions(role, {
+                    "SEND_MESSAGES": false,
+                    "ADD_REACTIONS": false
+                });
+            });
+            message.channel.send(":white_check_mark:`Muted that member !`");
+        }
+        catch (err) {
+            message.channel.send("`I cannot add role m8...`");
+        }
+    }
+    else {
+        message.channel.send("`Please mention someone m8 !`");
+    }
+};
