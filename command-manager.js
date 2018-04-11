@@ -100,7 +100,6 @@ module.exports.loadCommands = function () {
     registerCommand("ASCII", undefined, "ascii [font] [text]", "Turn text into ascii art", false, MiscCommands.ascii);
     registerCommand("VERSION", undefined, "version", "Get bot version", false, MiscCommands.version);
     registerCommand("RANDOMCOLOR", "RNDC", "randomcolor", "Generate a random color", false, MiscCommands.randomcolor);
-    registerCommand("SERVERINFO", "SINFO", "serverinfo", "get info about the server", false, MiscCommands.serverinfo);
 
     // Audio Commands
     registerCommand("PLAY", undefined, "play [url/search]", "Play a youtube video in the vocal channel you're in", false, AudioCommands.play);
@@ -127,7 +126,8 @@ module.exports.loadCommands = function () {
     registerCommand("SOFTBAN", "SBAN", "softban [user]", "Softban a user", true, AdminCommands.softban);
     registerCommand("BAN", undefined, "ban [user]", "Ban a user", true, AdminCommands.ban);
     registerCommand("UPTIME", undefined, "uptime", "Give the uptime of the bot", false, AdminCommands.uptime);
-    registerCommand("MUTE", undefined, "mute [user]", "Mute a member", true, AdminCommands.mute);
+    registerCommand("MUTE", undefined, "mute [user]", "Mute a user - WARNING: BETA !!! REMOVE MUTE ROLE TO UNMUTE", true, AdminCommands.mute);
+    registerCommand("SERVERINFO", "SINFO", "serverinfo", "Get info about the server", false, AdminCommands.serverinfo);
 
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);

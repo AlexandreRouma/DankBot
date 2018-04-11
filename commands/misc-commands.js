@@ -353,33 +353,3 @@ module.exports.randomcolor = function (client, message, msg, args) {
     embed.addField("Hue", `L: ${hue.luminance}, S:${hue.saturation}, ${hue.hue}`);
     message.channel.send(embed);
 };
-
-module.exports.serverinfo = function (client, message, msg, args) {
-    var embed = new Discord.RichEmbed();
-    embed.setColor("BLUE");
-    embed.setAuthor(message.guild.name, message.guild.iconURL);
-    embed.setThumbnail(message.guild.iconURL);
-    embed.addField("Owner", message.guild.owner.user.tag, true);
-    embed.addField("ID", message.guild.id, true);
-    embed.addField("Online members", message.guild.members.array().length, true);
-    embed.addField("Total members", message.guild.memberCount, true);
-    embed.addField("Role count", message.guild.roles.array().length, true);
-    var textChannels = 0;
-    var vocalChannels = 0;
-    var categories = 0;
-    message.guild.channels.array().forEach((e) => {
-        if (e.type === "text") {
-            textChannels++;
-        }
-        else if (e.type === "voice") {
-            vocalChannels++;
-        }
-        else {
-            categories++;
-        }
-    });
-    embed.addField("Categories", categories, true);
-    embed.addField("Voice channels", vocalChannels, true);
-    embed.addField("Text channels", textChannels, true);
-    message.channel.send(embed);
-};

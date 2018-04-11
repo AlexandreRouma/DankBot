@@ -21,7 +21,6 @@
 |ascii         |-    |No            |ascii [font] [text]        |Turn text into ascii art                                                          |
 |version       |-    |No            |version                    |Get bot version                                                                   |
 |randomcolor   |rndc |No            |randomcolor                |Generate a random color                                                           |
-|serverinfo    |sinfo|No            |serverinfo                 |get info about the server                                                         |
 |play          |-    |No            |play [url/search]          |Play a youtube video in the vocal channel you're in                               |
 |pause         |-    |No            |pause                      |Pause the currently playing song                                                  |
 |resume        |-    |No            |resume                     |Resume the currently playing song                                                 |
@@ -44,7 +43,8 @@
 |softban       |sban |No            |softban [user]             |Softban a user                                                                    |
 |ban           |-    |No            |ban [user]                 |Ban a user                                                                        |
 |uptime        |-    |No            |uptime                     |Give the uptime of the bot                                                        |
-|mute          |-    |No            |mute [user]                |Mute a member                                                                     |
+|mute          |-    |No            |mute [user]                |Mute a user - WARNING: BETA !!! REMOVE MUTE ROLE TO UNMUTE                        |
+|serverinfo    |sinfo|No            |serverinfo                 |Get info about the server                                                         |
 |qrcode        |qr   |No            |qr [text]                  |Create a qr code that contains a certain text                                     |
 |hsgtf         |-    |No            |hsgtf [image]              |Make a 'Has science gone too far' meme                                            |
 |wth           |-    |No            |wth [image]                |Make a 'Worse than hitler' meme                                                   |

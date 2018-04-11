@@ -60,3 +60,35 @@ module.exports.getHue = function (r, g, b) {
         };
     }
 };
+
+module.exports.get4bitColor = function (color) {
+    var parsed = hexToRgb(color);
+    var a = parsed.b > 127;
+    a |= (parsed.g > 127) << 1;
+    a |= (parsed.b > 127) << 2;
+    if (parsed.r > 127 && parsed.g > 0 && parsed.b > 0) {
+        a |= 0x08;
+        a += 30;
+    }
+    else if (parsed.r > 0 && parsed.g > 127 && parsed.b > 0) {
+        a |= 0x08;
+        a += 30;
+    }
+    else if (parsed.r > 0 && parsed.g > 0 && parsed.b > 127) {
+        a |= 0x08;
+        a += 30;
+    }
+    if (a === 0) {
+        return 0;
+    }
+    return 30 + a;
+};
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}

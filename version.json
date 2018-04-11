@@ -1,7 +1,9 @@
 {
-    "version": "DankBot 2.2-beta",
+    "version": "DankBot 2.2",
     "changelog": [
-        "+ New commands",
+        "+ Command logging with colors",
+        "+ New misc commands",
+        "+ Real admin commands",
         "+ Linting",
         "+ Bugfix"
     ]
