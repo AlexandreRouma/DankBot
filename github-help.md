@@ -43,6 +43,7 @@
 |kick          |-    |No            |kick [user]                |Kick a user                                                                       |
 |softban       |sban |No            |softban [user]             |Softban a user                                                                    |
 |ban           |-    |No            |ban [user]                 |Ban a user                                                                        |
+|uptime        |-    |No            |uptime                     |Give the uptime of the bot                                                        |
 |qrcode        |qr   |No            |qr [text]                  |Create a qr code that contains a certain text                                     |
 |hsgtf         |-    |No            |hsgtf [image]              |Make a 'Has science gone too far' meme                                            |
 |wth           |-    |No            |wth [image]                |Make a 'Worse than hitler' meme                                                   |

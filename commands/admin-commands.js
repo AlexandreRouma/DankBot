@@ -15,9 +15,7 @@ module.exports.dumproles = function (client, message, msg, args) {
 module.exports.setgame = function (client, message, msg, args) {
     if (args.length > 1) {
         client.user.setActivity(msg.substring(8));
-        var config = ConfigUtils.getconfig();
-        config.Playing = msg.substring(8);
-        ConfigUtils.setconfig(config);
+        ConfigUtils.getconfig().Playing = msg.substring(8);
         ConfigUtils.saveconfig();
         message.channel.send(`:white_check_mark: \`Game set to '${msg.substring(8)}'\``);
     }
@@ -28,9 +26,7 @@ module.exports.setgame = function (client, message, msg, args) {
 
 module.exports.setprefix = function (client, message, msg, args) {
     if (args.length > 1) {
-        var config = ConfigUtils.getconfig();
-        config.Prefix = msg.substring(10);
-        ConfigUtils.setconfig(config);
+        ConfigUtils.getconfig().Prefix = msg.substring(10);
         ConfigUtils.saveconfig();
         message.channel.send(`:white_check_mark: \`Prefix is now '${msg.substring(10)}'\``);
     }
@@ -216,7 +212,7 @@ module.exports.ban = async function (client, message, msg, args) {
 };
 
 module.exports.uptime = function (client, message, msg, args) {
-    message.channel.send(client.uptime).catch();
+     message.channel.send(`:white_check_mark: \`${client.uptime / 1000}s\``);
 };
 
 module.exports.mute = async function (client, message, msg, args) {
