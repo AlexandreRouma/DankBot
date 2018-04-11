@@ -51,3 +51,4 @@ resources/config/config.json
 
 # NodeJS Modules
 /node_modules/
+/.vscode/
