@@ -214,3 +214,7 @@ module.exports.ban = async function (client, message, msg, args) {
         message.channel.send(":no_entry: `No user mentioned...`");
     }
 };
+
+module.exports.uptime = function (client, message, msg, args) {
+    message.channel.send(client.uptime).catch();
+};
