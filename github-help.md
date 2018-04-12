@@ -72,6 +72,7 @@
 |gay           |-    |No            |gay [image]                                 |Overlay the gay flag on top of an image                                           |
 |triggered     |trgrd|No            |triggered [image]                           |Make a 'triggered' meme                                                           |
 |shake         |-    |No            |shake [image]                               |Make a gif of an image shaking                                                    |
+|nou           |-    |No            |nou                                         |Send a the No U infinity card                                                     |
 |urban         |urb  |No            |urban [word]                                |Search a word on urban dictionaries (use '-r-' for random word)                   |
 |image         |img  |No            |image [search]                              |Search on Google Images                                                           |
 |google        |g    |No            |google [search]                             |Search on Google                                                                  |

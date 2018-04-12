@@ -515,6 +515,10 @@ module.exports.wtf = function (client, message, msg, args) {
     message.channel.send(new Discord.Attachment("resources/images/wtf.png"));
 };
 
+module.exports.nou = function (client, message, msg, args) {
+    message.channel.send(new Discord.Attachment("resources/images/nou.png"));
+};
+
 module.exports.triggered = function (client, message, msg, args) {
     getLastImage(message, args, 10, (imglink) => {
         if (imglink) {
