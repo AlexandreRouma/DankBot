@@ -21,6 +21,8 @@ var path = require("path");
 var Twitter = require("twitter");
 var Utils = require("./utils");
 
+var TEST_MODE = false;
+
 main();
 function main() {
     Art.displaySplash();
@@ -51,6 +53,7 @@ function main() {
     }
 
     if (process.argv[2] === "--test") { // Engage test mode
+        TEST_MODE = true;
         var config = ConfigUtils.getconfig();
         config.GoogleAPIEnabled = false;
         config.TwitterAPIEnabled = false;
@@ -170,8 +173,10 @@ function main() {
 
     client.on("message", async (message) => {
         if (message.content.startsWith(ConfigUtils.getconfig().Prefix) && message.author.id !== client.user.id) {
-            var color = Utils.get4bitColor(message.member.highestRole.hexColor);
-            Logger.log(`\x1B[${color}m${message.author.tag}\x1B[0m issued: ${message.content}\n`);
+            if (!TEST_MODE) {
+                var color = Utils.get4bitColor(message.member.highestRole.hexColor);
+                Logger.log(`\x1B[${color}m${message.author.tag}\x1B[0m issued: ${message.content}\n`);
+            }
             var msg = message.content.substring(ConfigUtils.getconfig().Prefix.length);
             var args = msg.split(" ");
             var alias = CommandManager.getAliases()[args[0].toUpperCase()];

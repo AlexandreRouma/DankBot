@@ -149,9 +149,10 @@ var fakeGuildMember = {
     id: "000000000000000000",
     roles: {
         array: () => {
-            return [{id: "2222222222222222222"}]
+            return [{id: "2222222222222222222", hexColor: "#ffffff"}]
         }
-    }
+    },
+    highestRole: {id: "2222222222222222222", hexColor: "#ffffff"}
 }
 
 var fakeDiscordChannel = {
