@@ -1,4 +1,4 @@
-var ConfigUtils = require("./config-utils");
+const ConfigUtils = require("./config-utils");
 
 module.exports.isAdmin = function (user) {
     var ret = false;

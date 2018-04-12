@@ -1,7 +1,8 @@
-var fs = require("fs");
-var path = require("path");
-var Logger = require("./logger");
-var CommandManager = require("./command-manager");
+const fs = require("fs");
+const path = require("path");
+const Logger = require("./logger");
+const CommandManager = require("./command-manager");
+
 var plugins = {};
 
 module.exports.loadPlugins = function (client) {

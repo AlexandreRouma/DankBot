@@ -1,6 +1,6 @@
 /* eslint-disable */
-var Discord = require("discord.js");
-var Logger = require("./logger");
+const Discord = require("discord.js");
+const Logger = require("./logger");
 
 var testn = 0;
 

@@ -1,14 +1,14 @@
-var Discord = require("discord.js");
-var mexp = require("math-expression-evaluator");
-var ping = require("ping");
-var Utils = require("../utils");
-var CommandManager = require("../command-manager");
-var aesthetics = require("aesthetics");
-var http = require("http");
-var Figlet = require("figlet");
-var Rextester = require("../rextester-helper");
-var fs = require("fs");
-var ConfigUtils = require("../config-utils");
+const Discord = require("discord.js");
+const mexp = require("math-expression-evaluator");
+const ping = require("ping");
+const Utils = require("../utils");
+const CommandManager = require("../command-manager");
+const aesthetics = require("aesthetics");
+const http = require("http");
+const Figlet = require("figlet");
+const Rextester = require("../rextester-helper");
+const fs = require("fs");
+const ConfigUtils = require("../config-utils");
 
 module.exports.say = function (client, message, msg, args) {
     if (args.length > 1) {

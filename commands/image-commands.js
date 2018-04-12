@@ -1,7 +1,7 @@
-var qr = require("qr-image");
-var fs = require("fs");
-var Discord = require("discord.js");
-var Jimp = require("jimp");
+const qr = require("qr-image");
+const fs = require("fs");
+const Discord = require("discord.js");
+const Jimp = require("jimp");
 
 module.exports.qrcode = function (client, message, msg, args) {
     if (args.length > 1) {

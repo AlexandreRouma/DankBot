@@ -1,8 +1,9 @@
-var Youtube = require("youtube-api");
-var Utils = require("../utils");
-var Discord = require("discord.js");
-var ytsearch = require("youtube-search");
-var Twitter = require("twitter");
+const Youtube = require("youtube-api");
+const Utils = require("../utils");
+const Discord = require("discord.js");
+const ytsearch = require("youtube-search");
+const Twitter = require("twitter");
+
 var opts;
 var tclient;
 

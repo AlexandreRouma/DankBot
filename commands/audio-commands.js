@@ -1,10 +1,9 @@
-var ytdl = require("ytdl-core");
-var mexp = require("math-expression-evaluator");
-var PermUtils = require("../perm-utils");
-var ytsearch = require("youtube-search");
-var ConfigUtils = require("../config-utils");
-var opts;
-var fs = require("fs");
+const ytdl = require("ytdl-core");
+const mexp = require("math-expression-evaluator");
+const PermUtils = require("../perm-utils");
+const ytsearch = require("youtube-search");
+const ConfigUtils = require("../config-utils");
+const fs = require("fs");
 
 var playlist = [];
 var dispatcher;
@@ -14,7 +13,7 @@ var looped = false;
 var stopped = false;
 var paused = false;
 var playingsoundeffect = false;
-
+var opts;
 var stopvotes = [];
 var skipvotes = [];
 

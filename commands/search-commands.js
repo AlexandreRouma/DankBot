@@ -1,13 +1,13 @@
-var Discord = require("discord.js");
-var urban = require("urban");
-var Utils = require("../utils");
-var GoogleImages = require("google-images");
-var GoogleSearch = require("google-search");
-var ytsearch = require("youtube-search");
-var Giphy = require("giphy");
-var path = require("path");
-var opts;
+const Discord = require("discord.js");
+const urban = require("urban");
+const Utils = require("../utils");
+const GoogleImages = require("google-images");
+const GoogleSearch = require("google-search");
+const ytsearch = require("youtube-search");
+const Giphy = require("giphy");
+const path = require("path");
 
+var opts;
 var gimages;
 var gsearch;
 var giphy;

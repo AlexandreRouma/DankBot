@@ -1,4 +1,4 @@
-var querystring = require("querystring");
+const querystring = require("querystring");
 
 var languages = {
     "ada": "39",
