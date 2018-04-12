@@ -129,7 +129,7 @@ module.exports.loadCommands = function () {
     registerCommand("MUTE", undefined, "mute [user]", "Mute a user", true, AdminCommands.mute);
     registerCommand("UNMUTE", undefined, "unmute [user]", "Unmute an user", true, AdminCommands.unmute);
     registerCommand("SERVERINFO", "SINFO", "serverinfo", "Get info about the server", false, AdminCommands.serverinfo);
-    
+
     // Images commands
     registerCommand("QRCODE", "QR", "qr [text]", "Create a qr code that contains a certain text", false, ImageCommands.qrcode);
     registerCommand("HSGTF", undefined, "hsgtf [image]", "Make a 'Has science gone too far' meme", false, ImageCommands.hsgtf);

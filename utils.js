@@ -63,7 +63,7 @@ module.exports.getHue = function (r, g, b) {
 
 module.exports.get4bitColor = function (color) {
     var parsed = hexToRgb(color);
-    var a = parsed.b > 127;
+    var a = parsed.r > 127;
     a |= (parsed.g > 127) << 1;
     a |= (parsed.b > 127) << 2;
     if (parsed.r > 127 && parsed.g > 0 && parsed.b > 0) {

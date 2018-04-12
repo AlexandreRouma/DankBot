@@ -231,7 +231,6 @@ module.exports.mute = async function (client, message, msg, args) {
             role = config.MuteRole;
         }
         try {
-            await member.addRole(role);
             var channels = message.guild.channels.filterArray((c) => c.type === "text");
             var i = 0;
             channels.forEach(async (c) => {
@@ -242,17 +241,18 @@ module.exports.mute = async function (client, message, msg, args) {
                     });
                 }
                 catch (err) {
-                    console.error(err);
                     i++;
                 }
             });
-            await message.channel.send(`:white_check_mark: \`Muted ${member.user.tag}\``);
             if (i > 0) {
                 message.channel.send(`\`But coudn't overwrite permissions in ${i} channels\``);
             }
+            else {
+                await member.addRole(role);
+                await message.channel.send(`:white_check_mark: \`Muted ${member.user.tag}\``);
+            }
         }
         catch (err) {
-            console.error(err);
             await message.channel.send(":no_entry: `I can't add the muted role m8`");
             if (err instanceof TypeError) {
                 config.MuteRole = "INSERT_HERE";
@@ -274,23 +274,23 @@ module.exports.unmute = async function (client, message, msg, args) {
             var role = config.MuteRole;
             try {
                 await member.removeRole(role);
-                message.channel.send(`:white_check_mark: \`${member.user.tag} has been unmuted !\``);
+                message.channel.send(`:white_check_mark: \`Unmuted ${member.user.tag}\``);
             }
             catch (err) {
                 console.error(err);
                 config.MuteRole = "INSERT_HERE";
                 ConfigUtils.saveconfig();
-                message.channel.send(":no_entry: `Couldn't remove him the role m8...`");
+                message.channel.send(":no_entry: `Couldn't remove mute role`");
             }
         }
         else {
-            message.channel.send(":no_entry: `There is no muted role inited yet...`");
+            message.channel.send(":no_entry: `There is no muted tole defined, have  u even muted that person ?`");
         }
     }
     else {
         message.channel.send(":no_entry: `No user mentioned...`");
     }
-}
+};
 
 module.exports.serverinfo = function (client, message, msg, args) {
     var embed = new Discord.RichEmbed();
