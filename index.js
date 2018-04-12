@@ -167,7 +167,8 @@ function main() {
 
     client.on("message", async (message) => {
         if (message.content.startsWith(ConfigUtils.getconfig().Prefix) && message.author.id !== client.user.id) {
-            Logger.log(`\x1B[${Utils.get4bitColor(message.member.highestRole.hexColor)}m${message.author.tag}\x1B[0m issued: ${message.content}\n`);
+            var color = Utils.get4bitColor(message.member.highestRole.hexColor);
+            Logger.log(`\x1B[${color}m${message.author.tag}\x1B[0m issued: ${message.content}\n`);
             var msg = message.content.substring(ConfigUtils.getconfig().Prefix.length);
             var args = msg.split(" ");
             var alias = CommandManager.getAliases()[args[0].toUpperCase()];

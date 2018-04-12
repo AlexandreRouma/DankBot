@@ -221,12 +221,11 @@ module.exports.mute = async function (client, message, msg, args) {
         var member = message.mentions.members.first();
         var role;
         if (config.MuteRole === "INSERT_HERE") {
-            var newRole = await message.guild.createRole({
+            role = await message.guild.createRole({
                 name: "DankBot_Muted",
             });
-            config.MuteRole = newRole.id;
+            config.MuteRole = role.id;
             ConfigUtils.saveconfig();
-            role = newRole;
         }
         else {
             role = config.MuteRole;
@@ -252,7 +251,7 @@ module.exports.mute = async function (client, message, msg, args) {
         }
     }
     else {
-        message.channel.send("`Please mention someone m8 !`");
+        message.channel.send(":no_entry: `No user mentioned...`");
     }
 };
 
