@@ -43,7 +43,8 @@
 |softban       |sban |No            |softban [user]             |Softban a user                                                                    |
 |ban           |-    |No            |ban [user]                 |Ban a user                                                                        |
 |uptime        |-    |No            |uptime                     |Give the uptime of the bot                                                        |
-|mute          |-    |No            |mute [user]                |Mute a user - WARNING: BETA !!! REMOVE MUTE ROLE TO UNMUTE                        |
+|mute          |-    |No            |mute [user]                |Mute a user                                                                       |
+|unmute        |-    |No            |unmute [user]              |Unmute an user                                                                    |
 |serverinfo    |sinfo|No            |serverinfo                 |Get info about the server                                                         |
 |qrcode        |qr   |No            |qr [text]                  |Create a qr code that contains a certain text                                     |
 |hsgtf         |-    |No            |hsgtf [image]              |Make a 'Has science gone too far' meme                                            |
