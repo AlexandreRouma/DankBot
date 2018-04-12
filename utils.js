@@ -75,6 +75,9 @@ module.exports.get4bitColor = function (color) {
     else if (parsed.r > 0 && parsed.g > 0 && parsed.b > 127) {
         a += 60;
     }
+    if (a === 0) {
+        a = 67;
+    }
     return 30 + a;
 };
 

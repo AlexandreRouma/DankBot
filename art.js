@@ -6,5 +6,5 @@ var splash_screen = "    ____              __   ____  ____  ______\n" +
                     "                                             \n";
 
 module.exports.displaySplash = function () {
-    process.stdout.write(splash_screen);
+    process.stdout.write(`\x1B[94m${splash_screen}\x1B[0m`);
 };

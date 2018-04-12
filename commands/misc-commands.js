@@ -9,6 +9,7 @@ const Figlet = require("figlet");
 const Rextester = require("../rextester-helper");
 const fs = require("fs");
 const ConfigUtils = require("../config-utils");
+const PermUtils = require("../perm-utils");
 
 module.exports.say = function (client, message, msg, args) {
     if (args.length > 1) {
@@ -352,4 +353,87 @@ module.exports.randomcolor = function (client, message, msg, args) {
     embed.addField("RGB", `${r}, ${g}, ${b}`);
     embed.addField("Hue", `L: ${hue.luminance}, S:${hue.saturation}, ${hue.hue}`);
     message.channel.send(embed);
+};
+
+module.exports.tag = function (client, message, msg, args) {
+    var tags = ConfigUtils.gettags();
+    if (!args[1]) {
+        message.channel.send(":no_entry: `No sub command specified...`");
+    }
+    else {
+        var subcommand = args[1].toUpperCase();
+        if (subcommand === "ADD") {
+            if (args[2]) {
+                if (!tags[args[2]]) {
+                    var content = msg.substring(9 + args[2].length);
+                    tags[args[2]] = {
+                        content: content,
+                        owner_tag: message.author.tag,
+                        owner_id: message.author.id,
+                    };
+                    ConfigUtils.saveconfig();
+                    message.channel.send(`:white_check_mark: \`Added tag '${args[2]}'\``);
+                }
+                else {
+                    message.channel.send(":no_entry: `Sorry, this tag already exists`");
+                }
+            }
+            else {
+                message.channel.send(":no_entry: `Tell me what to put in the tag...`");
+            }
+        }
+        else if (subcommand === "MOD") {
+            if (args[2]) {
+                if (tags[args[2]]) {
+                    if (tags[args[2]].owner_id === message.author.id) {
+                        tags[args[2]].content = msg.substring(9 + args[2].length);
+                        ConfigUtils.saveconfig();
+                        message.channel.send(`:white_check_mark: \`Modified tag '${args[2]}'\``);
+                    }
+                }
+                else {
+                    message.channel.send(":no_entry: `Sorry, this tag doesn't exist`");
+                }
+            }
+            else {
+                message.channel.send(":no_entry: `Tell me what to put in the tag...`");
+            }
+        }
+        else if (subcommand === "DEL") {
+            if (args[2]) {
+                if (tags[args[2]]) {
+                    if (tags[args[2]].owner_id === message.author.id || PermUtils.isAdmin(message.member)) {
+                        tags[args[2]] = undefined;
+                        ConfigUtils.saveconfig();
+                        message.channel.send(`:white_check_mark: \`Deleted tag '${args[2]}'\``);
+                    }
+                }
+                else {
+                    message.channel.send(":no_entry: `Sorry, this tag doesn't exist`");
+                }
+            }
+            else {
+                message.channel.send(":no_entry: `Tell me what tag to delete...`");
+            }
+        }
+        else if (subcommand === "OWNER") {
+            if (args[2]) {
+                if (tags[args[2]]) {
+                    message.channel.send(`:white_check_mark: \`The owner of '${args[2]}' is ${tags[args[2]].owner_tag}\``);
+                }
+                else {
+                    message.channel.send(":no_entry: `Sorry, this tag doesn't exist`");
+                }
+            }
+            else {
+                message.channel.send(":no_entry: `Tell me what tag you want the owner of`");
+            }
+        }
+        else if (tags[args[1]]) {
+            message.channel.send(tags[args[1]].content);
+        }
+        else {
+            message.channel.send(":no_entry: `Unknown tag`");
+        }
+    }
 };
