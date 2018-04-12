@@ -24,9 +24,6 @@ module.exports.loaddefault = function () {
 };
 
 module.exports.loadconfig = function () {
-    if (!fs.existsSync("resources/config/")) {
-        fs.mkdir("resources/config/");
-    }
     config = JSON.parse(fs.readFileSync("resources/config/config.json"));
     version = JSON.parse(fs.readFileSync("version.json"));
 };

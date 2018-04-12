@@ -27,6 +27,9 @@ function main() {
     if (!fs.existsSync("resources/config/config.json")) {
         Logger.log("Creating configuration file...");
         try {
+            if (!fs.existsSync("resources/config/")) {
+                fs.mkdirSync("resources/config/");
+            }
             ConfigUtils.loaddefault();
             ConfigUtils.saveconfig();
             Logger.ok();
