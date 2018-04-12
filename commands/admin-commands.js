@@ -244,12 +244,17 @@ module.exports.mute = async function (client, message, msg, args) {
                     i++;
                 }
             });
-            if (i > 0) {
-                message.channel.send(`\`But coudn't overwrite permissions in ${i} channels\``);
+            if (!member.roles.find("id", role.id)) {
+                await member.addRole(role);
+                if (i > 0) {
+                    message.channel.send(`:white_check_mark: \`Muted ${member.user.tag} (couldn't mute in ${i} channels)\``);
+                }
+                else {
+                    await message.channel.send(`:white_check_mark: \`Muted ${member.user.tag}\``);
+                }
             }
             else {
-                await member.addRole(role);
-                await message.channel.send(`:white_check_mark: \`Muted ${member.user.tag}\``);
+                await message.channel.send(":no_entry: `This user is already muted");
             }
         }
         catch (err) {
