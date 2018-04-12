@@ -233,27 +233,64 @@ module.exports.mute = async function (client, message, msg, args) {
         try {
             await member.addRole(role);
             var channels = message.guild.channels.filterArray((c) => c.type === "text");
-            try {
-                channels.forEach((c) => {
-                    c.overWritePermissions(role, {
+            var i = 0;
+            channels.forEach(async (c) => {
+                try {
+                    await c.overwritePermissions(role, {
                         "SEND_MESSAGES": false,
                         "ADD_REACTIONS": false
                     });
-                });
+                }
+                catch (err) {
+                    console.error(err);
+                    i++;
+                }
+            });
+            await message.channel.send(`:white_check_mark: \`Muted ${member.user.tag}\``);
+            if (i > 0) {
+                message.channel.send(`\`But coudn't overwrite permissions in ${i} channels\``);
+            }
+        }
+        catch (err) {
+            console.error(err);
+            await message.channel.send(":no_entry: `I can't add the muted role m8`");
+            if (err instanceof TypeError) {
+                config.MuteRole = "INSERT_HERE";
+                ConfigUtils.saveconfig();
+                message.channel.send("`Please retry, it might work this time...`");
+            }
+        }
+    }
+    else {
+        message.channel.send("`Please mention someone m8 !`");
+    }
+};
+
+module.exports.unmute = async function (client, message, msg, args) {
+    if (message.mentions.members) {
+        var config = ConfigUtils.getconfig();
+        var member = message.mentions.members.first();
+        if (config.MuteRole !== "INSERT_HERE") {
+            var role = config.MuteRole;
+            try {
+                await member.removeRole(role);
+                message.channel.send(`:white_check_mark: \`${member.user.tag} has been unmuted !\``);
             }
             catch (err) {
                 console.error(err);
+                config.MuteRole = "INSERT_HERE";
+                ConfigUtils.saveconfig();
+                message.channel.send(":no_entry: `Couldn't remove him the role m8...`");
             }
-            message.channel.send(`:white_check_mark: \`Muted ${member.user.tag}\``);
         }
-        catch (err) {
-            message.channel.send(":no_entry: `I can't add the muted role m8`");
+        else {
+            message.channel.send(":no_entry: `There is no muted role inited yet...`");
         }
     }
     else {
         message.channel.send(":no_entry: `No user mentioned...`");
     }
-};
+}
 
 module.exports.serverinfo = function (client, message, msg, args) {
     var embed = new Discord.RichEmbed();
