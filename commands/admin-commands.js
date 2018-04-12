@@ -253,11 +253,11 @@ module.exports.mute = async function (client, message, msg, args) {
             }
         }
         catch (err) {
-            await message.channel.send(":no_entry: `I can't add the muted role m8`");
             if (err instanceof TypeError) {
-                config.MuteRole = "INSERT_HERE";
-                ConfigUtils.saveconfig();
-                message.channel.send("`Please retry, it might work this time...`");
+                await message.channel.send(":no_entry: `Invalid mute role ID`");
+            }
+            else {
+                await message.channel.send(":no_entry: `I can't add the muted role m8`");
             }
         }
     }
@@ -284,7 +284,7 @@ module.exports.unmute = async function (client, message, msg, args) {
             }
         }
         else {
-            message.channel.send(":no_entry: `There is no muted tole defined, have  u even muted that person ?`");
+            message.channel.send(":no_entry: `There is no muted tole defined, have u even muted that person ?`");
         }
     }
     else {
