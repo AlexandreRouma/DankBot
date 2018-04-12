@@ -2,6 +2,7 @@ const qr = require("qr-image");
 const fs = require("fs");
 const Discord = require("discord.js");
 const Jimp = require("jimp");
+const GIFEncoder = require("gifencoder");
 
 module.exports.qrcode = function (client, message, msg, args) {
     if (args.length > 1) {
@@ -83,7 +84,7 @@ module.exports.usoab = function (client, message, msg, args) {
 };
 
 module.exports.kek = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 4, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then((image) => {
                 Jimp.read("resources/images/kek.png", (err, background) => {
@@ -109,7 +110,7 @@ module.exports.kek = function (client, message, msg, args) {
 };
 
 module.exports.ibyg = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 5, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then((image) => {
                 Jimp.read("resources/images/ibyg.png", (err, background) => {
@@ -132,7 +133,7 @@ module.exports.ibyg = function (client, message, msg, args) {
 };
 
 module.exports.gay = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 4, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then((image) => {
                 Jimp.read("resources/images/gay.png", (err, overlay) => {
@@ -155,7 +156,7 @@ module.exports.gay = function (client, message, msg, args) {
 };
 
 module.exports.sepia = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
+    getLastImage(message, args, 5, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then((image) => {
                 image.sepia()
@@ -364,7 +365,7 @@ module.exports.jpeg = function (client, message, msg, args) {
     if (args.length > 1) {
         try {
             var quality = parseFloat(args[1], 10);
-            getLastImage(message, args, 9, (imglink) => {
+            getLastImage(message, args, 5, (imglink) => {
                 if (imglink) {
                     Jimp.read(imglink).then((image) => {
                         image.quality(quality)
@@ -450,7 +451,7 @@ module.exports.posterize = function (client, message, msg, args) {
     if (args.length > 1) {
         try {
             var levels = parseInt(args[1], 10);
-            getLastImage(message, args, 6, (imglink) => {
+            getLastImage(message, args, 10, (imglink) => {
                 if (imglink) {
                     Jimp.read(imglink).then((image) => {
                         image.posterize(levels)
@@ -479,7 +480,7 @@ module.exports.hue = function (client, message, msg, args) {
     if (args.length > 1) {
         try {
             var degrees = parseFloat(args[1], 10);
-            getLastImage(message, args, 6, (imglink) => {
+            getLastImage(message, args, 4, (imglink) => {
                 if (imglink) {
                     Jimp.read(imglink).then((image) => {
                         image.color([
@@ -512,6 +513,72 @@ module.exports.suicide = function (client, message, msg, args) {
 
 module.exports.wtf = function (client, message, msg, args) {
     message.channel.send(new Discord.Attachment("resources/images/wtf.png"));
+};
+
+module.exports.triggered = function (client, message, msg, args) {
+    getLastImage(message, args, 10, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then((image) => {
+                Jimp.read("resources/images/triggered.png", (err, triggered) => {
+                    if (err) throw err;
+                    var base = new Jimp(image.bitmap.width, image.bitmap.height, (err2, canvas) => {
+                        triggered.resize(image.bitmap.width, image.bitmap.height / 5, Jimp.RESIZE_BICUBIC, (err3, src) => {
+                            var nw = image.bitmap.width - (image.bitmap.width / 20);
+                            var nh = image.bitmap.height - (image.bitmap.height / 20);
+                            canvas.composite(image, 0, 0)
+                                .composite(triggered, 0, image.bitmap.height - (image.bitmap.height / 5), (err4, baseframe) => {
+                                    var encoder = new GIFEncoder(nw, nh);
+                                    message.channel.send(new Discord.Attachment(encoder.createReadStream(), "triggered.gif"));
+                                    encoder.start();
+                                    encoder.setRepeat(0);
+                                    encoder.setDelay(34);
+                                    encoder.setQuality(10);
+                                    encoder.addFrame(baseframe.clone().crop(0, 0, nw, nh).bitmap.data);
+                                    encoder.addFrame(baseframe.clone().crop(image.bitmap.width / 20, image.bitmap.height / 20, nw, nh).bitmap.data);
+                                    encoder.addFrame(baseframe.clone().crop(0, image.bitmap.height / 20, nw, nh).bitmap.data);
+                                    encoder.addFrame(baseframe.clone().crop(image.bitmap.width / 20, 0, nw, nh).bitmap.data);
+                                    encoder.finish();
+                                });
+                        });
+                    });
+                });
+            }).catch(() => {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+};
+
+module.exports.shake = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then((image) => {
+                var base = new Jimp(image.bitmap.width, image.bitmap.height, (err2, canvas) => {
+                    var nw = image.bitmap.width - (image.bitmap.width / 20);
+                    var nh = image.bitmap.height - (image.bitmap.height / 20);
+                    var encoder = new GIFEncoder(nw, nh);
+                    message.channel.send(new Discord.Attachment(encoder.createReadStream(), "triggered.gif"));
+                    encoder.start();
+                    encoder.setRepeat(0);
+                    encoder.setDelay(34);
+                    encoder.setQuality(10);
+                    encoder.addFrame(image.clone().crop(0, 0, nw, nh).bitmap.data);
+                    encoder.addFrame(image.clone().crop(image.bitmap.width / 20, image.bitmap.height / 20, nw, nh).bitmap.data);
+                    encoder.addFrame(image.clone().crop(0, image.bitmap.height / 20, nw, nh).bitmap.data);
+                    encoder.addFrame(image.clone().crop(image.bitmap.width / 20, 0, nw, nh).bitmap.data);
+                    encoder.finish();
+                });
+            }).catch(() => {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
 };
 
 function getLastImage(message, args, substr, cb) {

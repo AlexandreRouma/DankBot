@@ -157,6 +157,8 @@ module.exports.loadCommands = function () {
     registerCommand("JPEG", "JPG", "jpeg [quality] [image]", "Change the image's quality and add jpeg effect", false, ImageCommands.jpeg);
     registerCommand("IBYG", undefined, "ibyg [image]", "Make a 'Welcome to the iternet, I'll be your guide meme", false, ImageCommands.ibyg);
     registerCommand("GAY", undefined, "gay [image]", "Overlay the gay flag on top of an image", false, ImageCommands.gay);
+    registerCommand("TRIGGERED", "TRGRD", "triggered [image]", "Make a 'triggered' meme", false, ImageCommands.triggered);
+    registerCommand("SHAKE", undefined, "shake [image]", "Make a gif of an image shaking", false, ImageCommands.shake);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);

@@ -8,6 +8,7 @@
     "discord.js": "^11.3.2",
     "ffmpeg-binaries": "^3.2.2-3",
     "figlet": "^1.2.0",
+    "gifencoder": "^1.1.0",
     "giphy": "0.0.4",
     "google-images": "^2.1.0",
     "google-search": "0.0.5",

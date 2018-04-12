@@ -366,13 +366,18 @@ module.exports.tag = function (client, message, msg, args) {
             if (args[2]) {
                 if (!tags[args[2]]) {
                     var content = msg.substring(9 + args[2].length);
-                    tags[args[2]] = {
-                        content: content,
-                        owner_tag: message.author.tag,
-                        owner_id: message.author.id,
-                    };
-                    ConfigUtils.saveconfig();
-                    message.channel.send(`:white_check_mark: \`Added tag '${args[2]}'\``);
+                    if (content !== "") {
+                        tags[args[2]] = {
+                            content: content,
+                            owner_tag: message.author.tag,
+                            owner_id: message.author.id,
+                        };
+                        ConfigUtils.saveconfig();
+                        message.channel.send(`:white_check_mark: \`Added tag '${args[2]}'\``);
+                    }
+                    else {
+                        message.channel.send(":no_entry: `Empty tags aren't allowed on my christian server`");
+                    }
                 }
                 else {
                     message.channel.send(":no_entry: `Sorry, this tag already exists`");
@@ -386,9 +391,15 @@ module.exports.tag = function (client, message, msg, args) {
             if (args[2]) {
                 if (tags[args[2]]) {
                     if (tags[args[2]].owner_id === message.author.id) {
-                        tags[args[2]].content = msg.substring(9 + args[2].length);
-                        ConfigUtils.saveconfig();
-                        message.channel.send(`:white_check_mark: \`Modified tag '${args[2]}'\``);
+                        var content = msg.substring(9 + args[2].length);
+                        if (content !== "") {
+                            tags[args[2]].content = content;
+                            ConfigUtils.saveconfig();
+                            message.channel.send(`:white_check_mark: \`Modified tag '${args[2]}'\``);
+                        }
+                        else {
+                            message.channel.send(":no_entry: `Empty tags aren't allowed on my christian server`");
+                        }
                     }
                 }
                 else {

@@ -70,6 +70,8 @@
 |jpeg          |jpg  |No            |jpeg [quality] [image]                      |Change the image's quality and add jpeg effect                                    |
 |ibyg          |-    |No            |ibyg [image]                                |Make a 'Welcome to the iternet, I'll be your guide meme                           |
 |gay           |-    |No            |gay [image]                                 |Overlay the gay flag on top of an image                                           |
+|triggered     |trgrd|No            |triggered [image]                           |Make a 'triggered' meme                                                           |
+|shake         |-    |No            |shake [image]                               |Make a gif of an image shaking                                                    |
 |urban         |urb  |No            |urban [word]                                |Search a word on urban dictionaries (use '-r-' for random word)                   |
 |image         |img  |No            |image [search]                              |Search on Google Images                                                           |
 |google        |g    |No            |google [search]                             |Search on Google                                                                  |
