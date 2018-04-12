@@ -431,11 +431,11 @@ module.exports.tag = function (client, message, msg, args) {
         }
         else if (subcommand === "LIST") {
             if (message.mentions.members.first()) {
-                var id = message.mentions.members.first();
+                var id = message.mentions.members.first().id;
                 var str = "";
                 Object.keys(tags).forEach((e) => {
                     if (tags[e].owner_id === id) {
-                        str += e;
+                        str += `${e}\n`;
                     }
                 });
                 if (str === "") {
