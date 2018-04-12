@@ -435,5 +435,6 @@ module.exports.tag = function (client, message, msg, args) {
         else {
             message.channel.send(":no_entry: `Unknown tag`");
         }
+
     }
 };
