@@ -219,23 +219,24 @@ module.exports.mute = async function (client, message, msg, args) {
     if (message.mentions.members) {
         var config = ConfigUtils.getconfig();
         var member = message.mentions.members.first();
-        var role;
+        var roleId;
         if (config.MuteRole === "INSERT_HERE") {
-            role = await message.guild.createRole({
+            roleId = (await message.guild.createRole({
                 name: "DankBot_Muted",
-            });
-            config.MuteRole = role.id;
+                permissions: []
+            })).id;
+            config.MuteRole = roleId;
             ConfigUtils.saveconfig();
         }
         else {
-            role = config.MuteRole;
+            roleId = config.MuteRole;
         }
         try {
             var channels = message.guild.channels.filterArray((c) => c.type === "text");
             var i = 0;
             channels.forEach(async (c) => {
                 try {
-                    await c.overwritePermissions(role, {
+                    await c.overwritePermissions(roleId, {
                         "SEND_MESSAGES": false,
                         "ADD_REACTIONS": false
                     });
@@ -244,8 +245,8 @@ module.exports.mute = async function (client, message, msg, args) {
                     i++;
                 }
             });
-            if (!member.roles.find("id", role.id)) {
-                await member.addRole(role);
+            if (!member.roles.find("id", roleId)) {
+                await member.addRole(roleId);
                 if (i > 0) {
                     message.channel.send(`:white_check_mark: \`Muted ${member.user.tag} (couldn't mute in ${i} channels)\``);
                 }
@@ -254,7 +255,7 @@ module.exports.mute = async function (client, message, msg, args) {
                 }
             }
             else {
-                await message.channel.send(":no_entry: `This user is already muted");
+                await message.channel.send(":no_entry: `This user is already muted`");
             }
         }
         catch (err) {
@@ -276,10 +277,15 @@ module.exports.unmute = async function (client, message, msg, args) {
         var config = ConfigUtils.getconfig();
         var member = message.mentions.members.first();
         if (config.MuteRole !== "INSERT_HERE") {
-            var role = config.MuteRole;
+            var roleId = config.MuteRole;
             try {
-                await member.removeRole(role);
-                message.channel.send(`:white_check_mark: \`Unmuted ${member.user.tag}\``);
+                if (member.roles.find("id", roleId)) {
+                    await member.removeRole(roleId);
+                    message.channel.send(`:white_check_mark: \`Unmuted ${member.user.tag}\``);
+                }
+                else {
+                    message.channel.send(":no_entry: `This user isn't muted`");
+                }
             }
             catch (err) {
                 console.error(err);
