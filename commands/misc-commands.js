@@ -429,6 +429,26 @@ module.exports.tag = function (client, message, msg, args) {
                 message.channel.send(":no_entry: `Tell me what tag you want the owner of`");
             }
         }
+        else if (subcommand === "LIST") {
+            if (message.mentions.members.first()) {
+                var id = message.mentions.members.first();
+                var str = "";
+                Object.keys(tags).forEach((e) => {
+                    if (tags[e].owner_id === id) {
+                        str += e;
+                    }
+                });
+                if (str === "") {
+                    message.channel.send(":no_entry: `This user owns no tag`");
+                }
+                else {
+                    message.channel.send(`\`\`\`\n${str}\`\`\``);
+                }
+            }
+            else {
+                message.channel.send(":no_entry: `Tell me which user you want all the tags from`");
+            }
+        }
         else if (tags[args[1]]) {
             message.channel.send(tags[args[1]].content);
         }
