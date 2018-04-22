@@ -481,3 +481,12 @@ module.exports.mlg = function (client, message, msg, args) {
         message.channel.send(":no_entry: `7311 m3 wh47 y0u w4n7 70 7r4n51473 1n70 1337 5p34k...");
     }
 };
+
+module.exports.amibotadmin = function (client, message, msg, args) {
+    if (PermUtils.isAdmin(message.member)) {
+        message.channel.send("Yes");
+    }
+    else {
+        message.channel.send("No");
+    }
+};

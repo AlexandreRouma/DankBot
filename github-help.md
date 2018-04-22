@@ -18,10 +18,11 @@
 |run           |-    |No            |run [lang] [code]                           |Run some code and get the result (use `list` as language to get list of languages)|
 |specialthanks |-    |No            |specialthanks                               |Decicated to everyone who contributed to the bot !                                |
 |why           |-    |No            |why                                         |Get the meaning of life!                                                          |
-|ascii         |-    |No            |ascii [font] [text]                         |Turn text into ascii art                                                          |
+|ascii         |-    |No            |ascii [font] [text]                         |Turn text into ascii art (use list as font name to get list of fonts)             |
 |version       |-    |No            |version                                     |Get bot version                                                                   |
 |randomcolor   |rndc |No            |randomcolor                                 |Generate a random color                                                           |
 |tag           |t    |No            |tag [subcommand/tagname] [tagname] [content]|Create, remove or modify tags                                                     |
+|amibotadmin   |adm  |No            |tag [subcommand/tagname] [tagname] [content]|Create, remove or modify tags                                                     |
 |play          |-    |No            |play [url/search]                           |Play a youtube video in the vocal channel you're in                               |
 |pause         |-    |No            |pause                                       |Pause the currently playing song                                                  |
 |resume        |-    |No            |resume                                      |Resume the currently playing song                                                 |

@@ -98,10 +98,11 @@ module.exports.loadCommands = function () {
     registerCommand("RUN", undefined, "run [lang] [code]", "Run some code and get the result (use `list` as language to get list of languages)", false, MiscCommands.run);
     registerCommand("SPECIALTHANKS", undefined, "specialthanks", "Decicated to everyone who contributed to the bot !", false, MiscCommands.specialthanks);
     registerCommand("WHY", undefined, "why", "Get the meaning of life!", false, MiscCommands.why);
-    registerCommand("ASCII", undefined, "ascii [font] [text]", "Turn text into ascii art", false, MiscCommands.ascii);
+    registerCommand("ASCII", undefined, "ascii [font] [text]", "Turn text into ascii art (use list as font name to get list of fonts)", false, MiscCommands.ascii);
     registerCommand("VERSION", undefined, "version", "Get bot version", false, MiscCommands.version);
     registerCommand("RANDOMCOLOR", "RNDC", "randomcolor", "Generate a random color", false, MiscCommands.randomcolor);
     registerCommand("TAG", "T", "tag [subcommand/tagname] [tagname] [content]", "Create, remove or modify tags", false, MiscCommands.tag);
+    registerCommand("AMIBOTADMIN", "adm", "tag [subcommand/tagname] [tagname] [content]", "Create, remove or modify tags", true, MiscCommands.amibotadmin);
 
     // Audio Commands
     registerCommand("PLAY", undefined, "play [url/search]", "Play a youtube video in the vocal channel you're in", false, AudioCommands.play);

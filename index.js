@@ -186,7 +186,7 @@ function main() {
             }
             var command = CommandManager.getCommands()[args[0].toUpperCase()];
             if (command) {
-                if (CommandManager.getAdminOnly(args[0].toUpperCase())) {
+                if (command.adminonly) {
                     if (PermUtils.isAdmin(message.member)) {
                         await message.channel.startTyping();
                         command.handler(client, message, msg, args);
