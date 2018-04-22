@@ -468,3 +468,16 @@ module.exports.tag = function (client, message, msg, args) {
         }
     }
 };
+
+module.exports.mlg = function (client, message, msg, args) {
+    if (args.length > 1) {
+        var str = "";
+        for (var i = 0; i < msg.substring(5).length; i++) {
+            var c = msg.substring(5).charAt(i).toLowerCase();
+        }
+        message.channel.send(`\`\`\`${str}\`\`\``);
+    }
+    else {
+        message.channel.send(":no_entry: `7311 m3 wh47 y0u w4n7 70 7r4n51473 1n70 1337 5p34k...");
+    }
+};

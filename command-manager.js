@@ -160,6 +160,7 @@ module.exports.loadCommands = function () {
     registerCommand("TRIGGERED", "TRGRD", "triggered [image]", "Make a 'triggered' meme", false, ImageCommands.triggered);
     registerCommand("SHAKE", undefined, "shake [image]", "Make a gif of an image shaking", false, ImageCommands.shake);
     registerCommand("NOU", undefined, "nou", "Send a the No U infinity card", false, ImageCommands.nou);
+    registerCommand("SPIN", undefined, "spin [image]", "Make a gif of an image spinning", false, ImageCommands.spin);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);

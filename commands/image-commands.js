@@ -564,7 +564,7 @@ module.exports.shake = function (client, message, msg, args) {
                     var nw = image.bitmap.width - (image.bitmap.width / 20);
                     var nh = image.bitmap.height - (image.bitmap.height / 20);
                     var encoder = new GIFEncoder(nw, nh);
-                    message.channel.send(new Discord.Attachment(encoder.createReadStream(), "triggered.gif"));
+                    message.channel.send(new Discord.Attachment(encoder.createReadStream(), "shake.gif"));
                     encoder.start();
                     encoder.setRepeat(0);
                     encoder.setDelay(34);
@@ -573,6 +573,41 @@ module.exports.shake = function (client, message, msg, args) {
                     encoder.addFrame(image.clone().crop(image.bitmap.width / 20, image.bitmap.height / 20, nw, nh).bitmap.data);
                     encoder.addFrame(image.clone().crop(0, image.bitmap.height / 20, nw, nh).bitmap.data);
                     encoder.addFrame(image.clone().crop(image.bitmap.width / 20, 0, nw, nh).bitmap.data);
+                    encoder.finish();
+                });
+            }).catch(() => {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+};
+
+module.exports.spin = function (client, message, msg, args) {
+    getLastImage(message, args, 6, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then((image) => {
+                var base = new Jimp(image.bitmap.width, image.bitmap.height, (err2, canvas) => {
+                    var nw = image.bitmap.width - (image.bitmap.width / 20);
+                    var nh = image.bitmap.height - (image.bitmap.height / 20);
+                    var encoder = new GIFEncoder(nw, nh);
+                    message.channel.send(new Discord.Attachment(encoder.createReadStream(), "spin.gif"));
+                    encoder.start();
+                    encoder.setRepeat(0);
+                    encoder.setDelay(100);
+                    encoder.setQuality(10);
+                    encoder.addFrame(image.clone().rotate(0));
+                    encoder.addFrame(image.clone().rotate(36));
+                    encoder.addFrame(image.clone().rotate(72));
+                    encoder.addFrame(image.clone().rotate(108));
+                    encoder.addFrame(image.clone().rotate(144));
+                    encoder.addFrame(image.clone().rotate(180));
+                    encoder.addFrame(image.clone().rotate(216));
+                    encoder.addFrame(image.clone().rotate(252));
+                    encoder.addFrame(image.clone().rotate(288));
+                    encoder.addFrame(image.clone().rotate(324));
                     encoder.finish();
                 });
             }).catch(() => {
