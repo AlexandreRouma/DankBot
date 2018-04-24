@@ -52,3 +52,6 @@ resources/config/*
 # NodeJS Modules
 /node_modules/
 /.vscode/
+
+# Plugins
+/plugins/

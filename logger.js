@@ -28,5 +28,5 @@ module.exports.failed = function () {
 
 module.exports.panic = function (str) {
     process.stdout.write(`\x1B[31m${str}\x1B[0m`);
-    process.exit();
+    process.exit(-1);
 };

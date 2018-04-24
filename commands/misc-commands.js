@@ -234,7 +234,12 @@ module.exports.run = function (client, message, msg, args) {
                     }
                 });
             });
-            post_req.write(post.data);
+            try {
+                post_req.write(post.data);
+            }
+            catch (err) {
+                message.channel.send(":no_entry: `API Error :/`");
+            }
             post_req.end();
         }
         else if (args[1] === "list") {

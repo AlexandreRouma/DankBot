@@ -144,6 +144,18 @@ function main() {
     CommandManager.loadCommands();
     Logger.ok();
 
+    if (!fs.existsSync("plugins/")) {
+        Logger.log("Creating plugin directory...");
+        try {
+            fs.mkdirSync("plugins");
+            Logger.ok();
+        }
+        catch (err) {
+            Logger.failed();
+            Logger.panic(`Could not create the plugins directory: ${err.message}`);
+        }
+    }
+
     Logger.log("Loading plugins:\n");
     PluginManager.loadPlugins(client);
     Logger.log(`Loaded ${Object.keys(PluginManager.getPlugins()).length} plugin`);
