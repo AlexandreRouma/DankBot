@@ -598,16 +598,16 @@ module.exports.spin = function (client, message, msg, args) {
                     encoder.setRepeat(0);
                     encoder.setDelay(100);
                     encoder.setQuality(10);
-                    encoder.addFrame(image.clone().rotate(0));
-                    encoder.addFrame(image.clone().rotate(36));
-                    encoder.addFrame(image.clone().rotate(72));
-                    encoder.addFrame(image.clone().rotate(108));
-                    encoder.addFrame(image.clone().rotate(144));
-                    encoder.addFrame(image.clone().rotate(180));
-                    encoder.addFrame(image.clone().rotate(216));
-                    encoder.addFrame(image.clone().rotate(252));
-                    encoder.addFrame(image.clone().rotate(288));
-                    encoder.addFrame(image.clone().rotate(324));
+                    encoder.addFrame(image.clone().rotate(0).bitmap.data);
+                    encoder.addFrame(image.clone().rotate(36).bitmap.data);
+                    encoder.addFrame(image.clone().rotate(72).bitmap.data);
+                    encoder.addFrame(image.clone().rotate(108).bitmap.data);
+                    encoder.addFrame(image.clone().rotate(144).bitmap.data);
+                    encoder.addFrame(image.clone().rotate(180).bitmap.data);
+                    encoder.addFrame(image.clone().rotate(216).bitmap.data);
+                    encoder.addFrame(image.clone().rotate(252).bitmap.data);
+                    encoder.addFrame(image.clone().rotate(288).bitmap.data);
+                    encoder.addFrame(image.clone().rotate(324).bitmap.data);
                     encoder.finish();
                 });
             }).catch(() => {

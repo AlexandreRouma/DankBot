@@ -66,7 +66,8 @@
 |deepfry       |dfry |No            |deepfry [image]                             |Apply deepfry effect to image                                                     |
 |posterize     |pstrz|No            |posterize [amount] [image]                  |Posterize the image to a certain number of tones                                  |
 |hue           |-    |No            |hue [degrees] [image]                       |Change the hue of an image                                                        |
-|horizontalflip|vflip|No            |verticalflip [image]                        |Flip the image verticaly                                                          |
+|horizontalflip|hflip|No            |horizontalflip [image]                      |Flip the image horizontaly                                                        |
+|verticalflip  |vflip|No            |verticalflip [image]                        |Flip the image verticaly                                                          |
 |kek           |-    |No            |kek [image]                                 |Make a 'Kekistant' meme                                                           |
 |jpeg          |jpg  |No            |jpeg [quality] [image]                      |Change the image's quality and add jpeg effect                                    |
 |ibyg          |-    |No            |ibyg [image]                                |Make a 'Welcome to the iternet, I'll be your guide meme                           |

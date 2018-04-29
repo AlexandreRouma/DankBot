@@ -6,6 +6,7 @@
   "dependencies": {
     "aesthetics": "^2.1.0",
     "discord.js": "^11.3.2",
+    "faced": "^1.2.0",
     "ffmpeg-binaries": "^3.2.2-3",
     "figlet": "^1.2.0",
     "gifencoder": "^1.1.0",

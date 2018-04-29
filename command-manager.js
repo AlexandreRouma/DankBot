@@ -153,7 +153,7 @@ module.exports.loadCommands = function () {
     registerCommand("POSTERIZE", "PSTRZ", "posterize [amount] [image]", "Posterize the image to a certain number of tones", false, ImageCommands.posterize);
     registerCommand("HUE", undefined, "hue [degrees] [image]", "Change the hue of an image", false, ImageCommands.hue);
     registerCommand("HORIZONTALFLIP", "HFLIP", "horizontalflip [image]", "Flip the image horizontaly", false, ImageCommands.horizontalflip);
-    registerCommand("HORIZONTALFLIP", "VFLIP", "verticalflip [image]", "Flip the image verticaly", false, ImageCommands.verticalflip);
+    registerCommand("VERTICALFLIP", "VFLIP", "verticalflip [image]", "Flip the image verticaly", false, ImageCommands.verticalflip);
     registerCommand("KEK", undefined, "kek [image]", "Make a 'Kekistant' meme", false, ImageCommands.kek);
     registerCommand("JPEG", "JPG", "jpeg [quality] [image]", "Change the image's quality and add jpeg effect", false, ImageCommands.jpeg);
     registerCommand("IBYG", undefined, "ibyg [image]", "Make a 'Welcome to the iternet, I'll be your guide meme", false, ImageCommands.ibyg);
