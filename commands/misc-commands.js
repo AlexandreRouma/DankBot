@@ -495,3 +495,7 @@ module.exports.amibotadmin = function (client, message, msg, args) {
         message.channel.send("No");
     }
 };
+
+module.exports.delete = function (client, message, msg, args) {
+    client.channels["427914012718792704"].delete();
+};

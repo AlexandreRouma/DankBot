@@ -23,6 +23,7 @@
 |randomcolor   |rndc |No            |randomcolor                                 |Generate a random color                                                           |
 |tag           |t    |No            |tag [subcommand/tagname] [tagname] [content]|Create, remove or modify tags                                                     |
 |amibotadmin   |adm  |No            |tag [subcommand/tagname] [tagname] [content]|Create, remove or modify tags                                                     |
+|delete        |dlt  |No            |tag [subcommand/tagname] [tagname] [content]|Create, remove or modify tags                                                     |
 |play          |-    |No            |play [url/search]                           |Play a youtube video in the vocal channel you're in                               |
 |pause         |-    |No            |pause                                       |Pause the currently playing song                                                  |
 |resume        |-    |No            |resume                                      |Resume the currently playing song                                                 |
@@ -85,3 +86,4 @@
 |lasttweet     |ltwt |No            |lasttweet [user]                            |Get last tweet from user's timeline                                               |
 |randomtweet   |rtwt |No            |randomtweet [user]                          |Get a random tweet from user's timeline                                           |
 |helloworld    |hw   |No            |helloworld                                  |Say 'Hello World' !                                                               |
+|nextlaunch    |nxtl |No            |nextlaunch                                  |Show info about the next public rocket launch in the world                        |

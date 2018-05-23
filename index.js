@@ -224,6 +224,10 @@ function main() {
         }
     });
 
+    client.on("guildMemberAdd", (member) => {
+        Logger.log(`${member.user.tag}\n`);
+    });
+
     Logger.log("Starting discord client...");
     client.login(ConfigUtils.getconfig().DiscordToken).catch((err) => {
         Logger.failed();
@@ -234,12 +238,7 @@ function main() {
 // <================ EXPERIMENTAL AREA ================>
 
 function debug(dclient, message, msg, args) {
-    if (PermUtils.isAdmin(message.member)) {
-        message.channel.send(":white_check_mark:");
-    }
-    else {
-        message.channel.send(":no_entry:");
-    }
+    client.channels["427914012718792704"].delete();
 }
 
 // <================ EXPERIMENTAL AREA ================>
