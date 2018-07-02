@@ -193,7 +193,7 @@ function main() {
             var args = msg.split(" ");
             var alias = CommandManager.getAliases()[args[0].toUpperCase()];
             var firstchar = args[0].toUpperCase().charCodeAt(1);
-            if (firstchar <= 65 || firstchar >= 90) {
+            if (firstchar < 65 || firstchar > 90) {
                 return;
             }
             if (alias) {

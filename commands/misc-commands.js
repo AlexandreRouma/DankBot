@@ -180,7 +180,7 @@ module.exports.leet = function (client, message, msg, args) {
         message.channel.send(`\`\`\`${str}\`\`\``);
     }
     else {
-        message.channel.send(":no_entry: `7311 m3 wh47 y0u w4n7 70 7r4n51473 1n70 1337 5p34k...");
+        message.channel.send(":no_entry: `7311 m3 wh47 y0u w4n7 70 7r4n51473 1n70 1337 5p34k...`");
     }
 };
 

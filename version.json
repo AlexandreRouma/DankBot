@@ -1,9 +1,9 @@
 {
-    "version": "DankBot 2.3-beta",
+    "version": "DankBot 2.3",
     "changelog": [
-        "+ All Dyno commands",
+        "+ All usual admin commands",
+        "+ All Dyno admin commands",
         "+ Optimization",
-        "+ All admin commands",
         "+ Linting",
         "+ Bugfix"
     ]
