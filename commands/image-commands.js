@@ -654,3 +654,21 @@ function getLastImage(message, args, substr, cb) {
         })
         .catch(console.error);
 }
+
+module.exports.enhance = function (client, message, msg, args) {
+    getLastImage(message, args, 13, (imglink) => {
+        if (imglink) {
+            Jimp.read(imglink).then((image) => {
+                image.mirror(false, true)
+                    .getBuffer(Jimp.MIME_PNG, (err2, buffer) => {
+                        message.channel.send(new Discord.Attachment(buffer));
+                    });
+            }).catch(() => {
+                message.channel.send(":no_entry: `No valid image provided`");
+            });
+        }
+        else {
+            message.channel.send(":no_entry: `No image found`");
+        }
+    });
+};

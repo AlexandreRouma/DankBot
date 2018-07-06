@@ -163,6 +163,7 @@ module.exports.loadCommands = function () {
     registerCommand("SHAKE", undefined, "shake [image]", "Make a gif of an image shaking", false, ImageCommands.shake);
     registerCommand("NOU", undefined, "nou", "Send a the No U infinity card", false, ImageCommands.nou);
     registerCommand("SPIN", undefined, "spin [image]", "Make a gif of an image spinning", false, ImageCommands.spin);
+    registerCommand("ENHANCE", undefined, "enhance [image]", "Make an image bigger", false, ImageCommands.enhance);
 
     // Search Commands
     registerCommand("URBAN", "URB", "urban [word]", "Search a word on urban dictionaries (use '-r-' for random word)", false, SearchCommands.urban);

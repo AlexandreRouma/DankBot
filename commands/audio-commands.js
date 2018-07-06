@@ -139,9 +139,9 @@ module.exports.stop = function (client, message, msg, args) {
                 dispatcher.end();
                 return;
             }
-            if (!stopvotes.includes(message.author.id.toString()) && stopvotes.length < Math.round(channel.members.array().length / 2) - stopvotes.length) {
+            if (!stopvotes.includes(message.author.id.toString()) && stopvotes.length > Math.ceil((channel.members.array().length - 1) / 2)) {
                 stopvotes.push(message.author.id.toString());
-                message.channel.send(`:white_check_mark: \`${Math.round(channel.members.array().length / 2) - stopvotes.length} more votes needed.\``);
+                message.channel.send(`:white_check_mark: \`${stopvotes.length < Math.ceil((channel.members.array().length - 1) / 2) - stopvotes.length} more votes needed.\``);
             }
             else if (!stopvotes.includes(message.author.id.toString())) { // || PermUtils.isAdmin(message.author)
                 playlist = [];
@@ -171,11 +171,11 @@ module.exports.skip = function (client, message, msg, args) {
                 dispatcher.end();
                 return;
             }
-            if (!skipvotes.includes(message.author.id.toString()) && skipvotes.length < Math.round(channel.members.array().length / 2) - skipvotes.length) {
+            if (!skipvotes.includes(message.author.id.toString()) && skipvotes.length < Math.ceil((channel.members.array().length - 1) / 2)) {
                 skipvotes.push(message.author.id.toString());
-                message.channel.send(`:white_check_mark: \`${Math.round(channel.members.array().length / 2) - skipvotes.length} more votes needed.\``);
+                message.channel.send(`:white_check_mark: \`${Math.ceil((channel.members.array().length - 1) / 2) - skipvotes.length} more votes needed.\``);
             }
-            else if (!skipvotes.includes(message.author.id.toString())) { // || PermUtils.isAdmin(message.author)
+            else if (!skipvotes.includes(message.author.id.toString())) {
                 dispatcher.end();
             }
             else {
