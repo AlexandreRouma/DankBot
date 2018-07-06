@@ -659,7 +659,7 @@ module.exports.enhance = function (client, message, msg, args) {
     getLastImage(message, args, 13, (imglink) => {
         if (imglink) {
             Jimp.read(imglink).then((image) => {
-                image.mirror(false, true)
+                image.resize(image.width * 1.5, image.height * 1.5)
                     .getBuffer(Jimp.MIME_PNG, (err2, buffer) => {
                         message.channel.send(new Discord.Attachment(buffer));
                     });
