@@ -225,7 +225,7 @@ function main() {
     });
 
     client.on("guildMemberAdd", (member) => {
-        Logger.log(`${member.user.tag}\n`);
+        Logger.log(`New member: ${member.user.tag}\n`);
     });
 
     Logger.log("Starting discord client...");

@@ -2,7 +2,6 @@ const qr = require("qr-image");
 const fs = require("fs");
 const Discord = require("discord.js");
 const Jimp = require("jimp");
-const GIFEncoder = require("gifencoder");
 
 module.exports.qrcode = function (client, message, msg, args) {
     if (args.length > 1) {
@@ -519,72 +518,6 @@ module.exports.nou = function (client, message, msg, args) {
     message.channel.send(new Discord.Attachment("resources/images/nou.png"));
 };
 
-module.exports.triggered = function (client, message, msg, args) {
-    getLastImage(message, args, 10, (imglink) => {
-        if (imglink) {
-            Jimp.read(imglink).then((image) => {
-                Jimp.read("resources/images/triggered.png", (err, triggered) => {
-                    if (err) throw err;
-                    var base = new Jimp(image.bitmap.width, image.bitmap.height, (err2, canvas) => {
-                        triggered.resize(image.bitmap.width, image.bitmap.height / 5, Jimp.RESIZE_BICUBIC, (err3, src) => {
-                            var nw = image.bitmap.width - (image.bitmap.width / 20);
-                            var nh = image.bitmap.height - (image.bitmap.height / 20);
-                            canvas.composite(image, 0, 0)
-                                .composite(triggered, 0, image.bitmap.height - (image.bitmap.height / 5), (err4, baseframe) => {
-                                    var encoder = new GIFEncoder(nw, nh);
-                                    message.channel.send(new Discord.Attachment(encoder.createReadStream(), "triggered.gif"));
-                                    encoder.start();
-                                    encoder.setRepeat(0);
-                                    encoder.setDelay(34);
-                                    encoder.setQuality(10);
-                                    encoder.addFrame(baseframe.clone().crop(0, 0, nw, nh).bitmap.data);
-                                    encoder.addFrame(baseframe.clone().crop(image.bitmap.width / 20, image.bitmap.height / 20, nw, nh).bitmap.data);
-                                    encoder.addFrame(baseframe.clone().crop(0, image.bitmap.height / 20, nw, nh).bitmap.data);
-                                    encoder.addFrame(baseframe.clone().crop(image.bitmap.width / 20, 0, nw, nh).bitmap.data);
-                                    encoder.finish();
-                                });
-                        });
-                    });
-                });
-            }).catch(() => {
-                message.channel.send(":no_entry: `No valid image provided`");
-            });
-        }
-        else {
-            message.channel.send(":no_entry: `No image found`");
-        }
-    });
-};
-
-module.exports.shake = function (client, message, msg, args) {
-    getLastImage(message, args, 6, (imglink) => {
-        if (imglink) {
-            Jimp.read(imglink).then((image) => {
-                var base = new Jimp(image.bitmap.width, image.bitmap.height, (err2, canvas) => {
-                    var nw = image.bitmap.width - (image.bitmap.width / 20);
-                    var nh = image.bitmap.height - (image.bitmap.height / 20);
-                    var encoder = new GIFEncoder(nw, nh);
-                    message.channel.send(new Discord.Attachment(encoder.createReadStream(), "shake.gif"));
-                    encoder.start();
-                    encoder.setRepeat(0);
-                    encoder.setDelay(34);
-                    encoder.setQuality(10);
-                    encoder.addFrame(image.clone().crop(0, 0, nw, nh).bitmap.data);
-                    encoder.addFrame(image.clone().crop(image.bitmap.width / 20, image.bitmap.height / 20, nw, nh).bitmap.data);
-                    encoder.addFrame(image.clone().crop(0, image.bitmap.height / 20, nw, nh).bitmap.data);
-                    encoder.addFrame(image.clone().crop(image.bitmap.width / 20, 0, nw, nh).bitmap.data);
-                    encoder.finish();
-                });
-            }).catch(() => {
-                message.channel.send(":no_entry: `No valid image provided`");
-            });
-        }
-        else {
-            message.channel.send(":no_entry: `No image found`");
-        }
-    });
-};
-
 module.exports.spin = function (client, message, msg, args) {
     getLastImage(message, args, 6, (imglink) => {
         if (imglink) {
@@ -592,23 +525,20 @@ module.exports.spin = function (client, message, msg, args) {
                 var base = new Jimp(image.bitmap.width, image.bitmap.height, (err2, canvas) => {
                     var nw = image.bitmap.width - (image.bitmap.width / 20);
                     var nh = image.bitmap.height - (image.bitmap.height / 20);
-                    var encoder = new GIFEncoder(nw, nh);
-                    message.channel.send(new Discord.Attachment(encoder.createReadStream(), "spin.gif"));
-                    encoder.start();
-                    encoder.setRepeat(0);
-                    encoder.setDelay(100);
-                    encoder.setQuality(10);
-                    encoder.addFrame(image.clone().rotate(0).bitmap.data);
-                    encoder.addFrame(image.clone().rotate(36).bitmap.data);
-                    encoder.addFrame(image.clone().rotate(72).bitmap.data);
-                    encoder.addFrame(image.clone().rotate(108).bitmap.data);
-                    encoder.addFrame(image.clone().rotate(144).bitmap.data);
-                    encoder.addFrame(image.clone().rotate(180).bitmap.data);
-                    encoder.addFrame(image.clone().rotate(216).bitmap.data);
-                    encoder.addFrame(image.clone().rotate(252).bitmap.data);
-                    encoder.addFrame(image.clone().rotate(288).bitmap.data);
-                    encoder.addFrame(image.clone().rotate(324).bitmap.data);
-                    encoder.finish();
+                    image.clone().rotate(0);
+
+                    
+
+                    // encoder.addFrame(image.clone().rotate(36).bitmap.data);
+                    // encoder.addFrame(image.clone().rotate(72).bitmap.data);
+                    // encoder.addFrame(image.clone().rotate(108).bitmap.data);
+                    // encoder.addFrame(image.clone().rotate(144).bitmap.data);
+                    // encoder.addFrame(image.clone().rotate(180).bitmap.data);
+                    // encoder.addFrame(image.clone().rotate(216).bitmap.data);
+                    // encoder.addFrame(image.clone().rotate(252).bitmap.data);
+                    // encoder.addFrame(image.clone().rotate(288).bitmap.data);
+                    // encoder.addFrame(image.clone().rotate(324).bitmap.data);
+                    
                 });
             }).catch(() => {
                 message.channel.send(":no_entry: `No valid image provided`");

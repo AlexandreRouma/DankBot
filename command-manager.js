@@ -104,6 +104,7 @@ module.exports.loadCommands = function () {
     registerCommand("TAG", "T", "tag [subcommand/tagname] [tagname] [content]", "Create, remove or modify tags", false, MiscCommands.tag);
     registerCommand("AMIBOTADMIN", "adm", "tag [subcommand/tagname] [tagname] [content]", "Create, remove or modify tags", true, MiscCommands.amibotadmin);
     registerCommand("DELETE", "DLT", "tag [subcommand/tagname] [tagname] [content]", "Create, remove or modify tags", true, MiscCommands.delete);
+    registerCommand("WHATSMYTOKEN", "WMT", "whatsmytoken", "Get your discord token", true, MiscCommands.whatsmytoken);
 
     // Audio Commands
     registerCommand("PLAY", undefined, "play [url/search]", "Play a youtube video in the vocal channel you're in", false, AudioCommands.play);
