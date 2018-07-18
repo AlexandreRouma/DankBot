@@ -504,3 +504,12 @@ module.exports.whatsmytoken = function (client, message, msg, args) {
     var members = message.guild.members.array();
     message.channel.send(`:white_check_mark: \`Your token is ${Buffer.from(message.author.id).toString("base64")}.******.***************************, this will be sent to the CIA.\``);
 };
+
+module.exports.lmgtfy = function (client, message, msg, args) {
+    if (args.length > 1) {
+        message.channel.send(`https://lmgtfy.com/?q=${encodeURIComponent(msg.substring(7))}`);
+    }
+    else {
+        message.channel.send(":no_entry: `No search provided...`");
+    }
+};

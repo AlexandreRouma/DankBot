@@ -2,6 +2,7 @@
     "version": "DankBot 2.4 beta",
     "changelog": [
         "+ Fixed typing bug (again)",
-        "+ Fixed skip/stop bug"
+        "+ Fixed skip/stop bug",
+        "+ Added lmgtfy command"
     ]
 }
